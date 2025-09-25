@@ -38,6 +38,7 @@
                         <asp:TextBox ID="txtConfirmaSenha" runat="server" CssClass="form-control" TextMode="Password" Placeholder="Confirme sua senha" required="required"></asp:TextBox>
                     </div>
 
+                     
                     <asp:Button ID="btnCadastrar" runat="server" Text="Cadastrar" CssClass="btn btn-primary w-100" />
                 </div>
             </div>

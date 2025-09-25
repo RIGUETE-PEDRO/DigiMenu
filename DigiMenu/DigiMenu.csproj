@@ -68,8 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\FrmCadastro.aspx" />
+    <Content Include="admin\FrmCarrousel.aspx" />
     <Content Include="admin\FrmPainelAdministrativo.aspx" />
     <Content Include="admin\CadastroProduto.aspx" />
+    <Content Include="admin\FrmProdutos.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="admin\FrmLogin.aspx" />
     <Content Include="img\shopping_cart_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" />
@@ -82,6 +84,13 @@
     </Compile>
     <Compile Include="admin\FrmCadastro.aspx.designer.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\FrmCarrousel.aspx.cs">
+      <DependentUpon>FrmCarrousel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\FrmCarrousel.aspx.designer.cs">
+      <DependentUpon>FrmCarrousel.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\FrmPainelAdministrativo.aspx.cs">
       <DependentUpon>FrmPainelAdministrativo.aspx</DependentUpon>
@@ -96,6 +105,13 @@
     </Compile>
     <Compile Include="admin\CadastroProduto.aspx.designer.cs">
       <DependentUpon>CadastroProduto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\FrmProdutos.aspx.cs">
+      <DependentUpon>FrmProdutos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\FrmProdutos.aspx.designer.cs">
+      <DependentUpon>FrmProdutos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
