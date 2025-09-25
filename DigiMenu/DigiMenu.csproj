@@ -72,6 +72,7 @@
     <Content Include="admin\CadastroProduto.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="admin\FrmLogin.aspx" />
+    <Content Include="img\shopping_cart_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +114,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="designer.css" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
