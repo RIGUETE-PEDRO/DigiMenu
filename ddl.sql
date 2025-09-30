@@ -1,145 +1,146 @@
 -- Cria o banco de dados se ele não existir
-IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'DigiMenu')
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'mydb')
 BEGIN
-    CREATE DATABASE DigiMenu;
+    CREATE DATABASE mydb;
 END
-GO -- Comando para separar lotes de instruções
+GO
 
--- Define o banco de dados a ser usado para os comandos seguintes
-USE DigiMenu;
+-- Define o contexto para o banco de dados 'mydb'
+USE mydb;
 GO
 
 -- -----------------------------------------------------
--- Tabela TIPO_USUARIO
+-- Tabela: tipoUsuario
 -- -----------------------------------------------------
-CREATE TABLE TIPO_USUARIO (
+CREATE TABLE tipoUsuario (
   id INT NOT NULL,
-  [tipo de usuario] VARCHAR(100) NULL,
+  tipoUsuario VARCHAR(100) NULL,
   PRIMARY KEY (id)
 );
 GO
 
 -- -----------------------------------------------------
--- Tabela USUARIO
+-- Tabela: usuario
 -- -----------------------------------------------------
-CREATE TABLE USUARIO (
-  ID INT NOT NULL IDENTITY(1,1), -- Usando IDENTITY para auto-incremento
-  NOME VARCHAR(255) NOT NULL,
-  hashSENHA VARCHAR(300) NOT NULL,
-  TELEFONE CHAR(20) NULL,
-  EMAIL VARCHAR(255) NULL,
-  CRIAÇÃO DATE NOT NULL,
-  TIPO_USUARIO_id INT NOT NULL,
-  PRIMARY KEY (ID),
-  CONSTRAINT fk_DADOS_USUARIO_TIPO_USUARIO1
-    FOREIGN KEY (TIPO_USUARIO_id)
-    REFERENCES TIPO_USUARIO (id)
+CREATE TABLE usuario (
+  id INT NOT NULL,
+  nome VARCHAR(255) NOT NULL,
+  hashSenha VARCHAR(300) NOT NULL,
+  telefone CHAR(20) NULL,
+  email VARCHAR(255) NULL,
+  criacao DATE NOT NULL,
+  tipoUsuarioId INT NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fkUsuarioTipoUsuario
+    FOREIGN KEY (tipoUsuarioId)
+    REFERENCES tipoUsuario (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_DADOS_USUARIO_TIPO_USUARIO1_idx ON USUARIO (TIPO_USUARIO_id ASC);
+CREATE INDEX fkUsuarioTipoUsuario_idx ON usuario (tipoUsuarioId ASC);
 GO
 
 -- -----------------------------------------------------
--- Tabela TAREFAS
+-- Tabela: tarefas
 -- -----------------------------------------------------
-CREATE TABLE TAREFAS (
-  idTAREFAS INT NOT NULL IDENTITY(1,1),
-  TAREFA VARCHAR(200) NULL,
-  PRIMARY KEY (idTAREFAS)
+CREATE TABLE tarefas (
+  idTarefas INT NOT NULL,
+  tarefa VARCHAR(200) NULL,
+  PRIMARY KEY (idTarefas)
 );
 GO
 
 -- -----------------------------------------------------
--- Tabela LOG
+-- Tabela: log
 -- -----------------------------------------------------
-CREATE TABLE LOG (
-  idLOG INT NOT NULL IDENTITY(1,1),
-  TAREFAS_idTAREFAS INT NOT NULL,
-  [DATA HORA] DATETIME NULL,
-  DADOS_USUARIO_ID INT NOT NULL,
-  PRIMARY KEY (idLOG),
-  CONSTRAINT fk_LOG_TAREFAS
-    FOREIGN KEY (TAREFAS_idTAREFAS)
-    REFERENCES TAREFAS (idTAREFAS)
+CREATE TABLE log (
+  idLog INT NOT NULL,
+  tarefasIdTarefas INT NOT NULL,
+  dataHora DATETIME NULL,
+  usuarioId INT NOT NULL,
+  PRIMARY KEY (idLog),
+  CONSTRAINT fkLogTarefas
+    FOREIGN KEY (tarefasIdTarefas)
+    REFERENCES tarefas (idTarefas)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT fk_LOG_DADOS_USUARIO1
-    FOREIGN KEY (DADOS_USUARIO_ID)
-    REFERENCES USUARIO (ID)
+  CONSTRAINT fkLogUsuario
+    FOREIGN KEY (usuarioId)
+    REFERENCES usuario (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_LOG_TAREFAS_idx ON LOG (TAREFAS_idTAREFAS ASC);
-CREATE INDEX fk_LOG_DADOS_USUARIO1_idx ON LOG (DADOS_USUARIO_ID ASC);
+CREATE INDEX fkLogTarefas_idx ON log (tarefasIdTarefas ASC);
+GO
+CREATE INDEX fkLogUsuario_idx ON log (usuarioId ASC);
 GO
 
 -- -----------------------------------------------------
--- Tabela PAIS
+-- Tabela: pais
 -- -----------------------------------------------------
-CREATE TABLE PAIS (
-  idPAIS INT NOT NULL IDENTITY(1,1),
-  NOME VARCHAR(80) NULL,
-  PRIMARY KEY (idPAIS)
+CREATE TABLE pais (
+  idPais INT NOT NULL,
+  nome VARCHAR(80) NULL,
+  PRIMARY KEY (idPais)
 );
 GO
 
 -- -----------------------------------------------------
--- Tabela ESTADO
+-- Tabela: estado
 -- -----------------------------------------------------
-CREATE TABLE ESTADO (
-  idESTADO INT NOT NULL IDENTITY(1,1),
-  NOME VARCHAR(80) NULL,
-  PAIS_idPAIS INT NOT NULL,
-  PRIMARY KEY (idESTADO),
-  CONSTRAINT fk_ESTADO_PAIS1
-    FOREIGN KEY (PAIS_idPAIS)
-    REFERENCES PAIS (idPAIS)
+CREATE TABLE estado (
+  idEstado INT NOT NULL,
+  nome VARCHAR(80) NULL,
+  paisIdPais INT NOT NULL,
+  PRIMARY KEY (idEstado),
+  CONSTRAINT fkEstadoPais
+    FOREIGN KEY (paisIdPais)
+    REFERENCES pais (idPais)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_ESTADO_PAIS1_idx ON ESTADO (PAIS_idPAIS ASC);
+CREATE INDEX fkEstadoPais_idx ON estado (paisIdPais ASC);
 GO
 
 -- -----------------------------------------------------
--- Tabela CIDADE
+-- Tabela: cidade
 -- -----------------------------------------------------
-CREATE TABLE CIDADE (
-  idCIDADE INT NOT NULL IDENTITY(1,1),
-  NOME VARCHAR(100) NULL,
-  ESTADO_idESTADO INT NOT NULL,
-  PRIMARY KEY (idCIDADE),
-  CONSTRAINT fk_CIDADE_ESTADO1
-    FOREIGN KEY (ESTADO_idESTADO)
-    REFERENCES ESTADO (idESTADO)
+CREATE TABLE cidade (
+  idCidade INT NOT NULL,
+  nome VARCHAR(100) NULL,
+  estadoIdEstado INT NOT NULL,
+  PRIMARY KEY (idCidade),
+  CONSTRAINT fkCidadeEstado
+    FOREIGN KEY (estadoIdEstado)
+    REFERENCES estado (idEstado)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_CIDADE_ESTADO1_idx ON CIDADE (ESTADO_idESTADO ASC);
+CREATE INDEX fkCidadeEstado_idx ON cidade (estadoIdEstado ASC);
 GO
 
 -- -----------------------------------------------------
--- Tabela PRODUTO
+-- Tabela: produto
 -- -----------------------------------------------------
-CREATE TABLE PRODUTO (
-  idPRODUTO INT NOT NULL IDENTITY(1,1),
-  NOME VARCHAR(100) NOT NULL,
-  DESCRICAO VARCHAR(255) NULL,
-  PRECO DECIMAL(10,2) NOT NULL,
-  ESTOQUE INT NOT NULL,
-  Ativo BIT NOT NULL DEFAULT 1,
-  PRIMARY KEY (idPRODUTO)
+CREATE TABLE produto (
+  idProduto INT NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  descricao VARCHAR(255) NULL,
+  preco DECIMAL(10,2) NOT NULL,
+  estoque INT NOT NULL,
+  ativo BIT NOT NULL DEFAULT 1,
+  PRIMARY KEY (idProduto)
 );
 GO
 
 -- -----------------------------------------------------
--- Tabela Status
+-- Tabela: status
 -- -----------------------------------------------------
-CREATE TABLE Status (
+CREATE TABLE status (
   idStatus INT NOT NULL,
   nome VARCHAR(45) NULL,
   PRIMARY KEY (idStatus)
@@ -147,134 +148,138 @@ CREATE TABLE Status (
 GO
 
 -- -----------------------------------------------------
--- Tabela PEDIDO
+-- Tabela: pedido
 -- -----------------------------------------------------
-CREATE TABLE PEDIDO (
-  idPEDIDO INT NOT NULL IDENTITY(1,1),
+CREATE TABLE pedido (
+  idPedido INT NOT NULL,
   data DATETIME NOT NULL,
-  Total DECIMAL(10,2) NOT NULL,
-  USUARIO_ID INT NOT NULL,
-  Status_idStatus INT NOT NULL,
-  PRIMARY KEY (idPEDIDO),
-  CONSTRAINT fk_PEDIDO_USUARIO1
-    FOREIGN KEY (USUARIO_ID)
-    REFERENCES USUARIO (ID)
+  total DECIMAL(10,2) NOT NULL,
+  usuarioId INT NOT NULL,
+  statusIdStatus INT NOT NULL,
+  PRIMARY KEY (idPedido),
+  CONSTRAINT fkPedidoUsuario
+    FOREIGN KEY (usuarioId)
+    REFERENCES usuario (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT fk_PEDIDO_Status1
-    FOREIGN KEY (Status_idStatus)
-    REFERENCES Status (idStatus)
+  CONSTRAINT fkPedidoStatus
+    FOREIGN KEY (statusIdStatus)
+    REFERENCES status (idStatus)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_PEDIDO_USUARIO1_idx ON PEDIDO (USUARIO_ID ASC);
-CREATE INDEX fk_PEDIDO_Status1_idx ON PEDIDO (Status_idStatus ASC);
+CREATE INDEX fkPedidoUsuario_idx ON pedido (usuarioId ASC);
+GO
+CREATE INDEX fkPedidoStatus_idx ON pedido (statusIdStatus ASC);
 GO
 
 -- -----------------------------------------------------
--- Tabela ItemPedido
+-- Tabela: itemPedido
 -- -----------------------------------------------------
-CREATE TABLE ItemPedido (
-  idItemPedido INT NOT NULL IDENTITY(1,1),
+CREATE TABLE itemPedido (
+  idItemPedido INT NOT NULL,
   quantidade INT NOT NULL,
   precoUnitario DECIMAL(9,2) NOT NULL,
-  PRODUTO_idPRODUTO INT NOT NULL,
-  PEDIDO_idPEDIDO INT NOT NULL,
+  produtoIdProduto INT NOT NULL,
+  pedidoIdPedido INT NOT NULL,
   PRIMARY KEY (idItemPedido),
-  CONSTRAINT fk_ItemPedido_PRODUTO1
-    FOREIGN KEY (PRODUTO_idPRODUTO)
-    REFERENCES PRODUTO (idPRODUTO)
+  CONSTRAINT fkItemPedidoProduto
+    FOREIGN KEY (produtoIdProduto)
+    REFERENCES produto (idProduto)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT fk_ItemPedido_PEDIDO1
-    FOREIGN KEY (PEDIDO_idPEDIDO)
-    REFERENCES PEDIDO (idPEDIDO)
+  CONSTRAINT fkItemPedidoPedido
+    FOREIGN KEY (pedidoIdPedido)
+    REFERENCES pedido (idPedido)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_ItemPedido_PRODUTO1_idx ON ItemPedido (PRODUTO_idPRODUTO ASC);
-CREATE INDEX fk_ItemPedido_PEDIDO1_idx ON ItemPedido (PEDIDO_idPEDIDO ASC);
+CREATE INDEX fkItemPedidoProduto_idx ON itemPedido (produtoIdProduto ASC);
+GO
+CREATE INDEX fkItemPedidoPedido_idx ON itemPedido (pedidoIdPedido ASC);
 GO
 
 -- -----------------------------------------------------
--- Tabela endereço
+-- Tabela: endereco
 -- -----------------------------------------------------
-CREATE TABLE [endereço] (
-  IDidendereço INT NOT NULL IDENTITY(1,1),
-  CIDADE_idCIDADE INT NOT NULL,
+CREATE TABLE endereco (
+  idEndereco INT NOT NULL,
+  cidadeIdCidade INT NOT NULL,
   logradouro VARCHAR(255) NOT NULL,
   numero VARCHAR(20) NULL,
   cep VARCHAR(20) NULL,
   complemento VARCHAR(100) NULL,
-  USUARIO_ID INT NOT NULL,
-  PRIMARY KEY (IDidendereço),
-  CONSTRAINT fk_endereço_CIDADE1
-    FOREIGN KEY (CIDADE_idCIDADE)
-    REFERENCES CIDADE (idCIDADE)
+  usuarioId INT NOT NULL,
+  PRIMARY KEY (idEndereco),
+  CONSTRAINT fkEnderecoCidade
+    FOREIGN KEY (cidadeIdCidade)
+    REFERENCES cidade (idCidade)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT fk_endereço_USUARIO1
-    FOREIGN KEY (USUARIO_ID)
-    REFERENCES USUARIO (ID)
+  CONSTRAINT fkEnderecoUsuario
+    FOREIGN KEY (usuarioId)
+    REFERENCES usuario (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_endereço_CIDADE1_idx ON [endereço] (CIDADE_idCIDADE ASC);
-CREATE INDEX fk_endereço_USUARIO1_idx ON [endereço] (USUARIO_ID ASC);
+CREATE INDEX fkEnderecoCidade_idx ON endereco (cidadeIdCidade ASC);
+GO
+CREATE INDEX fkEnderecoUsuario_idx ON endereco (usuarioId ASC);
 GO
 
 -- -----------------------------------------------------
--- Tabela CARRINHO
+-- Tabela: carrinho
 -- -----------------------------------------------------
-CREATE TABLE CARRINHO (
-  idCARRINHO INT NOT NULL IDENTITY(1,1),
-  USUARIO_ID INT NOT NULL,
-  datacriacao DATETIME NULL,
-  PRIMARY KEY (idCARRINHO),
-  CONSTRAINT fk_CARRINHO_USUARIO1
-    FOREIGN KEY (USUARIO_ID)
-    REFERENCES USUARIO (ID)
+CREATE TABLE carrinho (
+  idCarrinho INT NOT NULL,
+  usuarioId INT NOT NULL,
+  dataCriacao DATETIME NULL,
+  PRIMARY KEY (idCarrinho),
+  CONSTRAINT fkCarrinhoUsuario
+    FOREIGN KEY (usuarioId)
+    REFERENCES usuario (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_CARRINHO_USUARIO1_idx ON CARRINHO (USUARIO_ID ASC);
+CREATE INDEX fkCarrinhoUsuario_idx ON carrinho (usuarioId ASC);
 GO
 
 -- -----------------------------------------------------
--- Tabela ItemCarrinho
+-- Tabela: itemCarrinho
 -- -----------------------------------------------------
-CREATE TABLE ItemCarrinho (
-  idItemCarrinho INT NOT NULL IDENTITY(1,1),
+CREATE TABLE itemCarrinho (
+  idItemCarrinho INT NOT NULL,
   quantidade INT NULL,
   precoTotal DECIMAL(10,2) NULL,
-  CARRINHO_idCARRINHO INT NOT NULL,
-  PRODUTO_idPRODUTO INT NOT NULL,
+  carrinhoIdCarrinho INT NOT NULL,
+  produtoIdProduto INT NOT NULL,
   PRIMARY KEY (idItemCarrinho),
-  CONSTRAINT fk_ItemCarrinho_CARRINHO1
-    FOREIGN KEY (CARRINHO_idCARRINHO)
-    REFERENCES CARRINHO (idCARRINHO)
+  CONSTRAINT fkItemCarrinhoCarrinho
+    FOREIGN KEY (carrinhoIdCarrinho)
+    REFERENCES carrinho (idCarrinho)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT fk_ItemCarrinho_PRODUTO1
-    FOREIGN KEY (PRODUTO_idPRODUTO)
-    REFERENCES PRODUTO (idPRODUTO)
+  CONSTRAINT fkItemCarrinhoProduto
+    FOREIGN KEY (produtoIdProduto)
+    REFERENCES produto (idProduto)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_ItemCarrinho_CARRINHO1_idx ON ItemCarrinho (CARRINHO_idCARRINHO ASC);
-CREATE INDEX fk_ItemCarrinho_PRODUTO1_idx ON ItemCarrinho (PRODUTO_idPRODUTO ASC);
+CREATE INDEX fkItemCarrinhoCarrinho_idx ON itemCarrinho (carrinhoIdCarrinho ASC);
+GO
+CREATE INDEX fkItemCarrinhoProduto_idx ON itemCarrinho (produtoIdProduto ASC);
 GO
 
 -- -----------------------------------------------------
--- Tabela Carousel
+-- Tabela: carousel
 -- -----------------------------------------------------
-CREATE TABLE Carousel (
-  idCarousel INT NOT NULL IDENTITY(1,1),
+CREATE TABLE carousel (
+  idCarousel INT NOT NULL,
   nome VARCHAR(100) NULL,
   ativo BIT NOT NULL DEFAULT 0,
   ordem INT NOT NULL,
@@ -283,42 +288,43 @@ CREATE TABLE Carousel (
 GO
 
 -- -----------------------------------------------------
--- Tabela imagemProduto
+-- Tabela: imagemProduto
 -- -----------------------------------------------------
 CREATE TABLE imagemProduto (
-  idimagemProduto INT NOT NULL IDENTITY(1,1),
+  idImagemProduto INT NOT NULL,
   caminhoImagem VARCHAR(300) NULL,
-  PRODUTO_idPRODUTO INT NOT NULL,
-  PRIMARY KEY (idimagemProduto),
-  CONSTRAINT fk_imagemProduto_PRODUTO1
-    FOREIGN KEY (PRODUTO_idPRODUTO)
-    REFERENCES PRODUTO (idPRODUTO)
+  produtoIdProduto INT NOT NULL,
+  PRIMARY KEY (idImagemProduto),
+  CONSTRAINT fkImagemProdutoProduto
+    FOREIGN KEY (produtoIdProduto)
+    REFERENCES produto (idProduto)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_imagemProduto_PRODUTO1_idx ON imagemProduto (PRODUTO_idPRODUTO ASC);
+CREATE INDEX fkImagemProdutoProduto_idx ON imagemProduto (produtoIdProduto ASC);
 GO
 
 -- -----------------------------------------------------
--- Tabela Carousel_has_imagemProduto
+-- Tabela: carouselHasImagemProduto
 -- -----------------------------------------------------
-CREATE TABLE Carousel_has_imagemProduto (
-  Carousel_idCarousel INT NOT NULL,
-  imagemProduto_idimagemProduto INT NOT NULL,
-  PRIMARY KEY (Carousel_idCarousel, imagemProduto_idimagemProduto),
-  CONSTRAINT fk_Carousel_has_imagemProduto_Carousel1
-    FOREIGN KEY (Carousel_idCarousel)
-    REFERENCES Carousel (idCarousel)
+CREATE TABLE carouselHasImagemProduto (
+  carouselIdCarousel INT NOT NULL,
+  imagemProdutoIdImagemProduto INT NOT NULL,
+  PRIMARY KEY (carouselIdCarousel, imagemProdutoIdImagemProduto),
+  CONSTRAINT fkCarouselHasImagemProdutoCarousel
+    FOREIGN KEY (carouselIdCarousel)
+    REFERENCES carousel (idCarousel)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT fk_Carousel_has_imagemProduto_imagemProduto1
-    FOREIGN KEY (imagemProduto_idimagemProduto)
-    REFERENCES imagemProduto (idimagemProduto)
+  CONSTRAINT fkCarouselHasImagemProdutoImagemProduto
+    FOREIGN KEY (imagemProdutoIdImagemProduto)
+    REFERENCES imagemProduto (idImagemProduto)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
 GO
-CREATE INDEX fk_Carousel_has_imagemProduto_imagemProduto1_idx ON Carousel_has_imagemProduto (imagemProduto_idimagemProduto ASC);
-CREATE INDEX fk_Carousel_has_imagemProduto_Carousel1_idx ON Carousel_has_imagemProduto (Carousel_idCarousel ASC);
+CREATE INDEX fkCarouselHasImagemProdutoImagemProduto_idx ON carouselHasImagemProduto (imagemProdutoIdImagemProduto ASC);
+GO
+CREATE INDEX fkCarouselHasImagemProdutoCarousel_idx ON carouselHasImagemProduto (carouselIdCarousel ASC);
 GO
