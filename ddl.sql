@@ -5,7 +5,7 @@ BEGIN
 END
 GO
 
--- Define o contexto para o banco de dados 'mydb'
+-- Define o contexto para o banco de dados 'DigiMenu'
 USE DigiMenu;
 GO
 
