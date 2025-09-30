@@ -1,12 +1,12 @@
 -- Cria o banco de dados se ele não existir
-IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'mydb')
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'DigiMenu')
 BEGIN
-    CREATE DATABASE mydb;
+    CREATE DATABASE DigiMenu;
 END
 GO -- Comando para separar lotes de instruções
 
 -- Define o banco de dados a ser usado para os comandos seguintes
-USE mydb;
+USE DigiMenu;
 GO
 
 -- -----------------------------------------------------
