@@ -1,12 +1,12 @@
 -- Cria o banco de dados se ele não existir
-IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'mydb')
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'DigiMenu')
 BEGIN
-    CREATE DATABASE mydb;
+    CREATE DATABASE DigiMenu;
 END
 GO
 
 -- Define o contexto para o banco de dados 'mydb'
-USE mydb;
+USE DigiMenu;
 GO
 
 -- -----------------------------------------------------
