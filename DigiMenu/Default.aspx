@@ -10,7 +10,7 @@
     <link href="styles/StylePrincipal.css" rel="stylesheet">
 </head>
 <body>
-
+    <form id="form1" runat="server">
     <!-- nav bar do bootstrap -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbarDesigner">
   <div class="container-fluid">
@@ -40,10 +40,13 @@
             </a>
         </div>
 
-        <div class="buttonLogin" >
+        <div class="buttonLogin" id="divLogin" runat="server">
             <a href="admin/FrmLogin.aspx" class="login" >
                 <p>Login</p>
             </a>
+        </div>
+        <div class="userDisplay d-flex align-items-center" id="divUser" runat="server" style="display:none;">
+            <span class="me-3" id="lblUserName" runat="server"></span>
         </div>
 
     </div>
@@ -67,8 +70,7 @@
   </div>
 </div>
 
-
-
+    </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>

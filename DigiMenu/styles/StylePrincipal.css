@@ -7,10 +7,25 @@
     cursor: pointer;
 }
 
-    .buttonLogin a {
-        color: white;
-        text-decoration: none;
-        text-align: center;
-        font-size: 14px;
-        justify-content:center;
-    }
+.buttonLogin a {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+    justify-content:center;
+}
+
+.userDisplay {
+    padding: 4px 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: transparent;
+}
+
+.userDisplay span {
+    background: #198754;
+    padding: 6px 14px;
+    border-radius: 20px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.3);
+}

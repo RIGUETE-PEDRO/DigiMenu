@@ -32,11 +32,12 @@ namespace DigiMenu.admin
                         Session["UsuarioNome"] = user.Nome;
                         Session["TipoUsuarioId"] = user.TipoUsuarioId;
 
+                        // Registra o log de login do usuário
                         var loginUsuario = new Log
                         {
-                            TarefasId = 2, // Login
-                            DataHora = DateTime.Now,
-                            UsuarioId = user.Id
+                            TarefasId = 2, //ação 
+                            DataHora = DateTime.Now, //tempo real
+                            UsuarioId = user.Id //id do usuario
                         };
                         db.Log.Add(loginUsuario);
                         db.SaveChanges();
