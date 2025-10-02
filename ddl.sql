@@ -4,7 +4,6 @@ BEGIN
     CREATE DATABASE DigiMenu;
 END
 GO
--- Cria o banco de dados DigiMenu
 
 USE DigiMenu;
 GO
@@ -13,7 +12,7 @@ GO
 -- Tabela TipoUsuario
 -- ===========================
 CREATE TABLE TipoUsuario (
-    Id INT NOT NULL PRIMARY KEY,
+    Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     TipoUsuario VARCHAR(100) NULL
 );
 
@@ -21,7 +20,7 @@ CREATE TABLE TipoUsuario (
 -- Tabela Usuario
 -- ===========================
 CREATE TABLE Usuario (
-    Id INT NOT NULL PRIMARY KEY,
+    Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(255) NOT NULL,
     HashSenha VARCHAR(300) NOT NULL,
     Telefone CHAR(20) NULL,
@@ -35,7 +34,7 @@ CREATE TABLE Usuario (
 -- Tabela Tarefas
 -- ===========================
 CREATE TABLE Tarefas (
-    IdTarefas INT NOT NULL PRIMARY KEY,
+    IdTarefas INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Tarefa VARCHAR(200) NULL
 );
 
@@ -43,7 +42,7 @@ CREATE TABLE Tarefas (
 -- Tabela Log
 -- ===========================
 CREATE TABLE Log (
-    IdLog INT NOT NULL PRIMARY KEY,
+    IdLog INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     TarefasId INT NOT NULL,
     DataHora DATETIME NULL,
     UsuarioId INT NOT NULL,
@@ -55,7 +54,7 @@ CREATE TABLE Log (
 -- Tabela Pais
 -- ===========================
 CREATE TABLE Pais (
-    IdPais INT NOT NULL PRIMARY KEY,
+    IdPais INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(80) NULL
 );
 
@@ -63,7 +62,7 @@ CREATE TABLE Pais (
 -- Tabela Estado
 -- ===========================
 CREATE TABLE Estado (
-    IdEstado INT NOT NULL PRIMARY KEY,
+    IdEstado INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(80) NULL,
     PaisId INT NOT NULL,
     FOREIGN KEY (PaisId) REFERENCES Pais(IdPais)
@@ -73,7 +72,7 @@ CREATE TABLE Estado (
 -- Tabela Cidade
 -- ===========================
 CREATE TABLE Cidade (
-    IdCidade INT NOT NULL PRIMARY KEY,
+    IdCidade INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(100) NULL,
     EstadoId INT NOT NULL,
     FOREIGN KEY (EstadoId) REFERENCES Estado(IdEstado)
@@ -83,7 +82,7 @@ CREATE TABLE Cidade (
 -- Tabela Produto
 -- ===========================
 CREATE TABLE Produto (
-    IdProduto INT NOT NULL PRIMARY KEY,
+    IdProduto INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
     Descricao VARCHAR(255) NULL,
     Preco DECIMAL(10,2) NOT NULL,
@@ -95,7 +94,7 @@ CREATE TABLE Produto (
 -- Tabela Status
 -- ===========================
 CREATE TABLE Status (
-    IdStatus INT NOT NULL PRIMARY KEY,
+    IdStatus INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(45) NULL
 );
 
@@ -103,7 +102,7 @@ CREATE TABLE Status (
 -- Tabela Pedido
 -- ===========================
 CREATE TABLE Pedido (
-    IdPedido INT NOT NULL PRIMARY KEY,
+    IdPedido INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Data DATETIME NOT NULL,
     Total DECIMAL(10,2) NOT NULL,
     UsuarioId INT NOT NULL,
@@ -116,7 +115,7 @@ CREATE TABLE Pedido (
 -- Tabela ItemPedido
 -- ===========================
 CREATE TABLE ItemPedido (
-    IdItemPedido INT NOT NULL PRIMARY KEY,
+    IdItemPedido INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Quantidade INT NOT NULL,
     PrecoUnitario DECIMAL(9,2) NOT NULL,
     ProdutoId INT NOT NULL,
@@ -129,7 +128,7 @@ CREATE TABLE ItemPedido (
 -- Tabela Endereco
 -- ===========================
 CREATE TABLE Endereco (
-    IdEndereco INT NOT NULL PRIMARY KEY,
+    IdEndereco INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     CidadeId INT NOT NULL,
     Logradouro VARCHAR(255) NOT NULL,
     Numero VARCHAR(20) NULL,
@@ -144,7 +143,7 @@ CREATE TABLE Endereco (
 -- Tabela Carrinho
 -- ===========================
 CREATE TABLE Carrinho (
-    IdCarrinho INT NOT NULL PRIMARY KEY,
+    IdCarrinho INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     UsuarioId INT NOT NULL,
     DataCriacao DATETIME NULL,
     FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id)
@@ -154,7 +153,7 @@ CREATE TABLE Carrinho (
 -- Tabela ItemCarrinho
 -- ===========================
 CREATE TABLE ItemCarrinho (
-    IdItemCarrinho INT NOT NULL PRIMARY KEY,
+    IdItemCarrinho INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Quantidade INT NULL,
     PrecoTotal DECIMAL(10,2) NULL,
     CarrinhoId INT NOT NULL,
@@ -167,7 +166,7 @@ CREATE TABLE ItemCarrinho (
 -- Tabela Carousel
 -- ===========================
 CREATE TABLE Carousel (
-    IdCarousel INT NOT NULL PRIMARY KEY,
+    IdCarousel INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(100) NULL,
     Ativo BIT NOT NULL DEFAULT 0,
     Ordem INT NOT NULL
@@ -177,7 +176,7 @@ CREATE TABLE Carousel (
 -- Tabela ImagemProduto
 -- ===========================
 CREATE TABLE ImagemProduto (
-    IdImagemProduto INT NOT NULL PRIMARY KEY,
+    IdImagemProduto INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     CaminhoImagem VARCHAR(300) NULL,
     ProdutoId INT NOT NULL,
     FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto)
@@ -193,4 +192,5 @@ CREATE TABLE CarouselHasImagemProduto (
     FOREIGN KEY (CarouselId) REFERENCES Carousel(IdCarousel),
     FOREIGN KEY (ImagemProdutoId) REFERENCES ImagemProduto(IdImagemProduto)
 );
+
 
