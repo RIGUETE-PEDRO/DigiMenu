@@ -31,6 +31,16 @@ namespace DigiMenu.admin
                         Session["UsuarioId"] = user.Id;
                         Session["UsuarioNome"] = user.Nome;
                         Session["TipoUsuarioId"] = user.TipoUsuarioId;
+
+                        var loginUsuario = new Log
+                        {
+                            TarefasId = 2, // Login
+                            DataHora = DateTime.Now,
+                            UsuarioId = user.Id
+                        };
+                        db.Log.Add(loginUsuario);
+                        db.SaveChanges();
+
                         // Redireciona para a página inicial do admin
                         Response.Redirect("../Default.aspx");
                     }

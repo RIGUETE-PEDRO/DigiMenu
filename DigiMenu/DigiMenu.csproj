@@ -96,6 +96,7 @@
     </Content>
     <Content Include="styles\StyleCadastro.css" />
     <Content Include="styles\StyleLogin.css" />
+    <Content Include="styles\StylePrincipal.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -215,7 +216,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="designer.css" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -234,6 +234,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

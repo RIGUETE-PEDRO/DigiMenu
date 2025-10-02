@@ -19,7 +19,7 @@
                 <!-- Formulário de cadastro -->
                 <div class="mb-3">
                     <label for="txtUsuario" class="form-label">Usuario</label>
-                    <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control" Placeholder="Digite o Usuario" required="required"></asp:TextBox>
+                    <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control" Placeholder="Digite o número de telefone ou email" required="required"></asp:TextBox>
                 </div>
                    
 

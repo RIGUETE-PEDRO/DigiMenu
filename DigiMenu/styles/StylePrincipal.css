@@ -1,0 +1,16 @@
+﻿.buttonLogin {
+    display: inline-block;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color:red;
+    cursor: pointer;
+}
+
+    .buttonLogin a {
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        font-size: 14px;
+        justify-content:center;
+    }

@@ -1,0 +1,19 @@
+01/10/2025 23:41:49 - System.Data.SqlClient.SqlException (0x80131904): Não é possível inserir o valor NULL na coluna 'Id', tabela 'DigiMenu.dbo.TipoUsuario'; a coluna não permite nulos. Falha em INSERT.
+Não é possível inserir o valor NULL na coluna 'Id', tabela 'DigiMenu.dbo.TipoUsuario'; a coluna não permite nulos. Falha em INSERT.
+Não é possível inserir o valor NULL na coluna 'IdTarefas', tabela 'DigiMenu.dbo.Tarefas'; a coluna não permite nulos. Falha em INSERT.
+Não é possível inserir o valor NULL na coluna 'IdTarefas', tabela 'DigiMenu.dbo.Tarefas'; a coluna não permite nulos. Falha em INSERT.
+A instrução foi finalizada.
+A instrução foi finalizada.
+A instrução foi finalizada.
+A instrução foi finalizada.
+   em System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   em System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   em System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   em System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   em System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   em System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   em DigiMenu.DatabaseSeeder.ExecuteBatch(String script, SqlConnection conn) na C:\Users\omega\source\repos\RIGUETE-PEDRO\DigiMenu\DigiMenu\DatabaseSeeder.cs:linha 89
+   em DigiMenu.DatabaseSeeder.Run() na C:\Users\omega\source\repos\RIGUETE-PEDRO\DigiMenu\DigiMenu\DatabaseSeeder.cs:linha 40
+   em ASP.global_asax.Application_Start(Object sender, EventArgs e) na C:\Users\omega\source\repos\RIGUETE-PEDRO\DigiMenu\DigiMenu\global.asax:linha 8
+ClientConnectionId:f60c9fb2-e419-4570-a2bd-9364d62486ac
+Error Number:515,State:2,Class:16

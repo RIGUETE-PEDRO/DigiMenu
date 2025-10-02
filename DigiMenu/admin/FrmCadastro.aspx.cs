@@ -57,7 +57,7 @@ namespace DigiMenu
                     if (senha != confirmarSenha)
                     {
                         ExibirErro("As senhas não coincidem.");
-                        return;
+                        return ;
                     }
 
                     // Validação de telefone (opcional, mas se preenchido deve ser numérico)
@@ -96,8 +96,19 @@ namespace DigiMenu
                                 TipoUsuarioId = 1 // padrão fixo
                             };
 
+                          
                             // Salva no banco
                             ctx.Usuario.Add(novoUsuario);
+                            ctx.SaveChanges();
+
+                            var loginUsuario = new Log
+                            {
+                                TarefasId = 1, // Cadastro
+                                DataHora = DateTime.Now,
+                                UsuarioId = novoUsuario.Id
+                            };
+
+                            ctx.Log.Add(loginUsuario);
                             ctx.SaveChanges();
 
                             // Mensagem de sucesso e limpa campos
@@ -111,6 +122,9 @@ namespace DigiMenu
                             txtConfirmaSenha.Text = string.Empty;
                             txtEmail.Text = string.Empty;
                             txtTelefone.Text = string.Empty;
+
+                         
+
                         }
                     }
                     catch (Exception ex)
@@ -121,7 +135,7 @@ namespace DigiMenu
                         if (ex.InnerException != null && ex.InnerException.InnerException != null)
                             msg += " | Inner2: " + ex.InnerException.InnerException.Message;
                         ExibirErro("Ocorreu um erro ao cadastrar o usuário: " + msg);
-                        return;
+                        return ;
                     }
                 }
                 else
