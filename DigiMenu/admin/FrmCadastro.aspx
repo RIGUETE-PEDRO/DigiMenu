@@ -8,6 +8,7 @@
 <title>Cadastro - DigiMenu</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="../styles/StyleCadastro.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -38,8 +39,16 @@
                         <asp:TextBox ID="txtConfirmaSenha" runat="server" CssClass="form-control" TextMode="Password" Placeholder="Confirme sua senha" required="required"></asp:TextBox>
                     </div>
 
-                     
-                    <asp:Button ID="btnCadastrar" runat="server" Text="Cadastrar" CssClass="btn btn-primary w-100" />
+                    <div class="mb-3">
+                        <label for="txtTelefone" class="form-label">Telefone</label>
+                        <asp:TextBox ID="txtTelefone" runat="server" CssClass="form-control" TextMode="Number" Placeholder="Digite seu telefone" required="required"></asp:TextBox>
+                    </div>
+
+                    <asp:Label ID="lblMensagem" runat="server" ForeColor="Red"></asp:Label>
+
+                    <asp:Button ID="btnCadastrar" OnClick="btnCadastrar_Click" runat="server" Text="Cadastrar" CssClass="btn btn-primary w-100" />
+                    
+                     <a href="FrmLogin.aspx" class="btn btn-primary w-100 buttonLogin">Voltar ao Login</a>
                 </div>
             </div>
         </div>

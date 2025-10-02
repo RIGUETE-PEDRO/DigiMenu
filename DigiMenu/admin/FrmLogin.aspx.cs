@@ -1,16 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
-namespace DigiMenu
+namespace DigiMenu.admin
 {
     public partial class FrmLogin : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
+        }
+
+        protected void btnLogin_Click(object sender, System.EventArgs e)
+        {
+            string usuario = txtUsuario.Text.Trim();
+            string senha = txtSenha.Text.Trim();
+
+            HashHelper hashHelper = new HashHelper();
+
+            string senhaHash = hashHelper.GerarHashSHA256(senha);
+
+            try
+            {
+                using (var db = new DigiMenuEntities())
+                {
+                  var user = db.Usuario.FirstOrDefault(u => (u.Email == usuario || u.Telefone == usuario) && u.HashSenha == senhaHash);
+
+                    if (user != null) {
+                        
+                        // Autenticação bem-sucedida
+                        Session["UsuarioId"] = user.Id;
+                        Session["UsuarioNome"] = user.Nome;
+                        Session["TipoUsuarioId"] = user.TipoUsuarioId;
+                        // Redireciona para a página inicial do admin
+                        Response.Redirect("../Default.aspx");
+                    }
+                    else {
+                        // Autenticação falhou
+                        // Exibe mensagem de erro
+                        lblMensagem.Text = "Usuário ou senha inválidos.";
+                        lblMensagem.Visible = true;
+                        return;
+
+                    }
+
+                }
+
+
+            }
+            catch (Exception ex) {
+                return;
+            }
+
+
 
         }
     }

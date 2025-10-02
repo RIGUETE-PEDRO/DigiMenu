@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a787542253254fb8b5d22e4b8259faef" Name="Diagram1">
+      <Diagram DiagramId="5d4dbb8b43cf4b27b1983dc6e201c779" Name="Diagram1">
         <EntityTypeShape EntityType="DigiMenuModel.Carousel" Width="1.5" PointX="8.25" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DigiMenuModel.Carrinho" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DigiMenuModel.Cidade" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
@@ -21,21 +21,21 @@
         <EntityTypeShape EntityType="DigiMenuModel.Tarefas" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DigiMenuModel.TipoUsuario" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DigiMenuModel.Usuario" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
-        <AssociationConnector Association="DigiMenuModel.FK__Carrinho__Usuari__59FA5E80" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__ItemCarri__Carri__5CD6CB2B" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__Cidade__EstadoId__46E78A0C" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__Endereco__Cidade__5629CD9C" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__Endereco__Usuari__571DF1D5" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__Estado__PaisId__440B1D61" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__ImagemPro__Produ__6383C8BA" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__ItemCarri__Produ__5DCAEF64" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Pedid__534D60F1" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Produ__52593CB8" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__Log__TarefasId__3E52440B" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__Log__UsuarioId__3F466844" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__Pedido__StatusId__4F7CD00D" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__Pedido__UsuarioI__4E88ABD4" ManuallyRouted="false" />
-        <AssociationConnector Association="DigiMenuModel.FK__Usuario__TipoUsu__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__Carrinho__Usuari__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemCarri__Carri__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__Cidade__EstadoId__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__Endereco__Cidade__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__Endereco__Usuari__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__Estado__PaisId__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__ImagemPro__Produ__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemCarri__Produ__6FE99F9F" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Pedid__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Produ__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__Log__TarefasId__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__Log__UsuarioId__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__Pedido__StatusId__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__Pedido__UsuarioI__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="DigiMenuModel.FK__Usuario__TipoUsu__4BAC3F29" ManuallyRouted="false" />
         <AssociationConnector Association="DigiMenuModel.CarouselHasImagemProduto" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

@@ -1,0 +1,14 @@
+﻿.cadastro {
+    margin-top: 10px;
+    background-color: red;
+    border-color: red;
+}
+
+.cadastro:hover {
+    background-color: darkred;
+    border-color: darkred;
+}
+
+.Login {
+    margin-top: 10px;
+}
