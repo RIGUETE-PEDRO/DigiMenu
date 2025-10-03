@@ -14,18 +14,12 @@ namespace DigiMenu
     
     public partial class ImagemProduto
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ImagemProduto()
-        {
-            this.Carousel = new HashSet<Carousel>();
-        }
-    
         public int IdImagemProduto { get; set; }
         public string CaminhoImagem { get; set; }
         public int ProdutoId { get; set; }
+        public Nullable<int> CarouselId { get; set; }
     
+        public virtual Carousel Carousel { get; set; }
         public virtual Produto Produto { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Carousel> Carousel { get; set; }
     }
 }

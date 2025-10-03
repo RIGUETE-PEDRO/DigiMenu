@@ -1,69 +1,55 @@
 ﻿using System;
-using System.Linq;
-using System.Web.UI;
+using DigiMenu.DAO;
 
 namespace DigiMenu.admin
 {
     public partial class FrmLogin : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, EventArgs e) { }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
         {
-        }
+            
+                string usuario = txtUsuario.Text.Trim();
+                string senha = txtSenha.Text.Trim();
 
-        protected void btnLogin_Click(object sender, System.EventArgs e)
-        {
-            string usuario = txtUsuario.Text.Trim();
-            string senha = txtSenha.Text.Trim();
+                string senhaHash = new HashHelper().GerarHashSHA256(senha);
 
-            HashHelper hashHelper = new HashHelper();
-
-            string senhaHash = hashHelper.GerarHashSHA256(senha);
-
-            try
-            {
-                using (var db = new DigiMenuEntities())
+                try
                 {
-                  var user = db.Usuario.FirstOrDefault(u => (u.Email == usuario || u.Telefone == usuario) && u.HashSenha == senhaHash);
+                    var usuarioDao = new UsuarioDAO();
+                    var user = usuarioDao.Autenticar(usuario, senhaHash);
 
-                    if (user != null) {
-                        
+                    if (user != null)
+                    {
                         // Autenticação bem-sucedida
                         Session["UsuarioId"] = user.Id;
                         Session["UsuarioNome"] = user.Nome;
                         Session["TipoUsuarioId"] = user.TipoUsuarioId;
+                        
+                        LogDAO log = new LogDAO();
+                        log.Registrar(user.Id, 2);
 
-                        // Registra o log de login do usuário
-                        var loginUsuario = new Log
-                        {
-                            TarefasId = 2, //ação 
-                            DataHora = DateTime.Now, //tempo real
-                            UsuarioId = user.Id //id do usuario
-                        };
-                        db.Log.Add(loginUsuario);
-                        db.SaveChanges();
-
-                        // Redireciona para a página inicial do admin
+                        
                         Response.Redirect("../Default.aspx");
                     }
-                    else {
-                        // Autenticação falhou
-                        // Exibe mensagem de erro
-                        lblMensagem.Text = "Usuário ou senha inválidos.";
-                        lblMensagem.Visible = true;
-                        return;
-
+                    else
+                    {
+                        ExibirMensagem("Usuário ou senha inválidos.", false);
                     }
-
                 }
-
-
+                catch (Exception ex)
+                {
+                    ExibirMensagem("Erro ao processar login: " + ex.Message, false);
+                }
             }
-            catch (Exception ex) {
-                return;
-            }
+        
 
-
-
+        private void ExibirMensagem(string msg, bool sucesso)
+        {
+            lblMensagem.Text = msg;
+            lblMensagem.CssClass = sucesso ? "text-success" : "text-danger";
+            lblMensagem.Visible = true;
         }
     }
 }

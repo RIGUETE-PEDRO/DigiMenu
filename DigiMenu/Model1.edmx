@@ -14,14 +14,6 @@
           <Property Name="Ativo" Type="bit" Nullable="false" />
           <Property Name="Ordem" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="CarouselHasImagemProduto">
-          <Key>
-            <PropertyRef Name="CarouselId" />
-            <PropertyRef Name="ImagemProdutoId" />
-          </Key>
-          <Property Name="CarouselId" Type="int" Nullable="false" />
-          <Property Name="ImagemProdutoId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Carrinho">
           <Key>
             <PropertyRef Name="IdCarrinho" />
@@ -65,6 +57,7 @@
           <Property Name="IdImagemProduto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CaminhoImagem" Type="varchar" MaxLength="300" />
           <Property Name="ProdutoId" Type="int" Nullable="false" />
+          <Property Name="CarouselId" Type="int" />
         </EntityType>
         <EntityType Name="ItemCarrinho">
           <Key>
@@ -122,6 +115,7 @@
           <Property Name="Preco" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Estoque" Type="int" Nullable="false" />
           <Property Name="Ativo" Type="bit" Nullable="false" />
+          <Property Name="imagem" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -156,30 +150,6 @@
           <Property Name="Criacao" Type="date" Nullable="false" />
           <Property Name="TipoUsuarioId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__CarouselH__Carou__787EE5A0">
-          <End Role="Carousel" Type="Self.Carousel" Multiplicity="1" />
-          <End Role="CarouselHasImagemProduto" Type="Self.CarouselHasImagemProduto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Carousel">
-              <PropertyRef Name="IdCarousel" />
-            </Principal>
-            <Dependent Role="CarouselHasImagemProduto">
-              <PropertyRef Name="CarouselId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__CarouselH__Image__797309D9">
-          <End Role="ImagemProduto" Type="Self.ImagemProduto" Multiplicity="1" />
-          <End Role="CarouselHasImagemProduto" Type="Self.CarouselHasImagemProduto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ImagemProduto">
-              <PropertyRef Name="IdImagemProduto" />
-            </Principal>
-            <Dependent Role="CarouselHasImagemProduto">
-              <PropertyRef Name="ImagemProdutoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Carrinho__Usuari__6C190EBB">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Carrinho" Type="Self.Carrinho" Multiplicity="*" />
@@ -360,9 +330,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ImagemProduto_Carousel">
+          <End Role="Carousel" Type="Self.Carousel" Multiplicity="0..1" />
+          <End Role="ImagemProduto" Type="Self.ImagemProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carousel">
+              <PropertyRef Name="IdCarousel" />
+            </Principal>
+            <Dependent Role="ImagemProduto">
+              <PropertyRef Name="CarouselId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DigiMenuModelStoreContainer">
           <EntitySet Name="Carousel" EntityType="Self.Carousel" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CarouselHasImagemProduto" EntityType="Self.CarouselHasImagemProduto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Carrinho" EntityType="Self.Carrinho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cidade" EntityType="Self.Cidade" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Endereco" EntityType="Self.Endereco" Schema="dbo" store:Type="Tables" />
@@ -378,14 +359,6 @@
           <EntitySet Name="Tarefas" EntityType="Self.Tarefas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__CarouselH__Carou__787EE5A0" Association="Self.FK__CarouselH__Carou__787EE5A0">
-            <End Role="Carousel" EntitySet="Carousel" />
-            <End Role="CarouselHasImagemProduto" EntitySet="CarouselHasImagemProduto" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CarouselH__Image__797309D9" Association="Self.FK__CarouselH__Image__797309D9">
-            <End Role="ImagemProduto" EntitySet="ImagemProduto" />
-            <End Role="CarouselHasImagemProduto" EntitySet="CarouselHasImagemProduto" />
-          </AssociationSet>
           <AssociationSet Name="FK__Carrinho__Usuari__6C190EBB" Association="Self.FK__Carrinho__Usuari__6C190EBB">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Carrinho" EntitySet="Carrinho" />
@@ -446,6 +419,10 @@
             <End Role="TipoUsuario" EntitySet="TipoUsuario" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
+          <AssociationSet Name="FK_ImagemProduto_Carousel" Association="Self.FK_ImagemProduto_Carousel">
+            <End Role="Carousel" EntitySet="Carousel" />
+            <End Role="ImagemProduto" EntitySet="ImagemProduto" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -460,7 +437,7 @@
           <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Ativo" Type="Boolean" Nullable="false" />
           <Property Name="Ordem" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ImagemProduto" Relationship="Self.CarouselHasImagemProduto" FromRole="Carousel" ToRole="ImagemProduto" />
+          <NavigationProperty Name="ImagemProduto" Relationship="Self.FK_ImagemProduto_Carousel" FromRole="Carousel" ToRole="ImagemProduto" />
         </EntityType>
         <EntityType Name="Carrinho">
           <Key>
@@ -513,8 +490,9 @@
           <Property Name="IdImagemProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CaminhoImagem" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="ProdutoId" Type="Int32" Nullable="false" />
+          <Property Name="CarouselId" Type="Int32" />
+          <NavigationProperty Name="Carousel" Relationship="Self.FK_ImagemProduto_Carousel" FromRole="ImagemProduto" ToRole="Carousel" />
           <NavigationProperty Name="Produto" Relationship="Self.FK__ImagemPro__Produ__75A278F5" FromRole="ImagemProduto" ToRole="Produto" />
-          <NavigationProperty Name="Carousel" Relationship="Self.CarouselHasImagemProduto" FromRole="ImagemProduto" ToRole="Carousel" />
         </EntityType>
         <EntityType Name="ItemCarrinho">
           <Key>
@@ -582,6 +560,7 @@
           <Property Name="Preco" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Estoque" Type="Int32" Nullable="false" />
           <Property Name="Ativo" Type="Boolean" Nullable="false" />
+          <Property Name="imagem" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="ImagemProduto" Relationship="Self.FK__ImagemPro__Produ__75A278F5" FromRole="Produto" ToRole="ImagemProduto" />
           <NavigationProperty Name="ItemCarrinho" Relationship="Self.FK__ItemCarri__Produ__6FE99F9F" FromRole="Produto" ToRole="ItemCarrinho" />
           <NavigationProperty Name="ItemPedido" Relationship="Self.FK__ItemPedid__Produ__6477ECF3" FromRole="Produto" ToRole="ItemPedido" />
@@ -627,6 +606,18 @@
           <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido__UsuarioI__60A75C0F" FromRole="Usuario" ToRole="Pedido" />
           <NavigationProperty Name="TipoUsuario" Relationship="Self.FK__Usuario__TipoUsu__4BAC3F29" FromRole="Usuario" ToRole="TipoUsuario" />
         </EntityType>
+        <Association Name="FK_ImagemProduto_Carousel">
+          <End Role="Carousel" Type="Self.Carousel" Multiplicity="0..1" />
+          <End Role="ImagemProduto" Type="Self.ImagemProduto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carousel">
+              <PropertyRef Name="IdCarousel" />
+            </Principal>
+            <Dependent Role="ImagemProduto">
+              <PropertyRef Name="CarouselId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Carrinho__Usuari__6C190EBB">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Carrinho" Type="Self.Carrinho" Multiplicity="*" />
@@ -807,10 +798,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="CarouselHasImagemProduto">
-          <End Role="Carousel" Type="Self.Carousel" Multiplicity="*" />
-          <End Role="ImagemProduto" Type="Self.ImagemProduto" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="DigiMenuEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Carousel" EntityType="Self.Carousel" />
           <EntitySet Name="Carrinho" EntityType="Self.Carrinho" />
@@ -828,6 +815,10 @@
           <EntitySet Name="Tarefas" EntityType="Self.Tarefas" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_ImagemProduto_Carousel" Association="Self.FK_ImagemProduto_Carousel">
+            <End Role="Carousel" EntitySet="Carousel" />
+            <End Role="ImagemProduto" EntitySet="ImagemProduto" />
+          </AssociationSet>
           <AssociationSet Name="FK__Carrinho__Usuari__6C190EBB" Association="Self.FK__Carrinho__Usuari__6C190EBB">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Carrinho" EntitySet="Carrinho" />
@@ -887,10 +878,6 @@
           <AssociationSet Name="FK__Usuario__TipoUsu__4BAC3F29" Association="Self.FK__Usuario__TipoUsu__4BAC3F29">
             <End Role="TipoUsuario" EntitySet="TipoUsuario" />
             <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
-          <AssociationSet Name="CarouselHasImagemProduto" Association="Self.CarouselHasImagemProduto">
-            <End Role="Carousel" EntitySet="Carousel" />
-            <End Role="ImagemProduto" EntitySet="ImagemProduto" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -955,6 +942,7 @@
                 <ScalarProperty Name="IdImagemProduto" ColumnName="IdImagemProduto" />
                 <ScalarProperty Name="CaminhoImagem" ColumnName="CaminhoImagem" />
                 <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
+                <ScalarProperty Name="CarouselId" ColumnName="CarouselId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1018,6 +1006,7 @@
                 <ScalarProperty Name="Preco" ColumnName="Preco" />
                 <ScalarProperty Name="Estoque" ColumnName="Estoque" />
                 <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="imagem" ColumnName="imagem" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1058,14 +1047,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="CarouselHasImagemProduto" TypeName="DigiMenuModel.CarouselHasImagemProduto" StoreEntitySet="CarouselHasImagemProduto">
-            <EndProperty Name="Carousel">
-              <ScalarProperty Name="IdCarousel" ColumnName="CarouselId" />
-            </EndProperty>
-            <EndProperty Name="ImagemProduto">
-              <ScalarProperty Name="IdImagemProduto" ColumnName="ImagemProdutoId" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

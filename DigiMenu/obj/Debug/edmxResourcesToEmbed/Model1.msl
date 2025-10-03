@@ -57,6 +57,7 @@
           <ScalarProperty Name="IdImagemProduto" ColumnName="IdImagemProduto" />
           <ScalarProperty Name="CaminhoImagem" ColumnName="CaminhoImagem" />
           <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
+          <ScalarProperty Name="CarouselId" ColumnName="CarouselId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -120,6 +121,7 @@
           <ScalarProperty Name="Preco" ColumnName="Preco" />
           <ScalarProperty Name="Estoque" ColumnName="Estoque" />
           <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+          <ScalarProperty Name="imagem" ColumnName="imagem" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -160,13 +162,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="CarouselHasImagemProduto" TypeName="DigiMenuModel.CarouselHasImagemProduto" StoreEntitySet="CarouselHasImagemProduto">
-      <EndProperty Name="Carousel">
-        <ScalarProperty Name="IdCarousel" ColumnName="CarouselId" />
-      </EndProperty>
-      <EndProperty Name="ImagemProduto">
-        <ScalarProperty Name="IdImagemProduto" ColumnName="ImagemProdutoId" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

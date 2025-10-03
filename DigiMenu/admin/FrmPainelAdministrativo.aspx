@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="#">Produtos</a>
+        <a class="nav-link" href="CadastroProduto.aspx">Produtos</a>
         <a class="nav-link" href="#">Carousel</a>
         
       </div>
