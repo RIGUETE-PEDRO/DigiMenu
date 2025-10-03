@@ -11,7 +11,6 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <a href="FrmProdutos.aspx">FrmProdutos.aspx</a>
         <div class="container-fluid">
             <a class="navbar-brand" href="#">DigiMenu</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +36,7 @@
                             <h2 class="form-title mb-4 h4">Novo Produto</h2>
                             <div class="mb-3">
                                 <label for="txtNome" class="form-label">Nome do Produto</label>
-                                <asp:TextBox ID="txtNome" runat="server" CssClass="form-control" Placeholder="Digite o nome" required="required"></asp:TextBox>
+                                <asp:TextBox ID="txtNome" ValidationGroup="Cadastro" runat="server" CssClass="form-control" Placeholder="Digite o nome" required="required"></asp:TextBox>
                             </div>
                             <div class="mb-3">
                                 <label for="txtDescricao" class="form-label">Descrição do Produto</label>
@@ -45,23 +44,24 @@
                             </div>
                             <div class="mb-3">
                                 <label for="txtPreco" class="form-label">Preço do Produto</label>
-                                <asp:TextBox ID="txtPreco" runat="server" CssClass="form-control" TextMode="Number" Placeholder="Digite o preço" required="required"></asp:TextBox>
+                                <asp:TextBox ID="txtPreco" ValidationGroup="Cadastro" runat="server" CssClass="form-control" TextMode="Number" Placeholder="Digite o preço" required="required"></asp:TextBox>
                             </div>
                             <div class="mb-3">
                                 <label for="txtEstoque" class="form-label">Quantidade em Estoque</label>
-                                <asp:TextBox ID="txtEstoque" runat="server" CssClass="form-control" TextMode="Number" Placeholder="Digite a quantidade em estoque" required="required"></asp:TextBox>
+                                <asp:TextBox ID="txtEstoque" ValidationGroup="Cadastro" runat="server" CssClass="form-control" TextMode="Number" Placeholder="Digite a quantidade em estoque" required="required"></asp:TextBox>
                             </div>
                             <div class="form-check form-switch mb-3">
                                 <input id="Checkbox1" runat="server" type="checkbox" class="form-check-input" />
                                 <label class="form-check-label" for="Checkbox1">Oferta Produto</label>
                             </div>
                             <div class="mb-4">
-                                <label class="form-label d-block">Imagem do Produto</label>
-                                <input id="File1" runat="server" type="file" class="form-control form-control-sm" />
+                                <label class="form-label d-block">Imagem do Produto (opcional)</label>
+                                <input id="File1"  runat="server" type="file" class="form-control form-control-sm" />
                             </div>
                             <asp:Label ID="lblMensagem" runat="server" ForeColor="Red" CssClass="d-block mb-2"></asp:Label>
-                            <asp:Button ID="btnCadastrar" OnClick="btnCadastrar_Click" runat="server" Text="Cadastrar" CssClass="btn btn-primary w-100 product-submit mb-2" />
-                            <a href="FrmPainelAdministrativo.aspx" class="btn w-100 btn-outline-secondary">Voltar ao Painel</a>
+                            <asp:Button ID="btnCadastrar" OnClick="btnCadastrar_Click"  runat="server" Text="Cadastrar" CssClass="btn btn-primary w-100 product-submit mb-2" />
+                            <asp:Button OnClick="Atualizar_Click" id="btnAtualizar" runat="server" Text="Cadastrar" CssClass="btn btn-primary w-100 product-submit mb-2" />
+                              <a href="CadastroProduto.aspx" runat="server"  id="btnVoltar" class="btn w-100">voltar ao cadastro</a>
                         </div>
                     </div>
                 </div>
@@ -82,15 +82,51 @@
                                             <th scope="col">CÓD</th>
                                             <th scope="col">NOME</th>
                                             <th scope="col">PREÇO</th>
-                                             <th scope="col">STATUS</th>
+                                            <th scope="col">STATUS</th>
                                             <th scope="col">ESTOQUE</th>
                                             <th scope="col">EDIT</th>
                                         </tr>
                                     </thead>
-                                    
+
                                     <!--resposavel por onde os dados vao aparecer-->
-                                    <tbody runat="server" class="table-group-divider" id="tblProdutos">
-                                      
+                                    <tbody>
+                                        <asp:Repeater runat="server" ID="rptProdutos">
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <th scope="row"><%# Eval("IdProduto") %></th>
+                                                    <td><%# Eval("Nome") %></td>
+                                                    <td>R$ <%# Eval("Preco", "{0:F2}") %></td>
+                                                    <td>
+                                                        <%# (bool)Eval("Ativo") 
+                                                    ? "<span class='badge bg-success'>Ativo</span>" 
+                                                    : "<span class='badge bg-secondary'>Inativo</span>" %>
+                                                    </td>
+                                                    <td><%# Eval("Estoque") %></td>
+                                                    <td>
+                                                        <asp:ImageButton ID="btnVisualizar"
+                                                            ImageUrl="~/img/visualizar.svg" 
+                                                            OnClick="btnVisualizar_Click" 
+                                                            runat="server" 
+                                                            CausesValidation="false" 
+                                                            formnovalidate="formnovalidate" />
+                                                        <asp:ImageButton ID="btnEditar" 
+                                                            ImageUrl="~/img/edit.svg" 
+                                                            OnClick="btnEditar_Click" 
+                                                            runat="server" 
+                                                            CausesValidation="false" 
+                                                            formnovalidate="formnovalidate" CommandArgument='<%# Eval("IdProduto") %>' />
+                                                        <asp:ImageButton ID="btnExcluir" runat="server"
+                                                            ImageUrl="~/img/deletar.svg"
+                                                            OnClick="btnExcluir_Click"
+                                                            CommandArgument='<%# Eval("IdProduto") %>'
+                                                            CausesValidation="false"
+                                                            formnovalidate="formnovalidate"
+                                                            OnClientClick="return confirm('Deseja realmente excluir este produto?');"
+                                                            AlternateText="Deletar produto" />
+                                                    </td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
                                     </tbody>
                                 </table>
                             </div>

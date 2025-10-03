@@ -96,12 +96,30 @@ namespace DigiMenu
         protected global::System.Web.UI.WebControls.Button btnCadastrar;
 
         /// <summary>
-        /// Controle tblProdutos.
+        /// Controle btnAtualizar.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tblProdutos;
+        protected global::System.Web.UI.WebControls.Button btnAtualizar;
+
+        /// <summary>
+        /// Controle btnVoltar.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnVoltar;
+
+        /// <summary>
+        /// Controle rptProdutos.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptProdutos;
     }
 }

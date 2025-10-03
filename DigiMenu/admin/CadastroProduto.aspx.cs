@@ -1,10 +1,12 @@
 ﻿using DigiMenu.DAL;
 using DigiMenu.DAO; // importar DAO
 using System;
+using System.Globalization; // adicionado para controle de cultura
 using System.IO;
 using System.Text;
 using System.Web;
-using System.Globalization; // adicionado para controle de cultura
+using System.Web.UI;
+using System.Web.UI.WebControls; // Adicione esta linha no topo do arquivo
 
 namespace DigiMenu
 {
@@ -24,6 +26,12 @@ namespace DigiMenu
                 lblMensagem.Text = "Produto cadastrado com sucesso!";
                 lblMensagem.Visible = true;
             }
+
+            btnVoltar.Visible = false;
+            btnCadastrar.Visible = true;
+            btnAtualizar.Visible = false;
+
+            PreencherFormularioSeEditar();
         }
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
@@ -112,37 +120,22 @@ namespace DigiMenu
                 lblMensagem.Text = "Erro ao cadastrar produto: " + ex.Message;
                 lblMensagem.Visible = true;
             }
+            LimparCampos();
         }
-
+        // Exibe mensagem no label de mensagem 
         private void ExibirMensagem(string mensagem, bool visivel)
         {
             lblMensagem.Text = mensagem; lblMensagem.Visible = visivel;
         }
 
+        // Carrega produtos na tabela
         private void CarregarProdutos()
         {
             var produtos = produtoDAO.Listar();
-
-            string html = "";
-            foreach (var p in produtos)
-            {
-                string status = p.Ativo
-                    ? "<span class='badge bg-success'>Ativo</span>"
-                    : "<span class='badge bg-secondary'>Inativo</span>";
-
-                html += $@"
-                <tr>
-                    <th scope='row'>{p.IdProduto}</th>
-                    <td>{p.Nome}</td>
-                    <td>R$ {p.Preco:F2}</td>
-                    <td>{status}</td>
-                    <td>{p.Estoque}</td>
-                    <td></td>
-                </tr>";
-            }
-
-            tblProdutos.InnerHtml = html;
+            rptProdutos.DataSource = produtos;
+            rptProdutos.DataBind();
         }
+
         private void LimparCampos()
         {
             txtNome.Text = string.Empty;
@@ -152,5 +145,175 @@ namespace DigiMenu
             Checkbox1.Checked = false;
         }
 
+        // Novo handler para o Repeater
+        protected void rptProdutos_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "Deletar")
+            {
+                //id do produto a ser excluído
+                int idProduto = Convert.ToInt32(e.CommandArgument);
+                try
+                {
+                    // Delete retorna caminho relativo da imagem
+                    string caminhoRelativo = produtoDAO.Delete(idProduto);
+
+                    if (!string.IsNullOrEmpty(caminhoRelativo))
+                    {
+                        // Garantir que não haja barras iniciais duplicadas
+                        string caminhoFisico = Server.MapPath("~/'".Replace("'", "") + caminhoRelativo.TrimStart('/'));
+                        // Ajustar: caminhoRelativo esperado: imgProduto/arquivo.ext
+                        if (!File.Exists(caminhoFisico))
+                        {
+                            // Tentar montagem alternativa (caso acima falhe)
+                            caminhoFisico = Server.MapPath("~/" + caminhoRelativo.TrimStart('/'));
+                        }
+                        //se existir arquivo ele deleta
+                        if (File.Exists(caminhoFisico))
+                        {
+                            File.Delete(caminhoFisico);
+                        }
+                    }
+
+                    CarregarProdutos();
+                    ExibirMensagem("Produto excluído com sucesso.", true);
+                }
+                catch (Exception ex)
+                {
+                    ExibirMensagem("Erro ao excluir: " + ex.Message, true);
+                }
+            }
+        }
+
+        protected void btnExcluir_Click(object sender, ImageClickEventArgs e)
+        {
+            var btn = (ImageButton)sender;
+            ExcluirProduto(btn.CommandArgument);
+        }
+
+        private void ExcluirProduto(string commandArgument)
+        {
+            int idProduto;
+            if (!int.TryParse(commandArgument, out idProduto))
+            {
+                ExibirMensagem("ID inválido.", true);
+                return;
+            }
+
+            try
+            {
+                string caminhoRelativo = produtoDAO.Delete(idProduto);
+                if (!string.IsNullOrWhiteSpace(caminhoRelativo))
+                {
+                    string caminhoFisico = Server.MapPath("~/" + caminhoRelativo.TrimStart('/'));
+                    if (File.Exists(caminhoFisico))
+                    {
+                        File.Delete(caminhoFisico);
+                    }
+                }
+                CarregarProdutos();
+                ExibirMensagem("Produto excluído com sucesso.", true);
+            }
+            catch (Exception ex)
+            {
+                ExibirMensagem("Erro ao excluir: " + ex.Message, true);
+            }
+        }
+
+        protected void btnEditar_Click(object sender, ImageClickEventArgs e)
+        {
+            var btn = (ImageButton)sender;
+            int idProduto;
+            if (int.TryParse(btn.CommandArgument, out idProduto))
+            {
+                Response.Redirect("~/admin/CadastroProduto.aspx?cod=" + idProduto);
+            }
+
+            PreencherFormularioSeEditar();
+
+            
+
+            
+
+
+        }
+
+        private void PreencherFormularioSeEditar()
+        {
+            string idProdutoStr = Request.QueryString["cod"];
+            int idProduto;
+            if (!string.IsNullOrEmpty(idProdutoStr) && int.TryParse(idProdutoStr, out idProduto))
+            {
+                var produto = produtoDAO.BuscarPorId(idProduto);
+                if (produto != null)
+                {
+                    var preco = produto.Preco.ToString("N2", new CultureInfo("pt-BR"));
+
+                    txtNome.Text = produto.Nome;
+                    txtDescricao.Text = produto.Descricao;
+                    txtPreco.Text = produto.Preco.ToString(CultureInfo.InvariantCulture); // ex: 1234.56
+                    txtEstoque.Text = produto.Estoque.ToString();
+                    Checkbox1.Checked = produto.Ativo; // se existir
+                    
+
+                    btnCadastrar.Text = "Atualizar";
+                    btnVoltar.Visible = true;
+                    btnVoltar.InnerText = "Voltar cadastro";
+
+
+                }
+            }
+        }
+
+
+        protected void btnVisualizar_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+        {
+
+        }
+
+        
+
+        protected void Atualizar_Click(object sender, EventArgs e)
+        {
+            string idProdutoStr = Request.QueryString["cod"];
+    Produto produto;
+
+    if (!string.IsNullOrEmpty(idProdutoStr) && int.TryParse(idProdutoStr, out int idProduto))
+    {
+        // Atualizar
+        produto = produtoDAO.BuscarPorId(idProduto);
+        if (produto == null) return;
+    }
+    else
+    {
+        // Novo produto
+        produto = new Produto();
+    }
+
+    produto.Nome = txtNome.Text;
+    produto.Descricao = txtDescricao.Text;
+    produto.Preco = decimal.Parse(txtPreco.Text, CultureInfo.InvariantCulture);
+    produto.Estoque = int.Parse(txtEstoque.Text);
+    produto.Ativo = Checkbox1.Checked;
+
+    if (!string.IsNullOrEmpty(idProdutoStr))
+    {
+        produtoDAO.Atualizar(produto);
+        lblMensagem.Text = "Produto atualizado com sucesso!";
+    }
+    else
+    {
+        produtoDAO.Salvar(produto);
+        lblMensagem.Text = "Produto cadastrado com sucesso!";
+    }
+
+    // Limpar formulário e recarregar tabela
+    txtNome.Text = "";
+    txtDescricao.Text = "";
+    txtPreco.Text = "";
+    txtEstoque.Text = "";
+    Checkbox1.Checked = false;
+
+    CarregarProdutos();
+        }
     }
 }

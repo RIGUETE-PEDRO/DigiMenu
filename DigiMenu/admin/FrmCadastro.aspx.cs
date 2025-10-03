@@ -78,8 +78,11 @@ namespace DigiMenu
                 // Salvar usuário usando DAO
                 dao.Salvar(novoUsuario);
 
+                var log = new LogDAO();
                 // Registrar log de cadastro
-                dao.RegistrarLog(novoUsuario.Id, 1);
+                log.Registrar(novoUsuario.Id, 1);
+                
+
 
                 lblMensagem.Text = "Usuário cadastrado com sucesso!";
                 lblMensagem.CssClass += " text-success";

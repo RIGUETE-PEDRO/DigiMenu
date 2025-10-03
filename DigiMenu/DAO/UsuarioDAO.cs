@@ -23,20 +23,7 @@ namespace DigiMenu.DAO
             }
         }
 
-        public void RegistrarLog(int usuarioId, int tarefaId)
-        {
-            using (var ctx = new DigiMenuEntities())
-            {
-                var log = new Log
-                {
-                    UsuarioId = usuarioId,
-                    TarefasId = tarefaId,
-                    DataHora = DateTime.Now
-                };
-                ctx.Log.Add(log);
-                ctx.SaveChanges();
-            }
-        }
+       
 
         public static void Registrar(int usuarioId, int tarefaId)
         {
