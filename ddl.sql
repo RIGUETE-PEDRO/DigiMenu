@@ -87,7 +87,8 @@ CREATE TABLE Produto (
     Descricao VARCHAR(255) NULL,
     Preco DECIMAL(10,2) NOT NULL,
     Estoque INT NOT NULL,
-    Ativo BIT NOT NULL DEFAULT 1
+    Ativo BIT NOT NULL DEFAULT 1,
+    imagem varchar(500) NOT NULL
 );
 
 -- ===========================
@@ -175,22 +176,16 @@ CREATE TABLE Carousel (
 -- ===========================
 -- Tabela ImagemProduto
 -- ===========================
+
 CREATE TABLE ImagemProduto (
     IdImagemProduto INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    CaminhoImagem VARCHAR(300) NULL,
+    CaminhoImagem VARCHAR(500) NOT NULL,
     ProdutoId INT NOT NULL,
-    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto)
+    CarouselId INT  NULL, 
+    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto),
+    FOREIGN KEY (CarouselId) REFERENCES Carousel(IdCarousel)
 );
 
--- ===========================
--- Tabela Carousel_has_ImagemProduto
--- ===========================
-CREATE TABLE CarouselHasImagemProduto (
-    CarouselId INT NOT NULL,
-    ImagemProdutoId INT NOT NULL,
-    PRIMARY KEY (CarouselId, ImagemProdutoId),
-    FOREIGN KEY (CarouselId) REFERENCES Carousel(IdCarousel),
-    FOREIGN KEY (ImagemProdutoId) REFERENCES ImagemProduto(IdImagemProduto)
-);
+
 
 
