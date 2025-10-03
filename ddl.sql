@@ -178,7 +178,7 @@ CREATE TABLE Carousel (
 -- ===========================
 CREATE TABLE ImagemProduto (
     IdImagemProduto INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    CaminhoImagem VARCHAR(300) NULL,
+    CaminhoImagem VARCHAR(300) NOT NULL,
     ProdutoId INT NOT NULL,
     FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto)
 );
