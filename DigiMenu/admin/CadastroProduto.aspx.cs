@@ -19,6 +19,14 @@ namespace DigiMenu
             if (!IsPostBack)
             {
                 CarregarProdutos();
+
+                // Configuração padrão (modo cadastro)
+                btnVoltar.Visible = false;
+                btnCadastrar.Visible = true;
+                btnAtualizar.Visible = false;
+
+                // Verifica se é edição e ajusta interface
+                PreencherFormularioSeEditar();
             }
 
             if (!IsPostBack && Request.QueryString["salvo"] == "1")
@@ -26,16 +34,17 @@ namespace DigiMenu
                 lblMensagem.Text = "Produto cadastrado com sucesso!";
                 lblMensagem.Visible = true;
             }
-
-            btnVoltar.Visible = false;
-            btnCadastrar.Visible = true;
-            btnAtualizar.Visible = false;
-
-            PreencherFormularioSeEditar();
         }
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
+            // Se por algum motivo estiver em modo edição, redireciona para fluxo de atualização
+            if (!string.IsNullOrEmpty(Request.QueryString["cod"]))
+            {
+                Atualizar_Click(sender, e);
+                return;
+            }
+
             lblMensagem.Visible = false;
             lblMensagem.Text = string.Empty;
 
@@ -227,14 +236,6 @@ namespace DigiMenu
             {
                 Response.Redirect("~/admin/CadastroProduto.aspx?cod=" + idProduto);
             }
-
-            PreencherFormularioSeEditar();
-
-            
-
-            
-
-
         }
 
         private void PreencherFormularioSeEditar()
@@ -246,20 +247,19 @@ namespace DigiMenu
                 var produto = produtoDAO.BuscarPorId(idProduto);
                 if (produto != null)
                 {
-                    var preco = produto.Preco.ToString("N2", new CultureInfo("pt-BR"));
-
+                    // Preenche campos
                     txtNome.Text = produto.Nome;
                     txtDescricao.Text = produto.Descricao;
                     txtPreco.Text = produto.Preco.ToString(CultureInfo.InvariantCulture); // ex: 1234.56
                     txtEstoque.Text = produto.Estoque.ToString();
-                    Checkbox1.Checked = produto.Ativo; // se existir
-                    
+                    Checkbox1.Checked = produto.Ativo;
 
-                    btnCadastrar.Text = "Atualizar";
+                    // Ajusta interface para modo edição
+                    btnCadastrar.Visible = false;
+                    btnAtualizar.Visible = true;
+                    btnAtualizar.Text = "Atualizar";
                     btnVoltar.Visible = true;
                     btnVoltar.InnerText = "Voltar cadastro";
-
-
                 }
             }
         }
@@ -270,50 +270,48 @@ namespace DigiMenu
 
         }
 
-        
-
         protected void Atualizar_Click(object sender, EventArgs e)
         {
             string idProdutoStr = Request.QueryString["cod"];
-    Produto produto;
+            Produto produto;
 
-    if (!string.IsNullOrEmpty(idProdutoStr) && int.TryParse(idProdutoStr, out int idProduto))
-    {
-        // Atualizar
-        produto = produtoDAO.BuscarPorId(idProduto);
-        if (produto == null) return;
-    }
-    else
-    {
-        // Novo produto
-        produto = new Produto();
-    }
+            if (!string.IsNullOrEmpty(idProdutoStr) && int.TryParse(idProdutoStr, out int idProduto))
+            {
+                // Atualizar
+                produto = produtoDAO.BuscarPorId(idProduto);
+                if (produto == null) return;
+            }
+            else
+            {
+                // Novo produto (fallback)
+                produto = new Produto();
+            }
 
-    produto.Nome = txtNome.Text;
-    produto.Descricao = txtDescricao.Text;
-    produto.Preco = decimal.Parse(txtPreco.Text, CultureInfo.InvariantCulture);
-    produto.Estoque = int.Parse(txtEstoque.Text);
-    produto.Ativo = Checkbox1.Checked;
+            produto.Nome = txtNome.Text;
+            produto.Descricao = txtDescricao.Text;
+            produto.Preco = decimal.Parse(txtPreco.Text, CultureInfo.InvariantCulture);
+            produto.Estoque = int.Parse(txtEstoque.Text);
+            produto.Ativo = Checkbox1.Checked;
 
-    if (!string.IsNullOrEmpty(idProdutoStr))
-    {
-        produtoDAO.Atualizar(produto);
-        lblMensagem.Text = "Produto atualizado com sucesso!";
-    }
-    else
-    {
-        produtoDAO.Salvar(produto);
-        lblMensagem.Text = "Produto cadastrado com sucesso!";
-    }
+            if (!string.IsNullOrEmpty(idProdutoStr))
+            {
+                produtoDAO.Atualizar(produto);
+                lblMensagem.Text = "Produto atualizado com sucesso!";
+            }
+            else
+            {
+                produtoDAO.Salvar(produto);
+                lblMensagem.Text = "Produto cadastrado com sucesso!";
+            }
 
-    // Limpar formulário e recarregar tabela
-    txtNome.Text = "";
-    txtDescricao.Text = "";
-    txtPreco.Text = "";
-    txtEstoque.Text = "";
-    Checkbox1.Checked = false;
+            lblMensagem.Visible = true;
 
-    CarregarProdutos();
+            // Limpar formulário e recarregar tabela
+            LimparCampos();
+            CarregarProdutos();
+
+            // Volta para modo cadastro (remove querystring)
+            Response.Redirect("CadastroProduto.aspx");
         }
     }
 }
