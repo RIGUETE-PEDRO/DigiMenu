@@ -179,3 +179,7 @@ C:\Users\omega\source\repos\RIGUETE-PEDRO\DigiMenu\DigiMenu\bin\EntityFramework.
 C:\Users\omega\source\repos\RIGUETE-PEDRO\DigiMenu\DigiMenu\bin\EntityFramework.SqlServer.dll
 C:\Users\omega\source\repos\RIGUETE-PEDRO\DigiMenu\DigiMenu\bin\EntityFramework.xml
 C:\Users\omega\source\repos\RIGUETE-PEDRO\DigiMenu\DigiMenu\bin\EntityFramework.SqlServer.xml
+C:\Users\20241stads030\source\repos\DigiMenu\DigiMenu\bin\EntityFramework.dll
+C:\Users\20241stads030\source\repos\DigiMenu\DigiMenu\bin\EntityFramework.SqlServer.dll
+C:\Users\20241stads030\source\repos\DigiMenu\DigiMenu\bin\EntityFramework.xml
+C:\Users\20241stads030\source\repos\DigiMenu\DigiMenu\bin\EntityFramework.SqlServer.xml

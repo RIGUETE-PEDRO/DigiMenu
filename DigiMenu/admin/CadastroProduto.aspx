@@ -57,7 +57,8 @@
                             </div>
                             <div class="mb-3">
                                 
-                                <input id="File1" runat="server" type="file" class="form-control form-control-sm mb-2" />
+                                
+                                <asp:FileUpload ID="File1" runat="server" />
                                <label class="form-label d-block">Imagem do Produto</label>
                                 <asp:Image ID="imgPreview" runat="server" CssClass="img-thumbnail mb-2" Visible="false" Width="160" />
                             </div>
