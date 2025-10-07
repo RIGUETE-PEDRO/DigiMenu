@@ -292,7 +292,7 @@ namespace DigiMenu
                         txtPreco.Enabled = false;
                         txtEstoque.Enabled = false;
                         Checkbox1.Disabled = true;
-                        File1.Disabled = true; // Desabilita upload de imagem
+                        File1.Enabled = false; // Desabilita upload de imagem
                         File1.Visible = false;  // Oculta controle de upload
 
 
