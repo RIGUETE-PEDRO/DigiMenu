@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="../styles/StylePrincipal.css" rel="stylesheet">
 </head>
 <body>
     <!--nav bar -->
@@ -20,7 +21,7 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="#">Home</a>
         <a class="nav-link" href="CadastroProduto.aspx">Produtos</a>
-        <a class="nav-link" href="#">Carousel</a>
+        <a class="nav-link" href="CadastroCarrousel.aspx">Carousel</a>
         
       </div>
     </div>

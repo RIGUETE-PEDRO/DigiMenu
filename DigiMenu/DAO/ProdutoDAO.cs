@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text; // para StringBuilder
+using System.Data.Entity.Validation; // para capturar erros de validação
 
 
 namespace DigiMenu.DAO
@@ -8,9 +10,14 @@ namespace DigiMenu.DAO
     public class ProdutoDAO
     {
         private DigiMenuEntities ctx = new DigiMenuEntities();
+        private const string IMAGEM_PADRAO = "imgProduto/sem-imagem.png"; // certifique-se de criar este arquivo
 
         public void Salvar(Produto produto)
         {
+            if (string.IsNullOrWhiteSpace(produto.imagem))
+            {
+                produto.imagem = IMAGEM_PADRAO; // garante consistência na criação
+            }
             ctx.Produto.Add(produto);
             ctx.SaveChanges();
         }
@@ -48,12 +55,46 @@ namespace DigiMenu.DAO
             existente.Preco = produto.Preco;
             existente.Estoque = produto.Estoque;
             existente.Ativo = produto.Ativo;
-            // Só altera imagem se vier uma nova (não nula / não vazia)
-            if (!string.IsNullOrWhiteSpace(produto.imagem))
+
+            // Regras imagem:
+            // null => não altera (mantém a existente)
+            // string.Empty => remover -> usar imagem padrão
+            // valor não vazio => substituir
+            if (produto.imagem != null)
             {
-                existente.imagem = produto.imagem;
+                if (produto.imagem == string.Empty)
+                {
+                    existente.imagem = IMAGEM_PADRAO; // substitui por default
+                }
+                else if (!string.IsNullOrWhiteSpace(produto.imagem))
+                {
+                    existente.imagem = produto.imagem;
+                }
             }
-            ctx.SaveChanges();
+
+            // Se por qualquer motivo ficar vazio, reforça padrão
+            if (string.IsNullOrWhiteSpace(existente.imagem))
+            {
+                existente.imagem = IMAGEM_PADRAO;
+            }
+
+            try
+            {
+                ctx.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var sb = new StringBuilder();
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    sb.AppendLine($"Entidade: {eve.Entry.Entity.GetType().Name} Estado: {eve.Entry.State}");
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        sb.AppendLine($" - Propriedade: {ve.PropertyName} Erro: {ve.ErrorMessage}");
+                    }
+                }
+                throw new Exception("Erro de validação ao atualizar produto: " + sb.ToString(), ex);
+            }
         }
     }
 }

@@ -77,11 +77,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin\FrmCadastro.aspx" />
-    <Content Include="admin\FrmCarrousel.aspx" />
     <Content Include="admin\FrmLogin.aspx" />
     <Content Include="admin\FrmPainelAdministrativo.aspx" />
     <Content Include="admin\CadastroProduto.aspx" />
     <Content Include="admin\FrmProdutos.aspx" />
+    <Content Include="admin\CadastroCarrousel.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="img\deletar.svg" />
     <Content Include="img\edit.svg" />
@@ -97,6 +97,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="styles\CadastroCarrousel.css" />
     <Content Include="styles\StyleCadastro.css" />
     <Content Include="styles\StyleLogin.css" />
     <Content Include="styles\StylePrincipal.css" />
@@ -110,13 +111,6 @@
     </Compile>
     <Compile Include="admin\FrmCadastro.aspx.designer.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="admin\FrmCarrousel.aspx.cs">
-      <DependentUpon>FrmCarrousel.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin\FrmCarrousel.aspx.designer.cs">
-      <DependentUpon>FrmCarrousel.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\FrmLogin.aspx.cs">
       <DependentUpon>FrmLogin.aspx</DependentUpon>
@@ -145,6 +139,13 @@
     </Compile>
     <Compile Include="admin\FrmProdutos.aspx.designer.cs">
       <DependentUpon>FrmProdutos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin\CadastroCarrousel.aspx.cs">
+      <DependentUpon>CadastroCarrousel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\CadastroCarrousel.aspx.designer.cs">
+      <DependentUpon>CadastroCarrousel.aspx</DependentUpon>
     </Compile>
     <Compile Include="Carousel.cs">
       <DependentUpon>Model1.tt</DependentUpon>
