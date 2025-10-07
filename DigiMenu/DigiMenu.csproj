@@ -76,8 +76,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="admin\FrmCadastro.aspx" />
-    <Content Include="admin\FrmLogin.aspx" />
+    <Content Include="FrmCadastro.aspx" />
+    <Content Include="FrmLogin.aspx" />
     <Content Include="admin\FrmPainelAdministrativo.aspx" />
     <Content Include="admin\CadastroProduto.aspx" />
     <Content Include="admin\FrmProdutos.aspx" />
@@ -105,18 +105,18 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="admin\FrmCadastro.aspx.cs">
+    <Compile Include="FrmCadastro.aspx.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="admin\FrmCadastro.aspx.designer.cs">
+    <Compile Include="FrmCadastro.aspx.designer.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>
     </Compile>
-    <Compile Include="admin\FrmLogin.aspx.cs">
+    <Compile Include="FrmLogin.aspx.cs">
       <DependentUpon>FrmLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="admin\FrmLogin.aspx.designer.cs">
+    <Compile Include="FrmLogin.aspx.designer.cs">
       <DependentUpon>FrmLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\FrmPainelAdministrativo.aspx.cs">

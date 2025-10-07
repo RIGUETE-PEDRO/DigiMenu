@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-      <link href="../styles/StyleLogin.css" rel="stylesheet" />
+      <link href="styles/StyleLogin.css" rel="stylesheet" />
 </head>
 <body>
         <form id="form1" runat="server">
