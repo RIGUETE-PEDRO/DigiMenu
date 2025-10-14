@@ -113,7 +113,6 @@
     <Compile Include="cadastroFuncionario.aspx.designer.cs">
       <DependentUpon>cadastroFuncionario.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DAO\ProdutosService.cs" />
     <Compile Include="FrmCadastro.aspx.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

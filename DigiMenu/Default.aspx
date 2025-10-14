@@ -6,8 +6,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"/>
-    <link href="styles/StylePrincipal.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link href="styles/StylePrincipal.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -31,8 +31,9 @@
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <asp:TextBox ID="txtPesquisa" runat="server" CssClass="form-control me-2" Placeholder="Digite o produto" />
+                        <asp:Button ID="btnPesquisar" runat="server" CssClass="btn btn-outline-success" Text="Pesquisar" OnClick="btnPesquisar_Click" />
+
                     </form>
                     <div>
                         <a href="#" class="cart">
@@ -53,7 +54,7 @@
             </div>
         </nav>
 
-       <!-- <div class="carrousel">
+        <!-- <div class="carrousel">
 
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -83,22 +84,33 @@
             </div>
         </div>-->
 
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="..."/>
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-            </ul>
-            <div class="card-body">
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+        <div class="container mt-4">
+            <div class="row" id="produtosRow">
+                <asp:Repeater ID="rptProdutos" runat="server">
+                    <ItemTemplate>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+                            <div class="card flex-fill">
+                                <img src='<%# Eval("Imagem") %>' class="card-img-top produto-imagem" alt='<%# Eval("Nome") %>' />
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title"><%# Eval("Nome") %></h5>
+                                    <p class="card-text flex-grow-1"><%# Eval("Descricao") %></p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Preço: R$ <%# Eval("Preco") %></li>
+                                    <li class="list-group-item">Estoque: <%# Eval("Estoque") %></li>
+                                </ul>
+                                <div class="card-body d-flex justify-content-between">
+                                    <a href="#" class="btn btn-primary btn-sm">Comprar</a>
+                                    <a href="#" class="btn btn-secondary btn-sm">Detalhes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>
         </div>
+
+
 
     </form>
 

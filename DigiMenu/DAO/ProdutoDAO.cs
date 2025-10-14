@@ -147,5 +147,14 @@ namespace DigiMenu.DAO
                 ctx.SaveChanges();
             }
         }
+
+        internal List<Produto> BuscarAtivos()
+        {
+            using (var ctx = new DigiMenuEntities())
+            {
+                return ctx.Produto.Where(p => p.Ativo).ToList();
+            }
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.UI;
 
 namespace DigiMenu
@@ -25,7 +26,52 @@ namespace DigiMenu
                     if (divLogin != null) divLogin.Visible = true;
                     if (divUser != null) divUser.Visible = false;
                 }
+                CarregarProdutosAtivos();
             }
         }
+
+        private void CarregarProdutosAtivos()
+        {
+            using (var ctx = new DigiMenuEntities())
+            {
+                var produtosAtivos = ctx.Produto
+                                        .Where(p => p.Ativo)
+                                        .Select(p => new
+                                        {
+                                            p.Nome,
+                                            p.Descricao,
+                                            p.Preco,
+                                            p.Estoque,
+                                            Imagem = p.ImagemProduto.FirstOrDefault().CaminhoImagem // se tiver imagens
+                                        })
+                                        .ToList();
+
+                rptProdutos.DataSource = produtosAtivos;
+                rptProdutos.DataBind();
+            }
+        }
+
+        protected void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            //pesquisa produto
+            string termoPesquisa = txtPesquisa.Text.Trim();
+
+            using (var ctx = new DigiMenuEntities())
+            {
+                var resultados = ctx.Produto
+                                    .Where(p => p.Ativo && (p.Nome.Contains(termoPesquisa) || p.Descricao.Contains(termoPesquisa)))
+                                    .Select(p => new
+                                    {
+                                        p.Nome,
+                                        p.Descricao,
+                                        p.Preco,
+                                        p.Estoque,
+                                        Imagem = p.ImagemProduto.FirstOrDefault().CaminhoImagem // se tiver imagens
+                                    })
+                                    .ToList();
+                rptProdutos.DataSource = resultados;
+                rptProdutos.DataBind();
+            }
+        }   
     }
 }
