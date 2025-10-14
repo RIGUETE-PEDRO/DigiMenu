@@ -88,7 +88,7 @@ CREATE TABLE Produto (
     Preco DECIMAL(10,2) NOT NULL,
     Estoque INT NOT NULL,
     Ativo BIT NOT NULL DEFAULT 1,
-    imagem varchar(500) NOT NULL
+ 
 );
 
 -- ===========================
