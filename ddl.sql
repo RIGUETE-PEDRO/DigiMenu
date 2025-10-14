@@ -46,8 +46,8 @@ CREATE TABLE Log (
     TarefasId INT NOT NULL,
     DataHora DATETIME NULL,
     UsuarioId INT NOT NULL,
-    FOREIGN KEY (TarefasId) REFERENCES Tarefas(IdTarefas),
-    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id)
+    FOREIGN KEY (TarefasId) REFERENCES Tarefas(IdTarefas) ON DELETE CASCADE,
+    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
 );
 
 -- ===========================
@@ -65,7 +65,7 @@ CREATE TABLE Estado (
     IdEstado INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(80) NULL,
     PaisId INT NOT NULL,
-    FOREIGN KEY (PaisId) REFERENCES Pais(IdPais)
+    FOREIGN KEY (PaisId) REFERENCES Pais(IdPais) ON DELETE CASCADE
 );
 
 -- ===========================
@@ -75,7 +75,7 @@ CREATE TABLE Cidade (
     IdCidade INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(100) NULL,
     EstadoId INT NOT NULL,
-    FOREIGN KEY (EstadoId) REFERENCES Estado(IdEstado)
+    FOREIGN KEY (EstadoId) REFERENCES Estado(IdEstado) ON DELETE CASCADE
 );
 
 -- ===========================
@@ -87,8 +87,7 @@ CREATE TABLE Produto (
     Descricao VARCHAR(255) NULL,
     Preco DECIMAL(10,2) NOT NULL,
     Estoque INT NOT NULL,
-    Ativo BIT NOT NULL DEFAULT 1,
- 
+    Ativo BIT NOT NULL DEFAULT 1
 );
 
 -- ===========================
@@ -108,7 +107,7 @@ CREATE TABLE Pedido (
     Total DECIMAL(10,2) NOT NULL,
     UsuarioId INT NOT NULL,
     StatusId INT NOT NULL,
-    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id),
+    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE,
     FOREIGN KEY (StatusId) REFERENCES Status(IdStatus)
 );
 
@@ -121,8 +120,8 @@ CREATE TABLE ItemPedido (
     PrecoUnitario DECIMAL(9,2) NOT NULL,
     ProdutoId INT NOT NULL,
     PedidoId INT NOT NULL,
-    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto),
-    FOREIGN KEY (PedidoId) REFERENCES Pedido(IdPedido)
+    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto) ON DELETE CASCADE,
+    FOREIGN KEY (PedidoId) REFERENCES Pedido(IdPedido) ON DELETE CASCADE
 );
 
 -- ===========================
@@ -136,8 +135,8 @@ CREATE TABLE Endereco (
     Cep VARCHAR(20) NULL,
     Complemento VARCHAR(100) NULL,
     UsuarioId INT NOT NULL,
-    FOREIGN KEY (CidadeId) REFERENCES Cidade(IdCidade),
-    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id)
+    FOREIGN KEY (CidadeId) REFERENCES Cidade(IdCidade) ON DELETE CASCADE,
+    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
 );
 
 -- ===========================
@@ -147,7 +146,7 @@ CREATE TABLE Carrinho (
     IdCarrinho INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     UsuarioId INT NOT NULL,
     DataCriacao DATETIME NULL,
-    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id)
+    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
 );
 
 -- ===========================
@@ -159,8 +158,8 @@ CREATE TABLE ItemCarrinho (
     PrecoTotal DECIMAL(10,2) NULL,
     CarrinhoId INT NOT NULL,
     ProdutoId INT NOT NULL,
-    FOREIGN KEY (CarrinhoId) REFERENCES Carrinho(IdCarrinho),
-    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto)
+    FOREIGN KEY (CarrinhoId) REFERENCES Carrinho(IdCarrinho) ON DELETE CASCADE,
+    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto) ON DELETE CASCADE
 );
 
 -- ===========================
@@ -176,16 +175,11 @@ CREATE TABLE Carousel (
 -- ===========================
 -- Tabela ImagemProduto
 -- ===========================
-
 CREATE TABLE ImagemProduto (
     IdImagemProduto INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     CaminhoImagem VARCHAR(500) NOT NULL,
     ProdutoId INT NOT NULL,
-    CarouselId INT  NULL, 
-    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto),
+    CarouselId INT NULL, 
+    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto) ON DELETE CASCADE,
     FOREIGN KEY (CarouselId) REFERENCES Carousel(IdCarousel)
 );
-
-
-
-
