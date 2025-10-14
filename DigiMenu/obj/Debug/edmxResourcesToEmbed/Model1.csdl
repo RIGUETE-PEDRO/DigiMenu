@@ -59,7 +59,7 @@
       <PropertyRef Name="IdImagemProduto" />
     </Key>
     <Property Name="IdImagemProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CaminhoImagem" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="CaminhoImagem" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="ProdutoId" Type="Int32" Nullable="false" />
     <Property Name="CarouselId" Type="Int32" />
     <NavigationProperty Name="Carousel" Relationship="Self.FK_ImagemProduto_Carousel" FromRole="ImagemProduto" ToRole="Carousel" />
@@ -131,7 +131,6 @@
     <Property Name="Preco" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="Estoque" Type="Int32" Nullable="false" />
     <Property Name="Ativo" Type="Boolean" Nullable="false" />
-    <Property Name="imagem" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="ImagemProduto" Relationship="Self.FK__ImagemPro__Produ__75A278F5" FromRole="Produto" ToRole="ImagemProduto" />
     <NavigationProperty Name="ItemCarrinho" Relationship="Self.FK__ItemCarri__Produ__6FE99F9F" FromRole="Produto" ToRole="ItemCarrinho" />
     <NavigationProperty Name="ItemPedido" Relationship="Self.FK__ItemPedid__Produ__6477ECF3" FromRole="Produto" ToRole="ItemPedido" />

@@ -76,6 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="cadastroFuncionario.aspx" />
     <Content Include="FrmCadastro.aspx" />
     <Content Include="FrmLogin.aspx" />
     <Content Include="admin\FrmPainelAdministrativo.aspx" />
@@ -105,6 +106,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cadastroFuncionario.aspx.cs">
+      <DependentUpon>cadastroFuncionario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cadastroFuncionario.aspx.designer.cs">
+      <DependentUpon>cadastroFuncionario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\ProdutosService.cs" />
     <Compile Include="FrmCadastro.aspx.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -255,7 +264,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

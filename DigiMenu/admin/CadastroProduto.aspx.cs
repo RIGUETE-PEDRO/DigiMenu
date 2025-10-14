@@ -14,6 +14,7 @@ namespace DigiMenu
     {
         private ProdutoDAO produtoDAO = new ProdutoDAO();
         private static readonly CultureInfo PtBr = new CultureInfo("pt-BR");
+        private ImagemProdutoDAO ImagemProdutoDAO = new ImagemProdutoDAO();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -132,10 +133,14 @@ namespace DigiMenu
                     Preco = preco,
                     Estoque = estoque,
                     Ativo = ofertar,
-                    imagem = caminhoRelativo
                 };
 
-                produtoDAO.Salvar(produto);
+                var imagemProduto = new ImagemProduto
+                {
+                    CaminhoImagem = caminhoRelativo,
+                };
+
+                produtoDAO.Salvar(produto, imagemProduto);
 
                 // Post/Redirect/Get para evitar reenvio ao atualizar (F5)
                 Response.Redirect("CadastroProduto.aspx?salvo=1", false);
@@ -265,6 +270,7 @@ namespace DigiMenu
             if (!string.IsNullOrEmpty(idProdutoStr) && int.TryParse(idProdutoStr, out idProduto))
             {
                 var produto = produtoDAO.BuscarPorId(idProduto);
+                var imagemProduto = ImagemProdutoDAO.BuscarImagemPorProdutoId(idProduto);
                 if (produto != null)
                 {
                     // Preenche campos
@@ -274,9 +280,10 @@ namespace DigiMenu
                     txtPreco.Text = produto.Preco.ToString("N2", PtBr);
                     txtEstoque.Text = produto.Estoque.ToString();
                     Checkbox1.Checked = produto.Ativo;
-                    insereIMG(produto);
-
-
+                    if (imagemProduto != null)
+                    {
+                        insereIMG(imagemProduto);
+                    }
 
                     // Ajusta interface para modo edição
                     btnCadastrar.Visible = false;
@@ -285,8 +292,8 @@ namespace DigiMenu
                     btnVoltar.Visible = true;
                     btnVoltar.InnerText = "Voltar cadastro";
 
-                    if (visualizar == true) {
-                        
+                    if (visualizar == true)
+                    {
                         txtNome.Enabled = false;
                         txtDescricao.Enabled = false;
                         txtPreco.Enabled = false;
@@ -295,18 +302,16 @@ namespace DigiMenu
                         File1.Enabled = false; // Desabilita upload de imagem
                         File1.Visible = false;  // Oculta controle de upload
                         btnAtualizar.Visible = false; // Oculta botão atualizar
-
                     }
                 }
             }
         }
 
-
-        private void insereIMG(Produto produto) {
-
-            if (!string.IsNullOrEmpty(produto.imagem))
+        private void insereIMG(ImagemProduto produto)
+        {
+            if (produto != null && !string.IsNullOrEmpty(produto.CaminhoImagem))
             {
-                imgPreview.ImageUrl = "~/" + produto.imagem; // Caminho relativo da imagem
+                imgPreview.ImageUrl = "~/" + produto.CaminhoImagem; // Caminho relativo da imagem
                 imgPreview.Visible = true;                   // Mostra o controle
             }
             else
@@ -330,6 +335,7 @@ namespace DigiMenu
         {
             string idProdutoStr = Request.QueryString["cod"];
             Produto produto;
+            ImagemProduto imagemProduto = null; // Inicializa a variável para evitar CS0165
 
             if (!string.IsNullOrEmpty(idProdutoStr) && int.TryParse(idProdutoStr, out int idProduto))
             {
@@ -340,6 +346,9 @@ namespace DigiMenu
                     ExibirMensagem("Produto não encontrado.", true);
                     return;
                 }
+
+                // Carrega imagem existente para possível atualização
+                imagemProduto = ImagemProdutoDAO.BuscarImagemPorProdutoId(idProduto);
             }
             else
             {
@@ -379,7 +388,7 @@ namespace DigiMenu
                         return;
                     }
 
-                    string oldImage = produto.imagem; // guardar antiga
+                    string oldImage = imagemProduto != null ? imagemProduto.CaminhoImagem : null; // guardar antiga
                     string newFileName = Guid.NewGuid().ToString("N") + ext;
                     string folderPhysical = Server.MapPath("~/imgProduto");
                     if (!Directory.Exists(folderPhysical)) Directory.CreateDirectory(folderPhysical);
@@ -387,7 +396,18 @@ namespace DigiMenu
                     uploaded.SaveAs(newPhysicalPath);
                     string newRelativePath = "imgProduto/" + newFileName;
 
-                    produto.imagem = newRelativePath; // define nova
+                    if (imagemProduto == null)
+                    {
+                        imagemProduto = new ImagemProduto
+                        {
+                            ProdutoId = produto.IdProduto,
+                            CaminhoImagem = newRelativePath
+                        };
+                    }
+                    else
+                    {
+                        imagemProduto.CaminhoImagem = newRelativePath; // define nova
+                    }
 
                     if (!string.IsNullOrEmpty(oldImage) && !oldImage.Equals("imgProduto/sem-imagem.png", StringComparison.OrdinalIgnoreCase))
                     {
@@ -398,7 +418,7 @@ namespace DigiMenu
                         }
                     }
                 }
-                // Se não houve upload, não mexe em produto.imagem (mantém a existente por ser entidade rastreada)
+                // Se não houve upload, não mexe na imagem existente
             }
             catch (Exception exUpload)
             {
@@ -409,12 +429,12 @@ namespace DigiMenu
 
             if (!string.IsNullOrEmpty(idProdutoStr))
             {
-                produtoDAO.Atualizar(produto);
+                produtoDAO.Atualizar(produto, imagemProduto);
                 lblMensagem.Text = "Produto atualizado com sucesso!";
             }
             else
             {
-                produtoDAO.Salvar(produto);
+                produtoDAO.Salvar(produto, imagemProduto);
                 lblMensagem.Text = "Produto cadastrado com sucesso!";
             }
 

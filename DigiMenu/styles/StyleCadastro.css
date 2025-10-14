@@ -4,7 +4,16 @@
     border-color: red;
 }
 
-    .buttonLogin:hover {
-        background-color: darkred;
-        border-color: darkred;
-    }
+.buttonLogin:hover {
+    background-color: darkred;
+    border-color: darkred;
+}
+
+/* Asterisco vermelho automático para campos obrigatórios */
+.form-label.required-label::before {
+    content: "*";
+    color: #d40000 !important;
+    font-weight: 700;
+    margin-right: 4px;
+    display: inline-block;
+}

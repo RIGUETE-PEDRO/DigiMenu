@@ -19,23 +19,35 @@ namespace DigiMenu
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
-        /// Para modificar, mova a declaração de campo do arquivo de designer para o arquivo code-behind.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
         /// Controle divLogin.
         /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLogin;
 
         /// <summary>
         /// Controle divUser.
         /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divUser;
 
         /// <summary>
         /// Controle lblUserName.
         /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblUserName;
     }
 }
