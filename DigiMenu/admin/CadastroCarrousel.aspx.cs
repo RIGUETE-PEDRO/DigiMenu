@@ -1,4 +1,5 @@
-﻿using DigiMenu.DAO;
+﻿using DigiMenu.DAL;
+using DigiMenu.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,9 @@ namespace DigiMenu.admin
         private void CarregarProdutos()
         {
             ProdutoDAO produtoDAO = new ProdutoDAO();
-
+            
             List<Produto> produtosAtivos = produtoDAO.BuscarAtivos();
+
 
             rptProdutos.DataSource = produtosAtivos;
             rptProdutos.DataBind();
@@ -33,6 +35,9 @@ namespace DigiMenu.admin
 
         protected void btnSalvar_Click(object sender, EventArgs e)
         {
+           
+
+
 
         }
     }

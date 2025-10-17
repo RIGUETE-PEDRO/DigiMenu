@@ -6,7 +6,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Cadastro de Carrousel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
     <link href="../styles/CadastroCarrousel.css" rel="stylesheet" />
 </head>
 <body>
@@ -22,6 +22,7 @@
                     <a class="nav-link active" aria-current="page" href="FrmPainelAdministrativo.aspx">Home</a>
                     <a class="nav-link" href="CadastroProduto.aspx">Produtos</a>
                     <a class="nav-link" href="#">Carousel</a>
+                    <a class="nav-link" href="FrmPedidos.aspx">Pedidos</a>
                 </div>
             </div>
         </div>
@@ -33,7 +34,7 @@
                 <div class="col-12 col-lg-5">
                     <div class="card shadow-sm h-100">
                         <div class="card-body">
-                            <h2 class="form-title mb-4 h4">Produtos Ativos</h2>
+                            <h2 class="form-title mb-4 h4">Carrousel Ativos</h2>
 
                             <asp:Repeater ID="rptProdutos" runat="server">
                                 <HeaderTemplate>
@@ -46,14 +47,13 @@
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td><%# Eval("Nome") %></td>
+                                        <td id="txtNome" runat="server"><%# Eval("Nome") %></td>
+
                                         <td>
-                                            <asp:CheckBox ID="chkAtivo" runat="server" Checked='<%# Eval("Ativo") %>' />
-                                            <asp:HiddenField ID="hfId" runat="server" Value='<%# Eval("Id") %>' />
+                                            <asp:CheckBox ID="Ativo"  runat="server" />
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txtOrdem" runat="server" Text='<%# Eval("Ordem") %>' Width="50px"
-                                                Enabled='<%# (bool)Eval("AtivoNoCarrossel") %>' />
+                                            <input type="number" class="form-control input_number" id="txNumber" runat="server" />
                                         </td>
                                     </tr>
                                 </ItemTemplate>

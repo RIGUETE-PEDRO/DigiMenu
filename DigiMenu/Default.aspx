@@ -17,7 +17,10 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#">DigiMenu</a>
+                <a class="navbar-brand" href="#">
+                    <img id="imgLogo" src="" alt="Logo" />
+                </a>
+
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -30,11 +33,11 @@
                             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
-                        <asp:TextBox ID="txtPesquisa" runat="server" CssClass="form-control me-2" Placeholder="Digite o produto" />
-                        <asp:Button ID="btnPesquisar" runat="server" CssClass="btn btn-outline-success" Text="Pesquisar" OnClick="btnPesquisar_Click" />
+                    <div class="d-flex" role="search">
+    <asp:TextBox ID="txtPesquisa" runat="server" CssClass="form-control me-2" Placeholder="Digite o produto" />
+    <asp:Button ID="btnPesquisar" runat="server" CssClass="btn btn-outline-success" Text="Pesquisar" OnClick="btnPesquisar_Click" />
+</div>
 
-                    </form>
                     <div>
                         <a href="#" class="cart">
                             <img src="img/shopping_cart_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt="imagem de carinho" />
@@ -100,8 +103,11 @@
                                     <li class="list-group-item">Estoque: <%# Eval("Estoque") %></li>
                                 </ul>
                                 <div class="card-body d-flex justify-content-between">
-                                    <a href="#" class="btn btn-primary btn-sm">Comprar</a>
-                                    <a href="#" class="btn btn-secondary btn-sm">Detalhes</a>
+                                    <asp:Button Text="Comprar"  onclick="compra_Click"  runat="server" id="compra" class="btn btn-primary btn-sm"/>
+                                    <asp:Button Text="Detalhes" runat="server" class="btn btn-secondary btn-sm" />
+                                  
+
+                                    
                                 </div>
                             </div>
                         </div>

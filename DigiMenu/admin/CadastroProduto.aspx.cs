@@ -142,6 +142,13 @@ namespace DigiMenu
 
                 produtoDAO.Salvar(produto, imagemProduto);
 
+                
+                LogDAO log = new LogDAO();
+                int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
+                log.Registrar(usuarioId, 3); // 3 = Cadastro Produto
+
+
+
                 // Post/Redirect/Get para evitar reenvio ao atualizar (F5)
                 Response.Redirect("CadastroProduto.aspx?salvo=1", false);
                 Context.ApplicationInstance.CompleteRequest();
@@ -245,6 +252,9 @@ namespace DigiMenu
                 }
                 CarregarProdutos();
                 ExibirMensagem("Produto excluído com sucesso.", true);
+                LogDAO log = new LogDAO();
+                int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
+                log.Registrar(usuarioId, 5);
             }
             catch (Exception ex)
             {
@@ -431,6 +441,9 @@ namespace DigiMenu
             {
                 produtoDAO.Atualizar(produto, imagemProduto);
                 lblMensagem.Text = "Produto atualizado com sucesso!";
+                LogDAO log = new LogDAO();
+                int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
+                log.Registrar(usuarioId, 4);
             }
             else
             {
@@ -439,6 +452,7 @@ namespace DigiMenu
             }
 
             lblMensagem.Visible = true;
+            
             LimparCampos();
             CarregarProdutos();
             Response.Redirect("CadastroProduto.aspx");
