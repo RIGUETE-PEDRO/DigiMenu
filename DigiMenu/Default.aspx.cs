@@ -28,7 +28,15 @@ namespace DigiMenu
                     if (divUser != null) divUser.Visible = false;
                 }
                 CarregarProdutosAtivos();
+                iniciarFiltro();
             }
+        }
+
+        private void iniciarFiltro()
+        {
+            ddlCategoria.Visible = rbCategoria.Checked;
+            txtPreco.Visible = false;
+            ddlOferta.Visible = false;
         }
 
         private void CarregarProdutosAtivos()
@@ -75,7 +83,14 @@ namespace DigiMenu
             }
         }
 
-      
+        protected void Filtro_CheckedChanged(object sender, EventArgs e)
+        {
+            // Aqui você vai mostrar/ocultar os inputs conforme o radio selecionado
+            ddlCategoria.Visible = rbCategoria.Checked;
+            txtPreco.Visible = rbPreco.Checked;
+            ddlOferta.Visible = rbOferta.Checked;
+        }
+
 
         protected void compra_Click(object sender, EventArgs e)
         {
@@ -101,12 +116,16 @@ namespace DigiMenu
 
                 LogDAO log = new LogDAO();
                 int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
-                log.Registrar(usuarioId, 6); // 1 = Cadastrar Produto
-
+                log.Registrar(usuarioId, 6); // 6 = adicionar um produto no carrinho
 
                 PedidoDAO pedidoDAO = new PedidoDAO();
                 pedidoDAO.Salvar(pedido);
             }
+        }
+
+        protected void btnAplicarFiltro_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
