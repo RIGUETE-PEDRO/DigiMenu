@@ -6,6 +6,7 @@ INSERT INTO Tarefas(Tarefa) VALUES ('login');
 insert into Tarefas (Tarefa) values ('Cadastro de Produto');
 insert into Tarefas (Tarefa) values ('Atualização de Produto');
 insert into Tarefas (Tarefa) values ('Delete de produto ');
+insert into Tarefas (Tarefa) values ('adicionar produto no carrinho');
 
 
 --status de pedido
