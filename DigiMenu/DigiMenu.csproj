@@ -76,15 +76,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\FrmPedidos.aspx" />
+    <Content Include="cadastroFuncionario.aspx" />
+    <Content Include="carrinho.aspx" />
     <Content Include="FrmCadastro.aspx" />
     <Content Include="FrmLogin.aspx" />
     <Content Include="admin\FrmPainelAdministrativo.aspx" />
     <Content Include="admin\CadastroProduto.aspx" />
-    <Content Include="admin\FrmProdutos.aspx" />
     <Content Include="admin\CadastroCarrousel.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="img\deletar.svg" />
     <Content Include="img\edit.svg" />
+    <Content Include="img\logo.png" />
     <Content Include="img\shopping_cart_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" />
     <Content Include="img\visualizar.svg" />
     <Content Include="Model1.Context.tt">
@@ -105,6 +108,27 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\FrmPedidos.aspx.cs">
+      <DependentUpon>FrmPedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\FrmPedidos.aspx.designer.cs">
+      <DependentUpon>FrmPedidos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cadastroFuncionario.aspx.cs">
+      <DependentUpon>cadastroFuncionario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cadastroFuncionario.aspx.designer.cs">
+      <DependentUpon>cadastroFuncionario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="carrinho.aspx.cs">
+      <DependentUpon>carrinho.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="carrinho.aspx.designer.cs">
+      <DependentUpon>carrinho.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FrmCadastro.aspx.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -132,13 +156,6 @@
     </Compile>
     <Compile Include="admin\CadastroProduto.aspx.designer.cs">
       <DependentUpon>CadastroProduto.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="admin\FrmProdutos.aspx.cs">
-      <DependentUpon>FrmProdutos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="admin\FrmProdutos.aspx.designer.cs">
-      <DependentUpon>FrmProdutos.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin\CadastroCarrousel.aspx.cs">
       <DependentUpon>CadastroCarrousel.aspx</DependentUpon>
@@ -255,7 +272,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

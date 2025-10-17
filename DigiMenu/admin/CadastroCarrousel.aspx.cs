@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DigiMenu.DAL;
+using DigiMenu.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +13,31 @@ namespace DigiMenu.admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                // Carrega produtos na tabela
+                CarregarProdutos();
+            }           
+        }
+
+        private void CarregarProdutos()
+        {
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            
+            List<Produto> produtosAtivos = produtoDAO.BuscarAtivos();
+
+
+            rptProdutos.DataSource = produtosAtivos;
+            rptProdutos.DataBind();
+
+
+        }
+
+        protected void btnSalvar_Click(object sender, EventArgs e)
+        {
+           
+
+
 
         }
     }

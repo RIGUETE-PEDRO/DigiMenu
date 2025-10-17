@@ -5,8 +5,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Cadastro de Produto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link href="../styles/styleProduto.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
+    <link href="../styles/styleProduto.css" rel="stylesheet"/>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -20,6 +20,7 @@
                     <a class="nav-link active" aria-current="page" href="FrmPainelAdministrativo.aspx">Home</a>
                     <a class="nav-link" href="CadastroProduto.aspx">Produtos</a>
                     <a class="nav-link" href="CadastroCarrousel.aspx">Carousel</a>
+                     <a class="nav-link" href="FrmPedidos.aspx">Pedidos</a>
                 </div>
             </div>
         </div>

@@ -30,8 +30,17 @@ namespace DigiMenu.admin
                         LogDAO log = new LogDAO();
                         log.Registrar(user.Id, 2);
 
-                        
-                        Response.Redirect("../Default.aspx");
+                        if (user.TipoUsuarioId == 2)
+                        {
+                            // Administrador
+                            Response.Redirect("admin/FrmPainelAdministrativo.aspx");
+                        }
+                        else
+                        {
+                            // Usuário comum
+                            Response.Redirect("Default.aspx");
+                    }
+                    
                     }
                     else
                     {

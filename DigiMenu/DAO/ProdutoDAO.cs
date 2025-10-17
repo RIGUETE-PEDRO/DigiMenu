@@ -1,100 +1,160 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text; // para StringBuilder
-using System.Data.Entity.Validation; // para capturar erros de validação
-
+using System.Text;
+using System.Data.Entity.Validation;
+using DigiMenu.DAL;
+using System.Threading;
 
 namespace DigiMenu.DAO
 {
     public class ProdutoDAO
     {
-        private DigiMenuEntities ctx = new DigiMenuEntities();
-        private const string IMAGEM_PADRAO = "imgProduto/sem-imagem.png"; // certifique-se de criar este arquivo
-
-        public void Salvar(Produto produto)
-        {
-            if (string.IsNullOrWhiteSpace(produto.imagem))
-            {
-                produto.imagem = IMAGEM_PADRAO; // garante consistência na criação
-            }
-            ctx.Produto.Add(produto);
-            ctx.SaveChanges();
-        }
-
         public List<Produto> Listar()
         {
-            return ctx.Produto.ToList();
+            using (var ctx = new DigiMenuEntities())
+            {
+                return ctx.Produto.ToList();
+            }
         }
 
-        // Retorna o caminho (relativo) da imagem para permitir exclusão física fora da camada de dados
+        // Ajustado: localizar a imagem do produto no banco e retornar o caminho relativo
         public string Delete(int idProduto)
         {
-            var produto = ctx.Produto.Find(idProduto);
-            if (produto == null)
-                return null;
+            using (var ctx = new DigiMenuEntities())
+            {
+                var produto = ctx.Produto.Find(idProduto);
+                if (produto == null)
+                    return null;
 
-            string imagem = produto.imagem; // ex: "imgProduto/abc123.jpg"
-            ctx.Produto.Remove(produto);
-            ctx.SaveChanges();
-            return imagem;
+                // Busca imagem associada
+                var imagem = ctx.ImagemProduto.FirstOrDefault(i => i.ProdutoId == idProduto);
+                string caminhoImagem = imagem?.CaminhoImagem;
+
+                // Remove imagem (se houver)
+                if (imagem != null)
+                {
+                    ctx.ImagemProduto.Remove(imagem);
+                }
+
+                // Remove produto
+                ctx.Produto.Remove(produto);
+                ctx.SaveChanges();
+                return caminhoImagem;
+            }
         }
 
         public Produto BuscarPorId(int idProduto)
         {
-            return ctx.Produto.Find(idProduto);
+            using (var ctx = new DigiMenuEntities())
+            {
+                return ctx.Produto.Find(idProduto);
+            }
         }
 
-        public void Atualizar(Produto produto)
+        public void Atualizar(Produto produto, ImagemProduto imagemProduto)
         {
-            var existente = ctx.Produto.Find(produto.IdProduto);
-            if (existente == null) return;
-
-            existente.Nome = produto.Nome;
-            existente.Descricao = produto.Descricao;
-            existente.Preco = produto.Preco;
-            existente.Estoque = produto.Estoque;
-            existente.Ativo = produto.Ativo;
-
-            // Regras imagem:
-            // null => não altera (mantém a existente)
-            // string.Empty => remover -> usar imagem padrão
-            // valor não vazio => substituir
-            if (produto.imagem != null)
+            using (var ctx = new DigiMenuEntities())
             {
-                if (produto.imagem == string.Empty)
+                const string IMAGEM_PADRAO = "imgProduto/sem-imagem.png";
+                var existente = ctx.Produto.Find(produto.IdProduto);
+                if (existente == null) return;
+
+                // Atualiza campos básicos
+                existente.Nome = produto.Nome;
+                existente.Descricao = produto.Descricao;
+                existente.Preco = produto.Preco;
+                existente.Estoque = produto.Estoque;
+                existente.Ativo = produto.Ativo;
+
+                // Atualiza imagem, se fornecida
+                var imagemExistente = ctx.ImagemProduto.FirstOrDefault(i => i.ProdutoId == existente.IdProduto);
+
+                if (imagemProduto != null)
                 {
-                    existente.imagem = IMAGEM_PADRAO; // substitui por default
-                }
-                else if (!string.IsNullOrWhiteSpace(produto.imagem))
-                {
-                    existente.imagem = produto.imagem;
-                }
-            }
-
-            // Se por qualquer motivo ficar vazio, reforça padrão
-            if (string.IsNullOrWhiteSpace(existente.imagem))
-            {
-                existente.imagem = IMAGEM_PADRAO;
-            }
-
-            try
-            {
-                ctx.SaveChanges();
-            }
-            catch (DbEntityValidationException ex)
-            {
-                var sb = new StringBuilder();
-                foreach (var eve in ex.EntityValidationErrors)
-                {
-                    sb.AppendLine($"Entidade: {eve.Entry.Entity.GetType().Name} Estado: {eve.Entry.State}");
-                    foreach (var ve in eve.ValidationErrors)
+                    // Se não há registro de imagem ainda, cria um
+                    if (imagemExistente == null)
                     {
-                        sb.AppendLine($" - Propriedade: {ve.PropertyName} Erro: {ve.ErrorMessage}");
+                        imagemExistente = new ImagemProduto
+                        {
+                            ProdutoId = existente.IdProduto,
+                            CaminhoImagem = string.IsNullOrWhiteSpace(imagemProduto.CaminhoImagem)
+                                ? IMAGEM_PADRAO
+                                : imagemProduto.CaminhoImagem
+                        };
+                        ctx.ImagemProduto.Add(imagemExistente);
+                    }
+                    else
+                    {
+                        // Atualiza caminho se vier preenchido; se vier vazio, aplica padrão
+                        if (imagemProduto.CaminhoImagem != null)
+                        {
+                            imagemExistente.CaminhoImagem = string.IsNullOrWhiteSpace(imagemProduto.CaminhoImagem)
+                                ? IMAGEM_PADRAO
+                                : imagemProduto.CaminhoImagem;
+                        }
                     }
                 }
-                throw new Exception("Erro de validação ao atualizar produto: " + sb.ToString(), ex);
+
+                try
+                {
+                    ctx.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    var sb = new StringBuilder();
+                    foreach (var eve in ex.EntityValidationErrors)
+                    {
+                        sb.AppendLine($"Entidade: {eve.Entry.Entity.GetType().Name} Estado: {eve.Entry.State}");
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            sb.AppendLine($" - Propriedade: {ve.PropertyName} Erro: {ve.ErrorMessage}");
+                        }
+                    }
+                    throw new Exception("Erro de validação ao atualizar produto: " + sb.ToString(), ex);
+                }
             }
         }
+
+        internal void Salvar(Produto produto, ImagemProduto imagemProduto)
+        {
+            using (var ctx = new DigiMenuEntities())
+            {
+                const string IMAGEM_PADRAO = "imgProduto/sem-imagem.png";
+
+                // Adiciona produto primeiro para obter o Id
+                ctx.Produto.Add(produto);
+                ctx.SaveChanges();
+
+                if (imagemProduto == null)
+                {
+                    imagemProduto = new ImagemProduto
+                    {
+                        ProdutoId = produto.IdProduto,
+                        CaminhoImagem = IMAGEM_PADRAO
+                    };
+                }
+                else
+                {
+                    imagemProduto.ProdutoId = produto.IdProduto;
+                    if (string.IsNullOrWhiteSpace(imagemProduto.CaminhoImagem))
+                    {
+                        imagemProduto.CaminhoImagem = IMAGEM_PADRAO;
+                    }
+                }
+
+                ctx.ImagemProduto.Add(imagemProduto);
+                ctx.SaveChanges();
+            }
+        }
+
+        internal List<Produto> BuscarAtivos()
+        {
+            using (var ctx = new DigiMenuEntities())
+            {
+                return ctx.Produto.Where(p => p.Ativo).ToList();
+            }
+        }
+
     }
 }

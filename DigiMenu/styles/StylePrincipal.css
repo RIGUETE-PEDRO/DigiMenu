@@ -29,3 +29,44 @@
     border-radius: 20px;
     box-shadow: 0 0 6px rgba(0,0,0,0.3);
 }
+
+.produto-imagem {
+    /* Reduz o tamanho padrão das imagens de produto */
+    width: auto; /* não ocupa toda a largura do card */
+    height: 100px; /* altura menor */
+    max-width: 100%; /* evita estourar o container */
+    object-fit: contain; /* mantém a imagem inteira visível */
+    display: block; /* permite centralizar */
+    margin: 0 auto; /* centraliza no card */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    flex-grow: 1; /* força os cards terem mesma altura */
+    display: flex;
+    flex-direction: column;
+}
+
+    .card-body .card-text {
+        flex-grow: 1; /* empurra os botões para baixo */
+    }
+
+    .card-body .btn {
+        width: 48%; /* botões lado a lado com mesmo tamanho */
+    }
+
+
+
+
+
+
+
+

@@ -4,10 +4,17 @@ namespace DigiMenu.DAL
 {
     public class PedidoDAO
     {
-        protected readonly DigiMenuEntities Context;
-        public PedidoDAO(DigiMenuEntities context = null)
+        
+
+        internal void Salvar(Pedido pedido)
         {
-            Context = context ?? new DigiMenuEntities();
+            //salva o pedido no banco de dados
+            using (var ctx = new DigiMenuEntities())
+            {
+                // Adiciona o pedido
+               ctx.Pedido.Add(pedido);
+                ctx.SaveChanges();
+            }
         }
     }
 }

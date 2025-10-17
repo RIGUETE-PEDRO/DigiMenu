@@ -121,7 +121,6 @@
           <ScalarProperty Name="Preco" ColumnName="Preco" />
           <ScalarProperty Name="Estoque" ColumnName="Estoque" />
           <ScalarProperty Name="Ativo" ColumnName="Ativo" />
-          <ScalarProperty Name="imagem" ColumnName="imagem" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
