@@ -1,6 +1,7 @@
 ﻿using DigiMenu.DAL;
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 
 namespace DigiMenu
@@ -123,9 +124,23 @@ namespace DigiMenu
             }
         }
 
-        protected void btnAplicarFiltro_Click(object sender, EventArgs e)
+        protected void btnLogout_Click(object sender, EventArgs e)
         {
+            // Remove os dados da sessão
+            Session.Clear();
+            Session.Abandon();
 
+            // Opcional: limpar cookies de autenticação, se houver
+            if (Request.Cookies[".ASPXAUTH"] != null)
+            {
+                var cookie = new HttpCookie(".ASPXAUTH");
+                cookie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(cookie);
+            }
+
+            // Redireciona para a página de login
+            Response.Redirect("FrmLogin.aspx");
         }
+
     }
 }

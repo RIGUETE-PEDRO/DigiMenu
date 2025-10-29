@@ -55,6 +55,14 @@
                     </div>
                     <div class="userDisplay d-flex align-items-center" id="divUser" runat="server" style="display: none;">
                         <span class="me-3" id="lblUserName" runat="server"></span>
+                            
+                        <div class="userDisplay d-flex align-items-center" id="div1" runat="server" style="display: none;">
+                                
+                                <span class="me-3" id="Span1" runat="server"></span>
+
+                                <asp:LinkButton ID="btnLogout" runat="server" CssClass="logout" OnClick="btnLogout_Click">Sair</asp:LinkButton>
+                        </div>
+
                     </div>
 
                 </div>
@@ -88,7 +96,7 @@
                 </asp:DropDownList>
             </div>
 
-            <asp:Button ID="btnAplicarFiltro" runat="server" Text="Aplicar Filtro" CssClass="btn btn-primary" OnClick="btnAplicarFiltro_Click" />
+           
 
         </div>
         <!-- <div class="carrousel">

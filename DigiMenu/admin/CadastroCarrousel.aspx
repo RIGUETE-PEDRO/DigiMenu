@@ -6,7 +6,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Cadastro de Carrousel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
     <link href="../styles/CadastroCarrousel.css" rel="stylesheet" />
 </head>
 <body>
@@ -19,9 +19,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="FrmPainelAdministrativo.aspx">Home</a>
-                    <a class="nav-link" href="CadastroProduto.aspx">Produtos</a>
-                    <a class="nav-link" href="#">Carousel</a>
+                    <a class="nav-link" aria-current="page" href="FrmPainelAdministrativo.aspx">Home</a>
+                    <a class="nav-link " href="CadastroProduto.aspx">Produtos</a>
+                    <a class="nav-link active" href="#">Carousel</a>
                     <a class="nav-link" href="FrmPedidos.aspx">Pedidos</a>
                 </div>
             </div>
@@ -47,19 +47,20 @@
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td id="txtNome" runat="server"><%# Eval("Nome") %></td>
-
                                         <td>
-                                            <asp:CheckBox ID="Ativo"  runat="server" />
+                                            <asp:Literal ID="litNome" runat="server" Text='<%# Eval("Nome") %>' />
                                         </td>
                                         <td>
-                                            <input type="number" class="form-control input_number" id="txNumber" runat="server" />
+                                            <asp:CheckBox ID="chkAtivo" runat="server" Checked='<%# Eval("Ativo") %>' />
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="txtOrdem" runat="server" CssClass="form-control input_number" Text='<%# Eval("Ordem") %>' />
                                         </td>
                                     </tr>
                                 </ItemTemplate>
                                 <FooterTemplate>
                                     </table>
-                                <asp:Button ID="btnSalvar" runat="server" Text="Salvar Configurações" CssClass="btn btn-primary mt-3" OnClick="btnSalvar_Click" />
+                                    <asp:Button ID="btnSalvar" runat="server" Text="Salvar Configurações" CssClass="btn btn-primary mt-3" OnClick="btnSalvar_Click" />
                                 </FooterTemplate>
                             </asp:Repeater>
 
