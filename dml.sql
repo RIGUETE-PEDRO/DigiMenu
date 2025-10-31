@@ -7,7 +7,7 @@ insert into Tarefas (Tarefa) values ('Cadastro de Produto');
 insert into Tarefas (Tarefa) values ('Atualização de Produto');
 insert into Tarefas (Tarefa) values ('Delete de produto ');
 insert into Tarefas (Tarefa) values ('adicionar produto no carrinho');
-
+insert into Tarefas (Tarefa) values ('interar com as configuraçoes do carrousel');
 
 --status de pedido
 insert into status values ('pendente')
