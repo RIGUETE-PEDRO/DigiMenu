@@ -32,7 +32,7 @@ namespace DigiMenu
                 if (modoVisualizacao)
                 {
 
-                    lblMensagem.Text = "Visualizando produto.";
+                    lblMensagem.Text = "";
                     lblMensagem.Visible = true;
                 }
             }

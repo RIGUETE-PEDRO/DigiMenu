@@ -10,6 +10,15 @@ namespace DigiMenu.DAO
 {
     public class ProdutoDAO
     {
+        // DTO para dados do carrossel por produto (usado pela camada de apresentação)
+        public class ProdutoCarrosselDados
+        {
+            public int IdProduto { get; set; }
+            public string Nome { get; set; }
+            public bool Ativo { get; set; }
+            public int? Ordem { get; set; }
+        }
+
         public List<Produto> Listar()
         {
             using (var ctx = new DigiMenuEntities())
@@ -156,5 +165,29 @@ namespace DigiMenu.DAO
             }
         }
 
+        // Corrigido: DAO não toca em UI. Só retorna dados para a camada de apresentação.
+        public List<ProdutoCarrosselDados> BuscarDadosCarrossel(List<Produto> produtosAtivos)
+        {
+            using (var ctx = new DigiMenuEntities())
+            {
+                var dados = produtosAtivos
+                    .Select(p =>
+                    {
+                        string chave = $"P:{p.IdProduto}"; // chave preferencial por Id de produto
+                        var cfg = ctx.Carousel.FirstOrDefault(c => c.Nome == chave)
+                                  ?? ctx.Carousel.FirstOrDefault(c => c.Nome == p.Nome);
+                        return new ProdutoCarrosselDados
+                        {
+                            IdProduto = p.IdProduto,
+                            Nome = p.Nome,
+                            Ativo = cfg != null && cfg.Ativo,
+                            Ordem = (cfg != null && cfg.Ativo && cfg.Ordem > 0) ? (int?)cfg.Ordem : null
+                        };
+                    })
+                    .ToList();
+
+                return dados;
+            }
+        }
     }
 }

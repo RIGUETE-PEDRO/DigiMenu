@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static DigiMenu.admin.WebForm1;
 
 namespace DigiMenu.DAL
 {
@@ -22,36 +23,52 @@ namespace DigiMenu.DAL
             }
         }
 
+        // Atualiza/insere registros de carrossel usando a chave Nome = "P:{IdProduto}"
+        public void AtualizarCarrousel(List<ProdutoCarrouselDTO> produtos)
+        {
+            if (produtos == null || produtos.Count == 0) return;
+
+            using (var ctx = new DigiMenuEntities())
+            {
+                foreach (var dto in produtos)
+                {
+                    string chave = $"P:{dto.IdProduto}";
+                    var registro = ctx.Carousel.FirstOrDefault(c => c.Nome == chave);
+                    if (registro == null)
+                    {
+                        registro = new Carousel { Nome = chave };
+                        ctx.Carousel.Add(registro);
+                    }
+
+                    registro.Ativo = dto.Ativo;
+                    registro.Ordem = (dto.Ativo && dto.Ordem > 0) ? dto.Ordem : 0;
+                }
+
+                ctx.SaveChanges();
+            }
+        }
 
         internal void SalvarOuAtualizar(Carousel carousel)
         {
             using (var ctx = new DigiMenuEntities())
             {
-                Carousel existingCarousel = null;
+                Carousel existente = null;
 
                 if (carousel.IdCarousel > 0)
                 {
-                    existingCarousel = ctx.Carousel.Find(carousel.IdCarousel);
+                    existente = ctx.Carousel.Find(carousel.IdCarousel);
                 }
 
-                if (existingCarousel == null && !string.IsNullOrWhiteSpace(carousel.Nome))
+                if (existente == null && !string.IsNullOrWhiteSpace(carousel.Nome))
                 {
-                    // Chave preferencial: P:{IdProduto}
-                    existingCarousel = ctx.Carousel.FirstOrDefault(c => c.Nome == carousel.Nome);
-
-                    if (existingCarousel == null && carousel.Nome.StartsWith("P:"))
-                    {
-                        // Backcompat: se antes gravou só o nome descritivo, tenta localizar por nome antigo
-                        // Nome antigo não é conhecido aqui, então não conseguimos migrar diretamente.
-                        // A migração ocorrerá quando CarregarProdutos encontrar o antigo e passar a usar a nova chave.
-                    }
+                    existente = ctx.Carousel.FirstOrDefault(c => c.Nome == carousel.Nome);
                 }
 
-                if (existingCarousel != null)
+                if (existente != null)
                 {
-                    existingCarousel.Nome = carousel.Nome;
-                    existingCarousel.Ativo = carousel.Ativo;
-                    existingCarousel.Ordem = carousel.Ordem;
+                    existente.Nome = carousel.Nome;
+                    existente.Ativo = carousel.Ativo;
+                    existente.Ordem = carousel.Ordem;
                 }
                 else
                 {

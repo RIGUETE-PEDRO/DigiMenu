@@ -33,6 +33,7 @@ namespace DigiMenu
             }
         }
 
+
         private void iniciarFiltro()
         {
             ddlCategoria.Visible = rbCategoria.Checked;

@@ -1,5 +1,6 @@
-﻿using System;
-using DigiMenu.DAO;
+﻿using DigiMenu.DAO;
+using System;
+using System.Web.Services.Description;
 
 namespace DigiMenu.admin
 {
@@ -12,8 +13,9 @@ namespace DigiMenu.admin
             
                 string usuario = txtUsuario.Text.Trim();
                 string senha = txtSenha.Text.Trim();
+                var mensagem = new Mensagens();
 
-                string senhaHash = new HashHelper().GerarHashSHA256(senha);
+            string senhaHash = new HashHelper().GerarHashSHA256(senha);
 
                 try
                 {
@@ -44,21 +46,24 @@ namespace DigiMenu.admin
                     }
                     else
                     {
-                        ExibirMensagem("Usuário ou senha inválidos.", false);
-                    }
+                    PlaceHolderMensagens.Controls.Clear();
+                    var div = mensagem.MostrarMensagem("usuario ou senha errado.", "erro");
+                    PlaceHolderMensagens.Controls.Add(div);
+                    return;
+                }
                 }
                 catch (Exception ex)
                 {
-                    ExibirMensagem("Erro ao processar login: " + ex.Message, false);
-                }
+
+                //mensagem de modularizada
+                PlaceHolderMensagens.Controls.Clear();
+                var div = mensagem.MostrarMensagem("erro ao processar login.", "erro");
+                PlaceHolderMensagens.Controls.Add(div);
+                return;
+            }
             }
         
 
-        private void ExibirMensagem(string msg, bool sucesso)
-        {
-            lblMensagem.Text = msg;
-            lblMensagem.CssClass = sucesso ? "text-success" : "text-danger";
-            lblMensagem.Visible = true;
-        }
+        
     }
 }

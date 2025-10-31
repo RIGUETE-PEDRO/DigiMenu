@@ -129,6 +129,7 @@
     <Compile Include="carrinho.aspx.designer.cs">
       <DependentUpon>carrinho.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Mensagens.cs" />
     <Compile Include="FrmCadastro.aspx.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -272,9 +273,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

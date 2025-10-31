@@ -27,7 +27,7 @@
                     <label for="txtSenha" class="form-label">Senha</label><link href="../styles/StyleLogin.css" rel="stylesheet" />
                     <asp:TextBox ID="txtSenha" runat="server" CssClass="form-control" TextMode="Password" Placeholder="Digite sua senha" required="required"></asp:TextBox>
                 </div>
-                 <asp:Label ID="lblMensagem" runat="server" ForeColor="Red"></asp:Label>
+                 <asp:PlaceHolder ID="PlaceHolderMensagens" runat="server"></asp:PlaceHolder>
          
                 <asp:Button ID="btnCadastrar" OnClick="btnLogin_Click" runat="server" Text="Login" CssClass="btn btn-primary w-100 Login" />
                 <a href="FrmCadastro.aspx" class="btn btn-primary w-100 cadastro ">Cadastrar</a>
