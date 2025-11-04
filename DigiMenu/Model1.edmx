@@ -22,6 +22,13 @@
           <Property Name="UsuarioId" Type="int" Nullable="false" />
           <Property Name="DataCriacao" Type="datetime" />
         </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Cidade">
           <Key>
             <PropertyRef Name="IdCidade" />
@@ -111,6 +118,7 @@
           </Key>
           <Property Name="IdProduto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Categoria" Type="int" Nullable="false" />
           <Property Name="Descricao" Type="varchar" MaxLength="255" />
           <Property Name="Preco" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Estoque" Type="int" Nullable="false" />
@@ -149,7 +157,7 @@
           <Property Name="Criacao" Type="date" Nullable="false" />
           <Property Name="TipoUsuarioId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Carrinho__Usuari__59FA5E80">
+        <Association Name="FK__Carrinho__Usuari__5CD6CB2B">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -163,7 +171,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cidade__EstadoId__46E78A0C">
+        <Association Name="FK__Cidade__EstadoId__48CFD27E">
           <End Role="Estado" Type="Self.Estado" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -177,7 +185,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Endereco__Cidade__5629CD9C">
+        <Association Name="FK__Endereco__Cidade__59063A47">
           <End Role="Cidade" Type="Self.Cidade" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -191,7 +199,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Endereco__Usuari__571DF1D5">
+        <Association Name="FK__Endereco__Usuari__59FA5E80">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -205,7 +213,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Estado__PaisId__440B1D61">
+        <Association Name="FK__Estado__PaisId__45F365D3">
           <End Role="Pais" Type="Self.Pais" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -219,7 +227,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImagemPro__Carou__6477ECF3">
+        <Association Name="FK__ImagemPro__Carou__6754599E">
           <End Role="Carousel" Type="Self.Carousel" Multiplicity="0..1" />
           <End Role="ImagemProduto" Type="Self.ImagemProduto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -231,7 +239,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImagemPro__Produ__6383C8BA">
+        <Association Name="FK__ImagemPro__Produ__66603565">
           <End Role="Produto" Type="Self.Produto" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -245,7 +253,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemCarri__Carri__5CD6CB2B">
+        <Association Name="FK__ItemCarri__Carri__5FB337D6">
           <End Role="Carrinho" Type="Self.Carrinho" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -259,7 +267,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemCarri__Produ__5DCAEF64">
+        <Association Name="FK__ItemCarri__Produ__60A75C0F">
           <End Role="Produto" Type="Self.Produto" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -273,7 +281,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemPedid__Pedid__534D60F1">
+        <Association Name="FK__ItemPedid__Pedid__5629CD9C">
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -287,7 +295,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemPedid__Produ__52593CB8">
+        <Association Name="FK__ItemPedid__Produ__5535A963">
           <End Role="Produto" Type="Self.Produto" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -301,7 +309,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Log__TarefasId__3E52440B">
+        <Association Name="FK__Log__TarefasId__403A8C7D">
           <End Role="Tarefas" Type="Self.Tarefas" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -315,7 +323,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Log__UsuarioId__3F466844">
+        <Association Name="FK__Log__UsuarioId__412EB0B6">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -329,7 +337,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pedido__StatusId__4F7CD00D">
+        <Association Name="FK__Pedido__StatusId__52593CB8">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
           <ReferentialConstraint>
@@ -341,7 +349,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pedido__UsuarioI__4E88ABD4">
+        <Association Name="FK__Pedido__UsuarioI__5165187F">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -355,7 +363,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Usuario__TipoUsu__398D8EEE">
+        <Association Name="FK__Produto__Categor__4CA06362">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__TipoUsu__3B75D760">
           <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
           <ReferentialConstraint>
@@ -370,6 +390,7 @@
         <EntityContainer Name="DigiMenuModelStoreContainer">
           <EntitySet Name="Carousel" EntityType="Self.Carousel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Carrinho" EntityType="Self.Carrinho" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cidade" EntityType="Self.Cidade" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Endereco" EntityType="Self.Endereco" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
@@ -384,67 +405,71 @@
           <EntitySet Name="Tarefas" EntityType="Self.Tarefas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Carrinho__Usuari__59FA5E80" Association="Self.FK__Carrinho__Usuari__59FA5E80">
+          <AssociationSet Name="FK__Carrinho__Usuari__5CD6CB2B" Association="Self.FK__Carrinho__Usuari__5CD6CB2B">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Carrinho" EntitySet="Carrinho" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cidade__EstadoId__46E78A0C" Association="Self.FK__Cidade__EstadoId__46E78A0C">
+          <AssociationSet Name="FK__Cidade__EstadoId__48CFD27E" Association="Self.FK__Cidade__EstadoId__48CFD27E">
             <End Role="Estado" EntitySet="Estado" />
             <End Role="Cidade" EntitySet="Cidade" />
           </AssociationSet>
-          <AssociationSet Name="FK__Endereco__Cidade__5629CD9C" Association="Self.FK__Endereco__Cidade__5629CD9C">
+          <AssociationSet Name="FK__Endereco__Cidade__59063A47" Association="Self.FK__Endereco__Cidade__59063A47">
             <End Role="Cidade" EntitySet="Cidade" />
             <End Role="Endereco" EntitySet="Endereco" />
           </AssociationSet>
-          <AssociationSet Name="FK__Endereco__Usuari__571DF1D5" Association="Self.FK__Endereco__Usuari__571DF1D5">
+          <AssociationSet Name="FK__Endereco__Usuari__59FA5E80" Association="Self.FK__Endereco__Usuari__59FA5E80">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Endereco" EntitySet="Endereco" />
           </AssociationSet>
-          <AssociationSet Name="FK__Estado__PaisId__440B1D61" Association="Self.FK__Estado__PaisId__440B1D61">
+          <AssociationSet Name="FK__Estado__PaisId__45F365D3" Association="Self.FK__Estado__PaisId__45F365D3">
             <End Role="Pais" EntitySet="Pais" />
             <End Role="Estado" EntitySet="Estado" />
           </AssociationSet>
-          <AssociationSet Name="FK__ImagemPro__Carou__6477ECF3" Association="Self.FK__ImagemPro__Carou__6477ECF3">
+          <AssociationSet Name="FK__ImagemPro__Carou__6754599E" Association="Self.FK__ImagemPro__Carou__6754599E">
             <End Role="Carousel" EntitySet="Carousel" />
             <End Role="ImagemProduto" EntitySet="ImagemProduto" />
           </AssociationSet>
-          <AssociationSet Name="FK__ImagemPro__Produ__6383C8BA" Association="Self.FK__ImagemPro__Produ__6383C8BA">
+          <AssociationSet Name="FK__ImagemPro__Produ__66603565" Association="Self.FK__ImagemPro__Produ__66603565">
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ImagemProduto" EntitySet="ImagemProduto" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemCarri__Carri__5CD6CB2B" Association="Self.FK__ItemCarri__Carri__5CD6CB2B">
+          <AssociationSet Name="FK__ItemCarri__Carri__5FB337D6" Association="Self.FK__ItemCarri__Carri__5FB337D6">
             <End Role="Carrinho" EntitySet="Carrinho" />
             <End Role="ItemCarrinho" EntitySet="ItemCarrinho" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemCarri__Produ__5DCAEF64" Association="Self.FK__ItemCarri__Produ__5DCAEF64">
+          <AssociationSet Name="FK__ItemCarri__Produ__60A75C0F" Association="Self.FK__ItemCarri__Produ__60A75C0F">
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ItemCarrinho" EntitySet="ItemCarrinho" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemPedid__Pedid__534D60F1" Association="Self.FK__ItemPedid__Pedid__534D60F1">
+          <AssociationSet Name="FK__ItemPedid__Pedid__5629CD9C" Association="Self.FK__ItemPedid__Pedid__5629CD9C">
             <End Role="Pedido" EntitySet="Pedido" />
             <End Role="ItemPedido" EntitySet="ItemPedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemPedid__Produ__52593CB8" Association="Self.FK__ItemPedid__Produ__52593CB8">
+          <AssociationSet Name="FK__ItemPedid__Produ__5535A963" Association="Self.FK__ItemPedid__Produ__5535A963">
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ItemPedido" EntitySet="ItemPedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Log__TarefasId__3E52440B" Association="Self.FK__Log__TarefasId__3E52440B">
+          <AssociationSet Name="FK__Log__TarefasId__403A8C7D" Association="Self.FK__Log__TarefasId__403A8C7D">
             <End Role="Tarefas" EntitySet="Tarefas" />
             <End Role="Log" EntitySet="Log" />
           </AssociationSet>
-          <AssociationSet Name="FK__Log__UsuarioId__3F466844" Association="Self.FK__Log__UsuarioId__3F466844">
+          <AssociationSet Name="FK__Log__UsuarioId__412EB0B6" Association="Self.FK__Log__UsuarioId__412EB0B6">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Log" EntitySet="Log" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pedido__StatusId__4F7CD00D" Association="Self.FK__Pedido__StatusId__4F7CD00D">
+          <AssociationSet Name="FK__Pedido__StatusId__52593CB8" Association="Self.FK__Pedido__StatusId__52593CB8">
             <End Role="Status" EntitySet="Status" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pedido__UsuarioI__4E88ABD4" Association="Self.FK__Pedido__UsuarioI__4E88ABD4">
+          <AssociationSet Name="FK__Pedido__UsuarioI__5165187F" Association="Self.FK__Pedido__UsuarioI__5165187F">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Usuario__TipoUsu__398D8EEE" Association="Self.FK__Usuario__TipoUsu__398D8EEE">
+          <AssociationSet Name="FK__Produto__Categor__4CA06362" Association="Self.FK__Produto__Categor__4CA06362">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__TipoUsu__3B75D760" Association="Self.FK__Usuario__TipoUsu__3B75D760">
             <End Role="TipoUsuario" EntitySet="TipoUsuario" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
@@ -453,6 +478,93 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DigiMenuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DigiMenuEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carousel" EntityType="DigiMenuModel.Carousel" />
+          <EntitySet Name="Carrinho" EntityType="DigiMenuModel.Carrinho" />
+          <EntitySet Name="Categoria" EntityType="DigiMenuModel.Categoria" />
+          <EntitySet Name="Cidade" EntityType="DigiMenuModel.Cidade" />
+          <EntitySet Name="Endereco" EntityType="DigiMenuModel.Endereco" />
+          <EntitySet Name="Estado" EntityType="DigiMenuModel.Estado" />
+          <EntitySet Name="ImagemProduto" EntityType="DigiMenuModel.ImagemProduto" />
+          <EntitySet Name="ItemCarrinho" EntityType="DigiMenuModel.ItemCarrinho" />
+          <EntitySet Name="ItemPedido" EntityType="DigiMenuModel.ItemPedido" />
+          <EntitySet Name="Log" EntityType="DigiMenuModel.Log" />
+          <EntitySet Name="Pais" EntityType="DigiMenuModel.Pais" />
+          <EntitySet Name="Pedido" EntityType="DigiMenuModel.Pedido" />
+          <EntitySet Name="Produto" EntityType="DigiMenuModel.Produto" />
+          <EntitySet Name="Status" EntityType="DigiMenuModel.Status" />
+          <EntitySet Name="Tarefas" EntityType="DigiMenuModel.Tarefas" />
+          <EntitySet Name="TipoUsuario" EntityType="DigiMenuModel.TipoUsuario" />
+          <EntitySet Name="Usuario" EntityType="DigiMenuModel.Usuario" />
+          <AssociationSet Name="FK__ImagemPro__Carou__6754599E" Association="DigiMenuModel.FK__ImagemPro__Carou__6754599E">
+            <End Role="Carousel" EntitySet="Carousel" />
+            <End Role="ImagemProduto" EntitySet="ImagemProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Carrinho__Usuari__5CD6CB2B" Association="DigiMenuModel.FK__Carrinho__Usuari__5CD6CB2B">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Carrinho" EntitySet="Carrinho" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemCarri__Carri__5FB337D6" Association="DigiMenuModel.FK__ItemCarri__Carri__5FB337D6">
+            <End Role="Carrinho" EntitySet="Carrinho" />
+            <End Role="ItemCarrinho" EntitySet="ItemCarrinho" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Produto__Categor__4CA06362" Association="DigiMenuModel.FK__Produto__Categor__4CA06362">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Produto" EntitySet="Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cidade__EstadoId__48CFD27E" Association="DigiMenuModel.FK__Cidade__EstadoId__48CFD27E">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="Cidade" EntitySet="Cidade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Endereco__Cidade__59063A47" Association="DigiMenuModel.FK__Endereco__Cidade__59063A47">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Endereco" EntitySet="Endereco" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Endereco__Usuari__59FA5E80" Association="DigiMenuModel.FK__Endereco__Usuari__59FA5E80">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Endereco" EntitySet="Endereco" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Estado__PaisId__45F365D3" Association="DigiMenuModel.FK__Estado__PaisId__45F365D3">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Estado" EntitySet="Estado" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ImagemPro__Produ__66603565" Association="DigiMenuModel.FK__ImagemPro__Produ__66603565">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ImagemProduto" EntitySet="ImagemProduto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemCarri__Produ__60A75C0F" Association="DigiMenuModel.FK__ItemCarri__Produ__60A75C0F">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ItemCarrinho" EntitySet="ItemCarrinho" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemPedid__Pedid__5629CD9C" Association="DigiMenuModel.FK__ItemPedid__Pedid__5629CD9C">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="ItemPedido" EntitySet="ItemPedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemPedid__Produ__5535A963" Association="DigiMenuModel.FK__ItemPedid__Produ__5535A963">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="ItemPedido" EntitySet="ItemPedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Log__TarefasId__403A8C7D" Association="DigiMenuModel.FK__Log__TarefasId__403A8C7D">
+            <End Role="Tarefas" EntitySet="Tarefas" />
+            <End Role="Log" EntitySet="Log" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Log__UsuarioId__412EB0B6" Association="DigiMenuModel.FK__Log__UsuarioId__412EB0B6">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Log" EntitySet="Log" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido__StatusId__52593CB8" Association="DigiMenuModel.FK__Pedido__StatusId__52593CB8">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido__UsuarioI__5165187F" Association="DigiMenuModel.FK__Pedido__UsuarioI__5165187F">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__TipoUsu__3B75D760" Association="DigiMenuModel.FK__Usuario__TipoUsu__3B75D760">
+            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Carousel">
           <Key>
             <PropertyRef Name="IdCarousel" />
@@ -461,7 +573,7 @@
           <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Ativo" Type="Boolean" Nullable="false" />
           <Property Name="Ordem" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ImagemProduto" Relationship="Self.FK_ImagemProduto_Carousel" FromRole="Carousel" ToRole="ImagemProduto" />
+          <NavigationProperty Name="ImagemProduto" Relationship="DigiMenuModel.FK__ImagemPro__Carou__6754599E" FromRole="Carousel" ToRole="ImagemProduto" />
         </EntityType>
         <EntityType Name="Carrinho">
           <Key>
@@ -470,8 +582,16 @@
           <Property Name="IdCarrinho" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UsuarioId" Type="Int32" Nullable="false" />
           <Property Name="DataCriacao" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Carrinho__Usuari__6C190EBB" FromRole="Carrinho" ToRole="Usuario" />
-          <NavigationProperty Name="ItemCarrinho" Relationship="Self.FK__ItemCarri__Carri__6EF57B66" FromRole="Carrinho" ToRole="ItemCarrinho" />
+          <NavigationProperty Name="Usuario" Relationship="DigiMenuModel.FK__Carrinho__Usuari__5CD6CB2B" FromRole="Carrinho" ToRole="Usuario" />
+          <NavigationProperty Name="ItemCarrinho" Relationship="DigiMenuModel.FK__ItemCarri__Carri__5FB337D6" FromRole="Carrinho" ToRole="ItemCarrinho" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Produto" Relationship="DigiMenuModel.FK__Produto__Categor__4CA06362" FromRole="Categoria" ToRole="Produto" />
         </EntityType>
         <EntityType Name="Cidade">
           <Key>
@@ -480,8 +600,8 @@
           <Property Name="IdCidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="EstadoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Estado" Relationship="Self.FK__Cidade__EstadoId__59063A47" FromRole="Cidade" ToRole="Estado" />
-          <NavigationProperty Name="Endereco" Relationship="Self.FK__Endereco__Cidade__68487DD7" FromRole="Cidade" ToRole="Endereco" />
+          <NavigationProperty Name="Estado" Relationship="DigiMenuModel.FK__Cidade__EstadoId__48CFD27E" FromRole="Cidade" ToRole="Estado" />
+          <NavigationProperty Name="Endereco" Relationship="DigiMenuModel.FK__Endereco__Cidade__59063A47" FromRole="Cidade" ToRole="Endereco" />
         </EntityType>
         <EntityType Name="Endereco">
           <Key>
@@ -489,13 +609,13 @@
           </Key>
           <Property Name="IdEndereco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CidadeId" Type="Int32" Nullable="false" />
-          <Property Name="Logradouro" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Logradouro" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Cep" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Complemento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="UsuarioId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cidade" Relationship="Self.FK__Endereco__Cidade__68487DD7" FromRole="Endereco" ToRole="Cidade" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Endereco__Usuari__693CA210" FromRole="Endereco" ToRole="Usuario" />
+          <NavigationProperty Name="Cidade" Relationship="DigiMenuModel.FK__Endereco__Cidade__59063A47" FromRole="Endereco" ToRole="Cidade" />
+          <NavigationProperty Name="Usuario" Relationship="DigiMenuModel.FK__Endereco__Usuari__59FA5E80" FromRole="Endereco" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Estado">
           <Key>
@@ -504,19 +624,19 @@
           <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="PaisId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cidade" Relationship="Self.FK__Cidade__EstadoId__59063A47" FromRole="Estado" ToRole="Cidade" />
-          <NavigationProperty Name="Pais" Relationship="Self.FK__Estado__PaisId__5629CD9C" FromRole="Estado" ToRole="Pais" />
+          <NavigationProperty Name="Cidade" Relationship="DigiMenuModel.FK__Cidade__EstadoId__48CFD27E" FromRole="Estado" ToRole="Cidade" />
+          <NavigationProperty Name="Pais" Relationship="DigiMenuModel.FK__Estado__PaisId__45F365D3" FromRole="Estado" ToRole="Pais" />
         </EntityType>
         <EntityType Name="ImagemProduto">
           <Key>
             <PropertyRef Name="IdImagemProduto" />
           </Key>
           <Property Name="IdImagemProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CaminhoImagem" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CaminhoImagem" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="ProdutoId" Type="Int32" Nullable="false" />
           <Property Name="CarouselId" Type="Int32" />
-          <NavigationProperty Name="Carousel" Relationship="Self.FK_ImagemProduto_Carousel" FromRole="ImagemProduto" ToRole="Carousel" />
-          <NavigationProperty Name="Produto" Relationship="Self.FK__ImagemPro__Produ__75A278F5" FromRole="ImagemProduto" ToRole="Produto" />
+          <NavigationProperty Name="Carousel" Relationship="DigiMenuModel.FK__ImagemPro__Carou__6754599E" FromRole="ImagemProduto" ToRole="Carousel" />
+          <NavigationProperty Name="Produto" Relationship="DigiMenuModel.FK__ImagemPro__Produ__66603565" FromRole="ImagemProduto" ToRole="Produto" />
         </EntityType>
         <EntityType Name="ItemCarrinho">
           <Key>
@@ -527,8 +647,8 @@
           <Property Name="PrecoTotal" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="CarrinhoId" Type="Int32" Nullable="false" />
           <Property Name="ProdutoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Carrinho" Relationship="Self.FK__ItemCarri__Carri__6EF57B66" FromRole="ItemCarrinho" ToRole="Carrinho" />
-          <NavigationProperty Name="Produto" Relationship="Self.FK__ItemCarri__Produ__6FE99F9F" FromRole="ItemCarrinho" ToRole="Produto" />
+          <NavigationProperty Name="Carrinho" Relationship="DigiMenuModel.FK__ItemCarri__Carri__5FB337D6" FromRole="ItemCarrinho" ToRole="Carrinho" />
+          <NavigationProperty Name="Produto" Relationship="DigiMenuModel.FK__ItemCarri__Produ__60A75C0F" FromRole="ItemCarrinho" ToRole="Produto" />
         </EntityType>
         <EntityType Name="ItemPedido">
           <Key>
@@ -536,11 +656,11 @@
           </Key>
           <Property Name="IdItemPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Quantidade" Type="Int32" Nullable="false" />
-          <Property Name="PrecoUnitario" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="PrecoUnitario" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
           <Property Name="ProdutoId" Type="Int32" Nullable="false" />
           <Property Name="PedidoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Pedido" Relationship="Self.FK__ItemPedid__Pedid__656C112C" FromRole="ItemPedido" ToRole="Pedido" />
-          <NavigationProperty Name="Produto" Relationship="Self.FK__ItemPedid__Produ__6477ECF3" FromRole="ItemPedido" ToRole="Produto" />
+          <NavigationProperty Name="Pedido" Relationship="DigiMenuModel.FK__ItemPedid__Pedid__5629CD9C" FromRole="ItemPedido" ToRole="Pedido" />
+          <NavigationProperty Name="Produto" Relationship="DigiMenuModel.FK__ItemPedid__Produ__5535A963" FromRole="ItemPedido" ToRole="Produto" />
         </EntityType>
         <EntityType Name="Log">
           <Key>
@@ -550,8 +670,8 @@
           <Property Name="TarefasId" Type="Int32" Nullable="false" />
           <Property Name="DataHora" Type="DateTime" Precision="3" />
           <Property Name="UsuarioId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Tarefas" Relationship="Self.FK__Log__TarefasId__5070F446" FromRole="Log" ToRole="Tarefas" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Log__UsuarioId__5165187F" FromRole="Log" ToRole="Usuario" />
+          <NavigationProperty Name="Tarefas" Relationship="DigiMenuModel.FK__Log__TarefasId__403A8C7D" FromRole="Log" ToRole="Tarefas" />
+          <NavigationProperty Name="Usuario" Relationship="DigiMenuModel.FK__Log__UsuarioId__412EB0B6" FromRole="Log" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Pais">
           <Key>
@@ -559,7 +679,7 @@
           </Key>
           <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Estado" Relationship="Self.FK__Estado__PaisId__5629CD9C" FromRole="Pais" ToRole="Estado" />
+          <NavigationProperty Name="Estado" Relationship="DigiMenuModel.FK__Estado__PaisId__45F365D3" FromRole="Pais" ToRole="Estado" />
         </EntityType>
         <EntityType Name="Pedido">
           <Key>
@@ -567,26 +687,28 @@
           </Key>
           <Property Name="IdPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="UsuarioId" Type="Int32" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ItemPedido" Relationship="Self.FK__ItemPedid__Pedid__656C112C" FromRole="Pedido" ToRole="ItemPedido" />
-          <NavigationProperty Name="Status" Relationship="Self.FK__Pedido__StatusId__619B8048" FromRole="Pedido" ToRole="Status" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Pedido__UsuarioI__60A75C0F" FromRole="Pedido" ToRole="Usuario" />
+          <NavigationProperty Name="ItemPedido" Relationship="DigiMenuModel.FK__ItemPedid__Pedid__5629CD9C" FromRole="Pedido" ToRole="ItemPedido" />
+          <NavigationProperty Name="Status" Relationship="DigiMenuModel.FK__Pedido__StatusId__52593CB8" FromRole="Pedido" ToRole="Status" />
+          <NavigationProperty Name="Usuario" Relationship="DigiMenuModel.FK__Pedido__UsuarioI__5165187F" FromRole="Pedido" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Produto">
           <Key>
             <PropertyRef Name="IdProduto" />
           </Key>
           <Property Name="IdProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Categoria" Type="Int32" Nullable="false" />
           <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Preco" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Preco" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="Estoque" Type="Int32" Nullable="false" />
           <Property Name="Ativo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ImagemProduto" Relationship="Self.FK__ImagemPro__Produ__75A278F5" FromRole="Produto" ToRole="ImagemProduto" />
-          <NavigationProperty Name="ItemCarrinho" Relationship="Self.FK__ItemCarri__Produ__6FE99F9F" FromRole="Produto" ToRole="ItemCarrinho" />
-          <NavigationProperty Name="ItemPedido" Relationship="Self.FK__ItemPedid__Produ__6477ECF3" FromRole="Produto" ToRole="ItemPedido" />
+          <NavigationProperty Name="Categoria1" Relationship="DigiMenuModel.FK__Produto__Categor__4CA06362" FromRole="Produto" ToRole="Categoria" />
+          <NavigationProperty Name="ImagemProduto" Relationship="DigiMenuModel.FK__ImagemPro__Produ__66603565" FromRole="Produto" ToRole="ImagemProduto" />
+          <NavigationProperty Name="ItemCarrinho" Relationship="DigiMenuModel.FK__ItemCarri__Produ__60A75C0F" FromRole="Produto" ToRole="ItemCarrinho" />
+          <NavigationProperty Name="ItemPedido" Relationship="DigiMenuModel.FK__ItemPedid__Produ__5535A963" FromRole="Produto" ToRole="ItemPedido" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -594,7 +716,7 @@
           </Key>
           <Property Name="IdStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido__StatusId__619B8048" FromRole="Status" ToRole="Pedido" />
+          <NavigationProperty Name="Pedido" Relationship="DigiMenuModel.FK__Pedido__StatusId__52593CB8" FromRole="Status" ToRole="Pedido" />
         </EntityType>
         <EntityType Name="Tarefas">
           <Key>
@@ -602,7 +724,7 @@
           </Key>
           <Property Name="IdTarefas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Tarefa" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Log" Relationship="Self.FK__Log__TarefasId__5070F446" FromRole="Tarefas" ToRole="Log" />
+          <NavigationProperty Name="Log" Relationship="DigiMenuModel.FK__Log__TarefasId__403A8C7D" FromRole="Tarefas" ToRole="Log" />
         </EntityType>
         <EntityType Name="TipoUsuario">
           <Key>
@@ -610,28 +732,28 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoUsuario1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__TipoUsu__4BAC3F29" FromRole="TipoUsuario" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario" Relationship="DigiMenuModel.FK__Usuario__TipoUsu__3B75D760" FromRole="TipoUsuario" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="HashSenha" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="HashSenha" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Telefone" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Criacao" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="TipoUsuarioId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Carrinho" Relationship="Self.FK__Carrinho__Usuari__6C190EBB" FromRole="Usuario" ToRole="Carrinho" />
-          <NavigationProperty Name="Endereco" Relationship="Self.FK__Endereco__Usuari__693CA210" FromRole="Usuario" ToRole="Endereco" />
-          <NavigationProperty Name="Log" Relationship="Self.FK__Log__UsuarioId__5165187F" FromRole="Usuario" ToRole="Log" />
-          <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido__UsuarioI__60A75C0F" FromRole="Usuario" ToRole="Pedido" />
-          <NavigationProperty Name="TipoUsuario" Relationship="Self.FK__Usuario__TipoUsu__4BAC3F29" FromRole="Usuario" ToRole="TipoUsuario" />
+          <NavigationProperty Name="Carrinho" Relationship="DigiMenuModel.FK__Carrinho__Usuari__5CD6CB2B" FromRole="Usuario" ToRole="Carrinho" />
+          <NavigationProperty Name="Endereco" Relationship="DigiMenuModel.FK__Endereco__Usuari__59FA5E80" FromRole="Usuario" ToRole="Endereco" />
+          <NavigationProperty Name="Log" Relationship="DigiMenuModel.FK__Log__UsuarioId__412EB0B6" FromRole="Usuario" ToRole="Log" />
+          <NavigationProperty Name="Pedido" Relationship="DigiMenuModel.FK__Pedido__UsuarioI__5165187F" FromRole="Usuario" ToRole="Pedido" />
+          <NavigationProperty Name="TipoUsuario" Relationship="DigiMenuModel.FK__Usuario__TipoUsu__3B75D760" FromRole="Usuario" ToRole="TipoUsuario" />
         </EntityType>
-        <Association Name="FK_ImagemProduto_Carousel">
-          <End Role="Carousel" Type="Self.Carousel" Multiplicity="0..1" />
-          <End Role="ImagemProduto" Type="Self.ImagemProduto" Multiplicity="*" />
+        <Association Name="FK__ImagemPro__Carou__6754599E">
+          <End Type="DigiMenuModel.Carousel" Role="Carousel" Multiplicity="0..1" />
+          <End Type="DigiMenuModel.ImagemProduto" Role="ImagemProduto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Carousel">
               <PropertyRef Name="IdCarousel" />
@@ -641,9 +763,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Carrinho__Usuari__6C190EBB">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Carrinho" Type="Self.Carrinho" Multiplicity="*" />
+        <Association Name="FK__Carrinho__Usuari__5CD6CB2B">
+          <End Type="DigiMenuModel.Usuario" Role="Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.Carrinho" Role="Carrinho" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
@@ -653,9 +777,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemCarri__Carri__6EF57B66">
-          <End Role="Carrinho" Type="Self.Carrinho" Multiplicity="1" />
-          <End Role="ItemCarrinho" Type="Self.ItemCarrinho" Multiplicity="*" />
+        <Association Name="FK__ItemCarri__Carri__5FB337D6">
+          <End Type="DigiMenuModel.Carrinho" Role="Carrinho" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.ItemCarrinho" Role="ItemCarrinho" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Carrinho">
               <PropertyRef Name="IdCarrinho" />
@@ -665,9 +791,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cidade__EstadoId__59063A47">
-          <End Role="Estado" Type="Self.Estado" Multiplicity="1" />
-          <End Role="Cidade" Type="Self.Cidade" Multiplicity="*" />
+        <Association Name="FK__Produto__Categor__4CA06362">
+          <End Type="DigiMenuModel.Categoria" Role="Categoria" Multiplicity="1" />
+          <End Type="DigiMenuModel.Produto" Role="Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Produto">
+              <PropertyRef Name="Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cidade__EstadoId__48CFD27E">
+          <End Type="DigiMenuModel.Estado" Role="Estado" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.Cidade" Role="Cidade" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estado">
               <PropertyRef Name="IdEstado" />
@@ -677,9 +817,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Endereco__Cidade__68487DD7">
-          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1" />
-          <End Role="Endereco" Type="Self.Endereco" Multiplicity="*" />
+        <Association Name="FK__Endereco__Cidade__59063A47">
+          <End Type="DigiMenuModel.Cidade" Role="Cidade" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.Endereco" Role="Endereco" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cidade">
               <PropertyRef Name="IdCidade" />
@@ -689,9 +831,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Endereco__Usuari__693CA210">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Endereco" Type="Self.Endereco" Multiplicity="*" />
+        <Association Name="FK__Endereco__Usuari__59FA5E80">
+          <End Type="DigiMenuModel.Usuario" Role="Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.Endereco" Role="Endereco" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
@@ -701,9 +845,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Estado__PaisId__5629CD9C">
-          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
-          <End Role="Estado" Type="Self.Estado" Multiplicity="*" />
+        <Association Name="FK__Estado__PaisId__45F365D3">
+          <End Type="DigiMenuModel.Pais" Role="Pais" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.Estado" Role="Estado" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pais">
               <PropertyRef Name="IdPais" />
@@ -713,9 +859,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImagemPro__Produ__75A278F5">
-          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
-          <End Role="ImagemProduto" Type="Self.ImagemProduto" Multiplicity="*" />
+        <Association Name="FK__ImagemPro__Produ__66603565">
+          <End Type="DigiMenuModel.Produto" Role="Produto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.ImagemProduto" Role="ImagemProduto" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Produto">
               <PropertyRef Name="IdProduto" />
@@ -725,9 +873,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemCarri__Produ__6FE99F9F">
-          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
-          <End Role="ItemCarrinho" Type="Self.ItemCarrinho" Multiplicity="*" />
+        <Association Name="FK__ItemCarri__Produ__60A75C0F">
+          <End Type="DigiMenuModel.Produto" Role="Produto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.ItemCarrinho" Role="ItemCarrinho" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Produto">
               <PropertyRef Name="IdProduto" />
@@ -737,9 +887,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemPedid__Pedid__656C112C">
-          <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
-          <End Role="ItemPedido" Type="Self.ItemPedido" Multiplicity="*" />
+        <Association Name="FK__ItemPedid__Pedid__5629CD9C">
+          <End Type="DigiMenuModel.Pedido" Role="Pedido" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.ItemPedido" Role="ItemPedido" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pedido">
               <PropertyRef Name="IdPedido" />
@@ -749,9 +901,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemPedid__Produ__6477ECF3">
-          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
-          <End Role="ItemPedido" Type="Self.ItemPedido" Multiplicity="*" />
+        <Association Name="FK__ItemPedid__Produ__5535A963">
+          <End Type="DigiMenuModel.Produto" Role="Produto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.ItemPedido" Role="ItemPedido" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Produto">
               <PropertyRef Name="IdProduto" />
@@ -761,9 +915,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Log__TarefasId__5070F446">
-          <End Role="Tarefas" Type="Self.Tarefas" Multiplicity="1" />
-          <End Role="Log" Type="Self.Log" Multiplicity="*" />
+        <Association Name="FK__Log__TarefasId__403A8C7D">
+          <End Type="DigiMenuModel.Tarefas" Role="Tarefas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.Log" Role="Log" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tarefas">
               <PropertyRef Name="IdTarefas" />
@@ -773,9 +929,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Log__UsuarioId__5165187F">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Log" Type="Self.Log" Multiplicity="*" />
+        <Association Name="FK__Log__UsuarioId__412EB0B6">
+          <End Type="DigiMenuModel.Usuario" Role="Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.Log" Role="Log" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
@@ -785,9 +943,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pedido__StatusId__619B8048">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+        <Association Name="FK__Pedido__StatusId__52593CB8">
+          <End Type="DigiMenuModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="DigiMenuModel.Pedido" Role="Pedido" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="IdStatus" />
@@ -797,9 +955,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pedido__UsuarioI__60A75C0F">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+        <Association Name="FK__Pedido__UsuarioI__5165187F">
+          <End Type="DigiMenuModel.Usuario" Role="Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.Pedido" Role="Pedido" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="Id" />
@@ -809,9 +969,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Usuario__TipoUsu__4BAC3F29">
-          <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+        <Association Name="FK__Usuario__TipoUsu__3B75D760">
+          <End Type="DigiMenuModel.TipoUsuario" Role="TipoUsuario" Multiplicity="1" />
+          <End Type="DigiMenuModel.Usuario" Role="Usuario" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TipoUsuario">
               <PropertyRef Name="Id" />
@@ -821,89 +981,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DigiMenuEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Carousel" EntityType="Self.Carousel" />
-          <EntitySet Name="Carrinho" EntityType="Self.Carrinho" />
-          <EntitySet Name="Cidade" EntityType="Self.Cidade" />
-          <EntitySet Name="Endereco" EntityType="Self.Endereco" />
-          <EntitySet Name="Estado" EntityType="Self.Estado" />
-          <EntitySet Name="ImagemProduto" EntityType="Self.ImagemProduto" />
-          <EntitySet Name="ItemCarrinho" EntityType="Self.ItemCarrinho" />
-          <EntitySet Name="ItemPedido" EntityType="Self.ItemPedido" />
-          <EntitySet Name="Log" EntityType="Self.Log" />
-          <EntitySet Name="Pais" EntityType="Self.Pais" />
-          <EntitySet Name="Pedido" EntityType="Self.Pedido" />
-          <EntitySet Name="Produto" EntityType="Self.Produto" />
-          <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="Tarefas" EntityType="Self.Tarefas" />
-          <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" />
-          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
-          <AssociationSet Name="FK_ImagemProduto_Carousel" Association="Self.FK_ImagemProduto_Carousel">
-            <End Role="Carousel" EntitySet="Carousel" />
-            <End Role="ImagemProduto" EntitySet="ImagemProduto" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Carrinho__Usuari__6C190EBB" Association="Self.FK__Carrinho__Usuari__6C190EBB">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Carrinho" EntitySet="Carrinho" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ItemCarri__Carri__6EF57B66" Association="Self.FK__ItemCarri__Carri__6EF57B66">
-            <End Role="Carrinho" EntitySet="Carrinho" />
-            <End Role="ItemCarrinho" EntitySet="ItemCarrinho" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Cidade__EstadoId__59063A47" Association="Self.FK__Cidade__EstadoId__59063A47">
-            <End Role="Estado" EntitySet="Estado" />
-            <End Role="Cidade" EntitySet="Cidade" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Endereco__Cidade__68487DD7" Association="Self.FK__Endereco__Cidade__68487DD7">
-            <End Role="Cidade" EntitySet="Cidade" />
-            <End Role="Endereco" EntitySet="Endereco" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Endereco__Usuari__693CA210" Association="Self.FK__Endereco__Usuari__693CA210">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Endereco" EntitySet="Endereco" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Estado__PaisId__5629CD9C" Association="Self.FK__Estado__PaisId__5629CD9C">
-            <End Role="Pais" EntitySet="Pais" />
-            <End Role="Estado" EntitySet="Estado" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ImagemPro__Produ__75A278F5" Association="Self.FK__ImagemPro__Produ__75A278F5">
-            <End Role="Produto" EntitySet="Produto" />
-            <End Role="ImagemProduto" EntitySet="ImagemProduto" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ItemCarri__Produ__6FE99F9F" Association="Self.FK__ItemCarri__Produ__6FE99F9F">
-            <End Role="Produto" EntitySet="Produto" />
-            <End Role="ItemCarrinho" EntitySet="ItemCarrinho" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ItemPedid__Pedid__656C112C" Association="Self.FK__ItemPedid__Pedid__656C112C">
-            <End Role="Pedido" EntitySet="Pedido" />
-            <End Role="ItemPedido" EntitySet="ItemPedido" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ItemPedid__Produ__6477ECF3" Association="Self.FK__ItemPedid__Produ__6477ECF3">
-            <End Role="Produto" EntitySet="Produto" />
-            <End Role="ItemPedido" EntitySet="ItemPedido" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Log__TarefasId__5070F446" Association="Self.FK__Log__TarefasId__5070F446">
-            <End Role="Tarefas" EntitySet="Tarefas" />
-            <End Role="Log" EntitySet="Log" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Log__UsuarioId__5165187F" Association="Self.FK__Log__UsuarioId__5165187F">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Log" EntitySet="Log" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Pedido__StatusId__619B8048" Association="Self.FK__Pedido__StatusId__619B8048">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Pedido" EntitySet="Pedido" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Pedido__UsuarioI__60A75C0F" Association="Self.FK__Pedido__UsuarioI__60A75C0F">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Pedido" EntitySet="Pedido" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Usuario__TipoUsu__4BAC3F29" Association="Self.FK__Usuario__TipoUsu__4BAC3F29">
-            <End Role="TipoUsuario" EntitySet="TipoUsuario" />
-            <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -912,160 +990,169 @@
           <EntitySetMapping Name="Carousel">
             <EntityTypeMapping TypeName="DigiMenuModel.Carousel">
               <MappingFragment StoreEntitySet="Carousel">
-                <ScalarProperty Name="IdCarousel" ColumnName="IdCarousel" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
                 <ScalarProperty Name="Ordem" ColumnName="Ordem" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdCarousel" ColumnName="IdCarousel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Carrinho">
             <EntityTypeMapping TypeName="DigiMenuModel.Carrinho">
               <MappingFragment StoreEntitySet="Carrinho">
-                <ScalarProperty Name="IdCarrinho" ColumnName="IdCarrinho" />
-                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
                 <ScalarProperty Name="DataCriacao" ColumnName="DataCriacao" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="IdCarrinho" ColumnName="IdCarrinho" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="DigiMenuModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Cidade">
             <EntityTypeMapping TypeName="DigiMenuModel.Cidade">
               <MappingFragment StoreEntitySet="Cidade">
-                <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="EstadoId" ColumnName="EstadoId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Endereco">
             <EntityTypeMapping TypeName="DigiMenuModel.Endereco">
               <MappingFragment StoreEntitySet="Endereco">
-                <ScalarProperty Name="IdEndereco" ColumnName="IdEndereco" />
-                <ScalarProperty Name="CidadeId" ColumnName="CidadeId" />
-                <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
-                <ScalarProperty Name="Numero" ColumnName="Numero" />
-                <ScalarProperty Name="Cep" ColumnName="Cep" />
-                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
+                <ScalarProperty Name="Cep" ColumnName="Cep" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
+                <ScalarProperty Name="CidadeId" ColumnName="CidadeId" />
+                <ScalarProperty Name="IdEndereco" ColumnName="IdEndereco" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Estado">
             <EntityTypeMapping TypeName="DigiMenuModel.Estado">
               <MappingFragment StoreEntitySet="Estado">
-                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="PaisId" ColumnName="PaisId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ImagemProduto">
             <EntityTypeMapping TypeName="DigiMenuModel.ImagemProduto">
               <MappingFragment StoreEntitySet="ImagemProduto">
-                <ScalarProperty Name="IdImagemProduto" ColumnName="IdImagemProduto" />
-                <ScalarProperty Name="CaminhoImagem" ColumnName="CaminhoImagem" />
-                <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
                 <ScalarProperty Name="CarouselId" ColumnName="CarouselId" />
+                <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
+                <ScalarProperty Name="CaminhoImagem" ColumnName="CaminhoImagem" />
+                <ScalarProperty Name="IdImagemProduto" ColumnName="IdImagemProduto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ItemCarrinho">
             <EntityTypeMapping TypeName="DigiMenuModel.ItemCarrinho">
               <MappingFragment StoreEntitySet="ItemCarrinho">
-                <ScalarProperty Name="IdItemCarrinho" ColumnName="IdItemCarrinho" />
-                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
-                <ScalarProperty Name="PrecoTotal" ColumnName="PrecoTotal" />
-                <ScalarProperty Name="CarrinhoId" ColumnName="CarrinhoId" />
                 <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
+                <ScalarProperty Name="CarrinhoId" ColumnName="CarrinhoId" />
+                <ScalarProperty Name="PrecoTotal" ColumnName="PrecoTotal" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="IdItemCarrinho" ColumnName="IdItemCarrinho" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ItemPedido">
             <EntityTypeMapping TypeName="DigiMenuModel.ItemPedido">
               <MappingFragment StoreEntitySet="ItemPedido">
-                <ScalarProperty Name="IdItemPedido" ColumnName="IdItemPedido" />
-                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
-                <ScalarProperty Name="PrecoUnitario" ColumnName="PrecoUnitario" />
-                <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
                 <ScalarProperty Name="PedidoId" ColumnName="PedidoId" />
+                <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
+                <ScalarProperty Name="PrecoUnitario" ColumnName="PrecoUnitario" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="IdItemPedido" ColumnName="IdItemPedido" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Log">
             <EntityTypeMapping TypeName="DigiMenuModel.Log">
               <MappingFragment StoreEntitySet="Log">
-                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
-                <ScalarProperty Name="TarefasId" ColumnName="TarefasId" />
-                <ScalarProperty Name="DataHora" ColumnName="DataHora" />
                 <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="DataHora" ColumnName="DataHora" />
+                <ScalarProperty Name="TarefasId" ColumnName="TarefasId" />
+                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pais">
             <EntityTypeMapping TypeName="DigiMenuModel.Pais">
               <MappingFragment StoreEntitySet="Pais">
-                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pedido">
             <EntityTypeMapping TypeName="DigiMenuModel.Pedido">
               <MappingFragment StoreEntitySet="Pedido">
-                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
-                <ScalarProperty Name="Data" ColumnName="Data" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Produto">
             <EntityTypeMapping TypeName="DigiMenuModel.Produto">
               <MappingFragment StoreEntitySet="Produto">
-                <ScalarProperty Name="IdProduto" ColumnName="IdProduto" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
-                <ScalarProperty Name="Preco" ColumnName="Preco" />
-                <ScalarProperty Name="Estoque" ColumnName="Estoque" />
                 <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="Estoque" ColumnName="Estoque" />
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdProduto" ColumnName="IdProduto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
             <EntityTypeMapping TypeName="DigiMenuModel.Status">
               <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tarefas">
             <EntityTypeMapping TypeName="DigiMenuModel.Tarefas">
               <MappingFragment StoreEntitySet="Tarefas">
-                <ScalarProperty Name="IdTarefas" ColumnName="IdTarefas" />
                 <ScalarProperty Name="Tarefa" ColumnName="Tarefa" />
+                <ScalarProperty Name="IdTarefas" ColumnName="IdTarefas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TipoUsuario">
             <EntityTypeMapping TypeName="DigiMenuModel.TipoUsuario">
               <MappingFragment StoreEntitySet="TipoUsuario">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TipoUsuario1" ColumnName="TipoUsuario" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="DigiMenuModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="HashSenha" ColumnName="HashSenha" />
-                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Criacao" ColumnName="Criacao" />
                 <ScalarProperty Name="TipoUsuarioId" ColumnName="TipoUsuarioId" />
+                <ScalarProperty Name="Criacao" ColumnName="Criacao" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="HashSenha" ColumnName="HashSenha" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

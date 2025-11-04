@@ -5,6 +5,7 @@ using System.Globalization; // adicionado para controle de cultura
 using System.IO;
 using System.Text;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls; // Adicione esta linha no topo do arquivo
 
@@ -15,12 +16,15 @@ namespace DigiMenu
         private ProdutoDAO produtoDAO = new ProdutoDAO();
         private static readonly CultureInfo PtBr = new CultureInfo("pt-BR");
         private ImagemProdutoDAO ImagemProdutoDAO = new ImagemProdutoDAO();
+        private Mensagens mensagem = new Mensagens();
+        private CategoriaDAO categoriaDAO = new CategoriaDAO();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 CarregarProdutos();
+                carregarCategorias();
 
                 btnVoltar.Visible = false;
                 btnCadastrar.Visible = true;
@@ -31,17 +35,29 @@ namespace DigiMenu
 
                 if (modoVisualizacao)
                 {
-
-                    lblMensagem.Text = "";
-                    lblMensagem.Visible = true;
+                    PlaceHolderMensagens.Controls.Clear();
                 }
             }
 
             if (!IsPostBack && Request.QueryString["salvo"] == "1")
             {
-                lblMensagem.Text = "Produto cadastrado com sucesso!";
-                lblMensagem.Visible = true;
+               
+
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Produto cadastrado com sucesso!", "sucesso");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
             }
+        }
+
+        private void carregarCategorias()
+        {
+            var categorias = categoriaDAO.ListarOrdenado();
+            ddlCategoria.Items.Clear();
+            ddlCategoria.DataSource = categorias;
+            ddlCategoria.DataTextField = "nome";
+            ddlCategoria.DataValueField = "id";
+            ddlCategoria.DataBind();
+            ddlCategoria.Items.Insert(0, new ListItem("Selecione", ""));
         }
 
         private bool TentarObterPreco(out decimal preco)
@@ -78,25 +94,34 @@ namespace DigiMenu
                 return;
             }
 
-            lblMensagem.Visible = false;
-            lblMensagem.Text = string.Empty;
+            PlaceHolderMensagens.Controls.Clear();
+            
 
             if (string.IsNullOrWhiteSpace(txtNome.Text) || string.IsNullOrWhiteSpace(txtDescricao.Text) ||
-                    string.IsNullOrWhiteSpace(txtPreco.Text) || string.IsNullOrWhiteSpace(txtEstoque.Text))
+                    string.IsNullOrWhiteSpace(txtPreco.Text) || string.IsNullOrWhiteSpace(txtEstoque.Text) || string.IsNullOrWhiteSpace(ddlCategoria.SelectedValue))
             {
-                ExibirMensagem("Preencha todos os campos obrigatórios.", true);
+                
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Preencha todos os campos obrigatórios.", "erro");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
                 return;
             }
 
             if (!TentarObterPreco(out decimal preco))
             {
-                ExibirMensagem("Preço inválido.", true);
+                
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Preço inválido.", "erro");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
                 return;
             }
 
             if (!int.TryParse(txtEstoque.Text, out int estoque) || estoque < 0)
             {
-                ExibirMensagem("Estoque inválido.", true);
+                
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Estoque inválido.", "erro");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
                 return;
             }
 
@@ -108,7 +133,10 @@ namespace DigiMenu
                 HttpPostedFile uploaded = File1?.PostedFile;
                 if (uploaded == null || uploaded.ContentLength == 0)
                 {
-                    ExibirMensagem("Imagem do produto é obrigatória.", true);
+                    PlaceHolderMensagens.Controls.Clear();
+                    var divSucesso = mensagem.MostrarMensagem("Imagem do produto é obrigatória.", "erro");
+                    PlaceHolderMensagens.Controls.Add(divSucesso);
+                   
                     return;
                 }
 
@@ -116,7 +144,10 @@ namespace DigiMenu
                 string ext = Path.GetExtension(originalName).ToLowerInvariant();
                 if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".gif" && ext != ".webp")
                 {
-                    ExibirMensagem("Formato de imagem inválido (use jpg, png, gif, webp).", true);
+                    PlaceHolderMensagens.Controls.Clear();
+                    var divSucesso = mensagem.MostrarMensagem("Formato de imagem inválido (use jpg, png, gif, webp).", "erro");
+                    PlaceHolderMensagens.Controls.Add(divSucesso);
+                    
                     return;
                 }
 
@@ -133,6 +164,7 @@ namespace DigiMenu
                     Preco = preco,
                     Estoque = estoque,
                     Ativo = ofertar,
+                    Categoria = int.Parse(ddlCategoria.SelectedValue)
                 };
 
                 var imagemProduto = new ImagemProduto
@@ -155,16 +187,14 @@ namespace DigiMenu
             }
             catch (Exception ex)
             {
-                lblMensagem.Text = "Erro ao cadastrar produto: " + ex.Message;
-                lblMensagem.Visible = true;
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Erro ao cadastrar produto:", "erro");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
+                
             }
             LimparCampos();
         }
-        // Exibe mensagem no label de mensagem 
-        private void ExibirMensagem(string mensagem, bool visivel)
-        {
-            lblMensagem.Text = mensagem; lblMensagem.Visible = visivel;
-        }
+      
 
         // Carrega produtos na tabela
         private void CarregarProdutos()
@@ -182,6 +212,7 @@ namespace DigiMenu
             txtPreco.Text = string.Empty;
             txtEstoque.Text = string.Empty;
             Checkbox1.Checked = false;
+            ddlCategoria.ClearSelection();
         }
 
         // Novo handler para o Repeater
@@ -214,11 +245,17 @@ namespace DigiMenu
                     }
 
                     CarregarProdutos();
-                    ExibirMensagem("Produto excluído com sucesso.", true);
+                    PlaceHolderMensagens.Controls.Clear();
+                    var divSucesso = mensagem.MostrarMensagem("Produto excluído com sucesso.", "sucesso");
+                    PlaceHolderMensagens.Controls.Add(divSucesso);
+
                 }
                 catch (Exception ex)
                 {
-                    ExibirMensagem("Erro ao excluir: " + ex.Message, true);
+                    PlaceHolderMensagens.Controls.Clear();
+                    var divSucesso = mensagem.MostrarMensagem("Erro ao excluir produto:", "erro");
+                    PlaceHolderMensagens.Controls.Add(divSucesso);
+
                 }
             }
         }
@@ -235,7 +272,11 @@ namespace DigiMenu
             int idProduto;
             if (!int.TryParse(commandArgument, out idProduto))
             {
-                ExibirMensagem("ID inválido.", true);
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("ID inválido.", "erro");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
+
+               
                 return;
             }
 
@@ -251,14 +292,21 @@ namespace DigiMenu
                     }
                 }
                 CarregarProdutos();
-                ExibirMensagem("Produto excluído com sucesso.", true);
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Produto excluído com sucesso.", "sucesso");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
                 LogDAO log = new LogDAO();
                 int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
                 log.Registrar(usuarioId, 5);
             }
             catch (Exception ex)
             {
-                ExibirMensagem("Erro ao excluir: " + ex.Message, true);
+
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Erro ao excluir:", "erro");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
+
+               
             }
         }
 
@@ -283,19 +331,19 @@ namespace DigiMenu
                 var imagemProduto = ImagemProdutoDAO.BuscarImagemPorProdutoId(idProduto);
                 if (produto != null)
                 {
-                    // Preenche campos
                     txtNome.Text = produto.Nome;
                     txtDescricao.Text = produto.Descricao;
-                    // Exibe formatado pt-BR no campo
                     txtPreco.Text = produto.Preco.ToString("N2", PtBr);
                     txtEstoque.Text = produto.Estoque.ToString();
                     Checkbox1.Checked = produto.Ativo;
+                    // categoria
+                    ddlCategoria.SelectedValue = produto.Categoria.ToString();
+
                     if (imagemProduto != null)
                     {
                         insereIMG(imagemProduto);
                     }
 
-                    // Ajusta interface para modo edição
                     btnCadastrar.Visible = false;
                     btnAtualizar.Visible = true;
                     btnAtualizar.Text = "Atualizar";
@@ -309,9 +357,10 @@ namespace DigiMenu
                         txtPreco.Enabled = false;
                         txtEstoque.Enabled = false;
                         Checkbox1.Disabled = true;
-                        File1.Enabled = false; // Desabilita upload de imagem
-                        File1.Visible = false;  // Oculta controle de upload
-                        btnAtualizar.Visible = false; // Oculta botão atualizar
+                        ddlCategoria.Enabled = false;
+                        File1.Enabled = false; 
+                        File1.Visible = false;  
+                        btnAtualizar.Visible = false; 
                     }
                 }
             }
@@ -321,12 +370,12 @@ namespace DigiMenu
         {
             if (produto != null && !string.IsNullOrEmpty(produto.CaminhoImagem))
             {
-                imgPreview.ImageUrl = "~/" + produto.CaminhoImagem; // Caminho relativo da imagem
-                imgPreview.Visible = true;                   // Mostra o controle
+                imgPreview.ImageUrl = "~/" + produto.CaminhoImagem; 
+                imgPreview.Visible = true;                   
             }
             else
             {
-                imgPreview.Visible = false;                  // Oculta se não tiver imagem
+                imgPreview.Visible = false;                  
             }
         }
 
@@ -335,7 +384,6 @@ namespace DigiMenu
             var btn = (ImageButton)sender;
             if (int.TryParse(btn.CommandArgument, out int idProduto))
             {
-                // Redireciona com parâmetro de visualização
                 Response.Redirect($"~/admin/CadastroProduto.aspx?cod={idProduto}&view=1", false);
                 Context.ApplicationInstance.CompleteRequest();
             }
@@ -345,36 +393,43 @@ namespace DigiMenu
         {
             string idProdutoStr = Request.QueryString["cod"];
             Produto produto;
-            ImagemProduto imagemProduto = null; // Inicializa a variável para evitar CS0165
+            ImagemProduto imagemProduto = null; 
 
             if (!string.IsNullOrEmpty(idProdutoStr) && int.TryParse(idProdutoStr, out int idProduto))
             {
-                // Atualizar
                 produto = produtoDAO.BuscarPorId(idProduto);
                 if (produto == null)
                 {
-                    ExibirMensagem("Produto não encontrado.", true);
+                    PlaceHolderMensagens.Controls.Clear();
+                    var divSucesso = mensagem.MostrarMensagem("Produto não encontrado.", "erro");
+                    PlaceHolderMensagens.Controls.Add(divSucesso);
+
+                   
                     return;
                 }
 
-                // Carrega imagem existente para possível atualização
                 imagemProduto = ImagemProdutoDAO.BuscarImagemPorProdutoId(idProduto);
             }
             else
             {
-                // Novo produto (fallback)
                 produto = new Produto();
             }
 
             if (!TentarObterPreco(out decimal preco))
             {
-                ExibirMensagem("Preço inválido.", true);
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Preço inválido.", "erro");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
+              
                 return;
             }
 
             if (!int.TryParse(txtEstoque.Text, out int estoque) || estoque < 0)
             {
-                ExibirMensagem("Estoque inválido.", true);
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Estoque inválido.", "erro");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
+                
                 return;
             }
 
@@ -383,8 +438,8 @@ namespace DigiMenu
             produto.Preco = preco;
             produto.Estoque = estoque;
             produto.Ativo = Checkbox1.Checked;
+            produto.Categoria = int.Parse(ddlCategoria.SelectedValue);
 
-            // --- LÓGICA ATUALIZAÇÃO IMAGEM (mantém se não houver upload) ---
             try
             {
                 HttpPostedFile uploaded = File1?.PostedFile;
@@ -394,11 +449,14 @@ namespace DigiMenu
                     string ext = Path.GetExtension(originalName).ToLowerInvariant();
                     if (ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".gif" && ext != ".webp")
                     {
-                        ExibirMensagem("Formato de imagem inválido (use jpg, png, gif, webp).", true);
+                        
+                        PlaceHolderMensagens.Controls.Clear();
+                        var divSucesso = mensagem.MostrarMensagem("Formato de imagem inválido (use jpg, png, gif, webp).", "erro");
+                        PlaceHolderMensagens.Controls.Add(divSucesso);
                         return;
                     }
 
-                    string oldImage = imagemProduto != null ? imagemProduto.CaminhoImagem : null; // guardar antiga
+                    string oldImage = imagemProduto != null ? imagemProduto.CaminhoImagem : null; 
                     string newFileName = Guid.NewGuid().ToString("N") + ext;
                     string folderPhysical = Server.MapPath("~/imgProduto");
                     if (!Directory.Exists(folderPhysical)) Directory.CreateDirectory(folderPhysical);
@@ -416,7 +474,7 @@ namespace DigiMenu
                     }
                     else
                     {
-                        imagemProduto.CaminhoImagem = newRelativePath; // define nova
+                        imagemProduto.CaminhoImagem = newRelativePath; 
                     }
 
                     if (!string.IsNullOrEmpty(oldImage) && !oldImage.Equals("imgProduto/sem-imagem.png", StringComparison.OrdinalIgnoreCase))
@@ -428,19 +486,24 @@ namespace DigiMenu
                         }
                     }
                 }
-                // Se não houve upload, não mexe na imagem existente
             }
             catch (Exception exUpload)
             {
-                ExibirMensagem("Erro ao processar imagem: " + exUpload.Message, true);
+                
+
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Erro ao processar imagem:", "erro");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
                 return;
             }
-            // --- FIM LÓGICA IMAGEM ---
 
             if (!string.IsNullOrEmpty(idProdutoStr))
             {
                 produtoDAO.Atualizar(produto, imagemProduto);
-                lblMensagem.Text = "Produto atualizado com sucesso!";
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Produto atualizado com sucesso!", "sucesso");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
+
                 LogDAO log = new LogDAO();
                 int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
                 log.Registrar(usuarioId, 4);
@@ -448,11 +511,11 @@ namespace DigiMenu
             else
             {
                 produtoDAO.Salvar(produto, imagemProduto);
-                lblMensagem.Text = "Produto cadastrado com sucesso!";
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Produto cadastrado com sucesso!", "sucesso");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
             }
 
-            lblMensagem.Visible = true;
-            
             LimparCampos();
             CarregarProdutos();
             Response.Redirect("CadastroProduto.aspx");

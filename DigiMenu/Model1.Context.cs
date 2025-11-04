@@ -27,6 +27,7 @@ namespace DigiMenu
     
         public virtual DbSet<Carousel> Carousel { get; set; }
         public virtual DbSet<Carrinho> Carrinho { get; set; }
+        public virtual DbSet<Categoria> Categoria { get; set; }
         public virtual DbSet<Cidade> Cidade { get; set; }
         public virtual DbSet<Endereco> Endereco { get; set; }
         public virtual DbSet<Estado> Estado { get; set; }

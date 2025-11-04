@@ -36,6 +36,7 @@
                         <div class="card-body">
                             <h2 class="form-title mb-4 h4">Carrousel Ativos</h2>
 
+                            <asp:PlaceHolder ID="PlaceHolderMensagens" runat="server"></asp:PlaceHolder>
                             <asp:Repeater ID="rptProdutos" runat="server">
                                 <HeaderTemplate>
                                     <table class="table">
@@ -58,13 +59,14 @@
                                         </td>
                                     </tr>
                                 </ItemTemplate>
+
                                 <FooterTemplate>
                                     </table>
                                     <asp:Button ID="btnSalvar" runat="server" Text="Salvar Configurações" CssClass="btn btn-primary mt-3" OnClick="btnSalvar_Click" />
                                 </FooterTemplate>
                             </asp:Repeater>
-
-                            <asp:PlaceHolder ID="PlaceHolderMensagens" runat="server"></asp:PlaceHolder>
+                            
+                            
 
      
 

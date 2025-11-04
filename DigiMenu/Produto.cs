@@ -24,11 +24,13 @@ namespace DigiMenu
     
         public int IdProduto { get; set; }
         public string Nome { get; set; }
+        public int Categoria { get; set; }
         public string Descricao { get; set; }
         public decimal Preco { get; set; }
         public int Estoque { get; set; }
         public bool Ativo { get; set; }
     
+        public virtual Categoria Categoria1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ImagemProduto> ImagemProduto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

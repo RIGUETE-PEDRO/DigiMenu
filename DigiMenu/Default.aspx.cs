@@ -3,11 +3,42 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace DigiMenu
 {
     public partial class Default : System.Web.UI.Page
     {
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            if (rptProdutos != null)
+            {
+                rptProdutos.ItemDataBound += rptProdutos_ItemDataBound;
+            }
+        }
+
+        private void rptProdutos_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+                return;
+
+            var dataItem = e.Item.DataItem;
+            if (dataItem == null) return;
+
+            var prop = dataItem.GetType().GetProperty("IdProduto");
+            if (prop == null) return;
+
+            var id = prop.GetValue(dataItem, null);
+            var btn = e.Item.FindControl("compra") as Button;
+            if (btn != null && id != null)
+            {
+                var idStr = id.ToString();
+                btn.CommandArgument = idStr;
+                btn.PostBackUrl = "carrinho.aspx?add=" + idStr;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -33,7 +64,6 @@ namespace DigiMenu
             }
         }
 
-
         private void iniciarFiltro()
         {
             ddlCategoria.Visible = rbCategoria.Checked;
@@ -49,11 +79,12 @@ namespace DigiMenu
                                         .Where(p => p.Ativo)
                                         .Select(p => new
                                         {
+                                            p.IdProduto,
                                             p.Nome,
                                             p.Descricao,
                                             p.Preco,
                                             p.Estoque,
-                                            Imagem = p.ImagemProduto.FirstOrDefault().CaminhoImagem // se tiver imagens
+                                            Imagem = p.ImagemProduto.Select(img => img.CaminhoImagem).FirstOrDefault()
                                         })
                                         .ToList();
 
@@ -64,7 +95,6 @@ namespace DigiMenu
 
         protected void btnPesquisar_Click(object sender, EventArgs e)
         {
-            //pesquisa produto
             string termoPesquisa = txtPesquisa.Text.Trim();
 
             using (var ctx = new DigiMenuEntities())
@@ -73,11 +103,12 @@ namespace DigiMenu
                                     .Where(p => p.Ativo && (p.Nome.Contains(termoPesquisa) || p.Descricao.Contains(termoPesquisa)))
                                     .Select(p => new
                                     {
+                                        p.IdProduto,
                                         p.Nome,
                                         p.Descricao,
                                         p.Preco,
                                         p.Estoque,
-                                        Imagem = p.ImagemProduto.FirstOrDefault().CaminhoImagem // se tiver imagens
+                                        Imagem = p.ImagemProduto.Select(img => img.CaminhoImagem).FirstOrDefault()
                                     })
                                     .ToList();
                 rptProdutos.DataSource = resultados;
@@ -87,51 +118,76 @@ namespace DigiMenu
 
         protected void Filtro_CheckedChanged(object sender, EventArgs e)
         {
-            // Aqui você vai mostrar/ocultar os inputs conforme o radio selecionado
             ddlCategoria.Visible = rbCategoria.Checked;
             txtPreco.Visible = rbPreco.Checked;
             ddlOferta.Visible = rbOferta.Checked;
         }
 
-
         protected void compra_Click(object sender, EventArgs e)
         {
-
             if (Session["UsuarioId"] == null)
             {
-                // Redirecionar para a página de login se o usuário não estiver logado
                 Response.Redirect("FrmLogin.aspx");
                 return;
             }
-            else
+
+            var btn = sender as System.Web.UI.WebControls.Button;
+            if (btn == null) return;
+            int produtoId;
+            if (!int.TryParse(btn.CommandArgument, out produtoId)) return;
+
+            int usuarioId = (int)Session["UsuarioId"];  
+
+            using (var ctx = new DigiMenuEntities())
             {
-
-                // Lógica para iniciar um novo pedido
-                Pedido pedido = new Pedido
+                var carrinho = ctx.Carrinho.FirstOrDefault(c => c.UsuarioId == usuarioId);
+                if (carrinho == null)
                 {
-                    Data = DateTime.Now,
-                    Total = 0, // Calcular o total com base nos itens do pedido
-                    UsuarioId = (int)(Session["UsuarioId"] ?? 0), // Certifique-se de que o ID do usuário está na sessão
-                    StatusId = 1 // Status "Pendente" ou equivalente
-                };
+                    carrinho = new Carrinho
+                    {
+                        UsuarioId = usuarioId,
+                        DataCriacao = DateTime.Now
+                    };
+                    ctx.Carrinho.Add(carrinho);
+                    ctx.SaveChanges();
+                }
 
+                var item = ctx.ItemCarrinho.FirstOrDefault(i => i.CarrinhoId == carrinho.IdCarrinho && i.ProdutoId == produtoId);
+                var produto = ctx.Produto.FirstOrDefault(p => p.IdProduto == produtoId);
+                if (produto == null) return;
 
-                LogDAO log = new LogDAO();
-                int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
-                log.Registrar(usuarioId, 6); // 6 = adicionar um produto no carrinho
+                if (item == null)
+                {
+                    item = new ItemCarrinho
+                    {
+                        CarrinhoId = carrinho.IdCarrinho,
+                        ProdutoId = produtoId,
+                        Quantidade = 1,
+                        PrecoTotal = produto.Preco
+                    };
+                    ctx.ItemCarrinho.Add(item);
+                }
+                else
+                {
+                    int q = (item.Quantidade ?? 0) + 1;
+                    item.Quantidade = q;
+                    item.PrecoTotal = q * produto.Preco;
+                }
 
-                PedidoDAO pedidoDAO = new PedidoDAO();
-                pedidoDAO.Salvar(pedido);
+                ctx.SaveChanges();
             }
+
+            LogDAO log = new LogDAO();
+            log.Registrar(usuarioId, 6);
+
+            Response.Redirect("carrinho.aspx");
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)
         {
-            // Remove os dados da sessão
             Session.Clear();
             Session.Abandon();
 
-            // Opcional: limpar cookies de autenticação, se houver
             if (Request.Cookies[".ASPXAUTH"] != null)
             {
                 var cookie = new HttpCookie(".ASPXAUTH");
@@ -139,7 +195,6 @@ namespace DigiMenu
                 Response.Cookies.Add(cookie);
             }
 
-            // Redireciona para a página de login
             Response.Redirect("FrmLogin.aspx");
         }
 

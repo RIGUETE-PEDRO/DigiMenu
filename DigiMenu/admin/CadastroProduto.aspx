@@ -5,8 +5,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Cadastro de Produto</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
-    <link href="../styles/styleProduto.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link href="../styles/styleProduto.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -20,7 +20,7 @@
                     <a class="nav-link " aria-current="page" href="FrmPainelAdministrativo.aspx">Home</a>
                     <a class="nav-link active" href="CadastroProduto.aspx">Produtos</a>
                     <a class="nav-link" href="CadastroCarrousel.aspx">Carousel</a>
-                     <a class="nav-link" href="FrmPedidos.aspx">Pedidos</a>
+                    <a class="nav-link" href="FrmPedidos.aspx">Pedidos</a>
                 </div>
             </div>
         </div>
@@ -42,6 +42,11 @@
                                 <label for="txtDescricao" class="form-label">Descrição do Produto</label>
                                 <asp:TextBox ID="txtDescricao" runat="server" CssClass="form-control" Placeholder="Digite a descrição" />
                             </div>
+                            <div class="mb-3">
+                                <label for="ddlCategoria" class="form-label">Categoria</label>
+                                <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select"></asp:DropDownList>
+                            </div>
+
                             <div class="row">
                                 <div class="col-6 mb-3">
                                     <label for="txtPreco" class="form-label">Preço</label>
@@ -57,19 +62,19 @@
                                 <label class="form-check-label" for="Checkbox1">Oferta Produto</label>
                             </div>
                             <div class="mb-3">
-                                
-                                
+
+
                                 <asp:FileUpload ID="File1" runat="server" />
-                               <label class="form-label d-block">Imagem do Produto</label>
+                                <label class="form-label d-block">Imagem do Produto</label>
                                 <asp:Image ID="imgPreview" runat="server" CssClass="img-thumbnail mb-2" Visible="false" Width="160" />
                             </div>
 
-                            <asp:Label ID="lblMensagem" runat="server" ForeColor="Red" CssClass="d-block mb-2 small"></asp:Label>
+                            <asp:PlaceHolder ID="PlaceHolderMensagens" runat="server"></asp:PlaceHolder>
 
                             <asp:Button ID="btnCadastrar" ValidationGroup="cad" OnClick="btnCadastrar_Click" runat="server" Text="Cadastrar" CssClass="btn btn-primary w-100 mb-2" />
                             <asp:Button ID="btnAtualizar" OnClick="Atualizar_Click" runat="server" Text="Atualizar" CssClass="btn btn-success w-100 mb-2" Visible="false" />
                             <a id="btnVoltar" runat="server" href="CadastroProduto.aspx" class="btn btn-secondary w-100 mb-2" visible="false">Cancelar</a>
-                           
+
                         </div>
                     </div>
                 </div>

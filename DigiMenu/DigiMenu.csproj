@@ -129,6 +129,10 @@
     <Compile Include="carrinho.aspx.designer.cs">
       <DependentUpon>carrinho.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Categoria.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAO\CategoriaDAO.cs" />
     <Compile Include="Mensagens.cs" />
     <Compile Include="FrmCadastro.aspx.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>

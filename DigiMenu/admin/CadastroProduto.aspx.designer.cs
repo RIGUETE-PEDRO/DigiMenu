@@ -42,6 +42,15 @@ namespace DigiMenu
         protected global::System.Web.UI.WebControls.TextBox txtDescricao;
 
         /// <summary>
+        /// Controle ddlCategoria.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategoria;
+
+        /// <summary>
         /// Controle txtPreco.
         /// </summary>
         /// <remarks>
@@ -87,13 +96,13 @@ namespace DigiMenu
         protected global::System.Web.UI.WebControls.Image imgPreview;
 
         /// <summary>
-        /// Controle lblMensagem.
+        /// Controle PlaceHolderMensagens.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensagem;
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolderMensagens;
 
         /// <summary>
         /// Controle btnCadastrar.
