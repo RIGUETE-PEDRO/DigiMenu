@@ -96,7 +96,7 @@ CREATE TABLE Produto (
     Descricao VARCHAR(255) NULL,
     Preco DECIMAL(10,2) NOT NULL,
     Estoque INT NOT NULL,
-    Ativo BIT NOT NULL DEFAULT 1
+    Ativo BIT NOT NULL DEFAULT 1,
     FOREIGN KEY (Categoria) references categoria (id)
 );
 
