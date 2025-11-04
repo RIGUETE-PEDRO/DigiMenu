@@ -19,7 +19,7 @@ CREATE TABLE TipoUsuario (
 -- ===========================
 -- Tabela categoria
 -- ===========================
-create table categoria(
+create table Categoria(
 	id int identity primary key,
 	nome varchar (100) not null 
 )
@@ -97,7 +97,7 @@ CREATE TABLE Produto (
     Preco DECIMAL(10,2) NOT NULL,
     Estoque INT NOT NULL,
     Ativo BIT NOT NULL DEFAULT 1,
-    FOREIGN KEY (Categoria) references categoria (id)
+    FOREIGN KEY (Categoria) references Categoria (id)
 );
 
 -- ===========================
