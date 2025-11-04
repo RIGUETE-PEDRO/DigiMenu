@@ -281,7 +281,7 @@ namespace DigiMenu
                 ctx.SaveChanges();
             }
 
-            Response.Redirect("admin/FrmPedidos.aspx");
+            Response.Redirect("StatusPedido.aspx");
         }
     }
 }
