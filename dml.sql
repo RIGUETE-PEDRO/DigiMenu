@@ -16,7 +16,8 @@ insert into status values ('pronto')
 insert into status values ('saiu para entrega')
 insert into status values ('finalizado')
 
-
+  --insert de categoria
+insert into categoria (nome) values ('Bebida'),('Pizza'),('Lanches'),('Outros')
 
 --insert de paises 
 
