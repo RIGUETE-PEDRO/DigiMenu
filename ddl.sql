@@ -92,7 +92,7 @@ CREATE TABLE Cidade (
 CREATE TABLE Produto (
     IdProduto INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
-    Categoria VARCHAR(100) NOT NULL,
+    Categoria int NOT NULL,
     Descricao VARCHAR(255) NULL,
     Preco DECIMAL(10,2) NOT NULL,
     Estoque INT NOT NULL,
