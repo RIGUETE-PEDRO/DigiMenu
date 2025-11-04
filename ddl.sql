@@ -17,6 +17,14 @@ CREATE TABLE TipoUsuario (
 );
 
 -- ===========================
+-- Tabela categoria
+-- ===========================
+create table categoria(
+	id int identity primary key,
+	nome varchar (100) not null 
+)
+
+-- ===========================
 -- Tabela Usuario
 -- ===========================
 CREATE TABLE Usuario (
@@ -84,10 +92,12 @@ CREATE TABLE Cidade (
 CREATE TABLE Produto (
     IdProduto INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
+    Categoria VARCHAR(100) NOT NULL,
     Descricao VARCHAR(255) NULL,
     Preco DECIMAL(10,2) NOT NULL,
     Estoque INT NOT NULL,
     Ativo BIT NOT NULL DEFAULT 1
+    FOREIGN KEY (Categoria) references categoria (id)
 );
 
 -- ===========================
