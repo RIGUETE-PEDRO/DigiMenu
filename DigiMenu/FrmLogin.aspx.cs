@@ -52,8 +52,7 @@ namespace DigiMenu.admin
                     return;
                 }
                 }
-                catch (Exception ex)
-                {
+                catch                 {
 
                 //mensagem de modularizada
                 PlaceHolderMensagens.Controls.Clear();

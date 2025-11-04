@@ -185,7 +185,7 @@ namespace DigiMenu
                 Response.Redirect("CadastroProduto.aspx?salvo=1", false);
                 Context.ApplicationInstance.CompleteRequest();
             }
-            catch (Exception ex)
+            catch 
             {
                 PlaceHolderMensagens.Controls.Clear();
                 var divSucesso = mensagem.MostrarMensagem("Erro ao cadastrar produto:", "erro");
@@ -250,7 +250,7 @@ namespace DigiMenu
                     PlaceHolderMensagens.Controls.Add(divSucesso);
 
                 }
-                catch (Exception ex)
+                catch 
                 {
                     PlaceHolderMensagens.Controls.Clear();
                     var divSucesso = mensagem.MostrarMensagem("Erro ao excluir produto:", "erro");
@@ -299,7 +299,7 @@ namespace DigiMenu
                 int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
                 log.Registrar(usuarioId, 5);
             }
-            catch (Exception ex)
+            catch 
             {
 
                 PlaceHolderMensagens.Controls.Clear();
@@ -487,7 +487,7 @@ namespace DigiMenu
                     }
                 }
             }
-            catch (Exception exUpload)
+            catch 
             {
                 
 
