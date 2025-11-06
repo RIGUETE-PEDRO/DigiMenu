@@ -14,17 +14,17 @@
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
         <div class="card" style="width: 100%; max-width: 400px;">
             <div class="card-body">
-                <h5 class="card-title text-center mb-4">Login</h5>
+                <h5 class="card-title text-center mb-4  text">Login</h5>
 
                 <!-- Formulário de cadastro -->
                 <div class="mb-3">
-                    <label for="txtUsuario" class="form-label">Usuario</label>
+                    <label for="txtUsuario" class="form-label text">Usuario</label>
                     <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control" Placeholder="Digite o número de telefone ou email" required="required"></asp:TextBox>
                 </div>
                    
 
                 <div class="mb-3">
-                    <label for="txtSenha" class="form-label">Senha</label><link href="../styles/StyleLogin.css" rel="stylesheet" />
+                    <label for="txtSenha" class="form-label text">Senha</label><link href="../styles/StyleLogin.css" rel="stylesheet" />
                     <asp:TextBox ID="txtSenha" runat="server" CssClass="form-control" TextMode="Password" Placeholder="Digite sua senha" required="required"></asp:TextBox>
                 </div>
                  <asp:PlaceHolder ID="PlaceHolderMensagens" runat="server"></asp:PlaceHolder>

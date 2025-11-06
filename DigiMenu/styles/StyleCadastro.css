@@ -1,4 +1,16 @@
-﻿.buttonLogin {
+﻿
+
+.body {
+    background-image: url(../img/img-fundo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; /* Faz a imagem cobrir toda a tela */
+    background-position: center; /* Centraliza a imagem */
+    background-attachment: fixed; /* (opcional) Faz a imagem ficar fixa ao rolar a página */
+    margin: 0; /* Remove margens padrão do body */
+    height: 100vh; /* Garante que o body ocupe toda a altura da tela */
+}
+
+.buttonLogin {
     margin-top: 10px;
     background-color: red;
     border-color: red;
