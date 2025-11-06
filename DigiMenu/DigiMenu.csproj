@@ -87,6 +87,7 @@
     <Content Include="Default.aspx" />
     <Content Include="img\deletar.svg" />
     <Content Include="img\edit.svg" />
+    <Content Include="img\img-fundo.jpg" />
     <Content Include="img\logo.png" />
     <Content Include="img\shopping_cart_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" />
     <Content Include="img\visualizar.svg" />
@@ -286,9 +287,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="api\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
