@@ -21,9 +21,9 @@ atravez da tecnologia git utilizaremos para baixar o projeto
     https://github.com/RIGUETE-PEDRO/DigiMenu.git
 ```
 </details>
-
-<summary>Passo 2</summary>
 <details>
+<summary>Passo 2</summary>
+
 para o proximo passo iremos pegar o script do banco, que se encontra dentro do projeto que acabamos de baixar
 
 
