@@ -7,11 +7,11 @@
 // </gerado automaticamente>
 //------------------------------------------------------------------------------
 
-namespace DigiMenu.admin
+namespace DigiMenu
 {
 
 
-    public partial class Pedidos
+    public partial class StatusPedido
     {
 
         /// <summary>

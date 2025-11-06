@@ -30,6 +30,10 @@
     box-shadow: 0 0 6px rgba(0,0,0,0.3);
 }
 
+#imgLogo{
+    width:70px;
+}
+
 .produto-imagem {
     /* Reduz o tamanho padrão das imagens de produto */
     width: auto; /* não ocupa toda a largura do card */
@@ -78,6 +82,10 @@
     margin-left: 15px;
 }
 
+#imgLogo{
+    width: 100px;
+    height: auto;
 
+}
 
 

@@ -7,13 +7,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Cadastro de Carrousel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
-    <link href="../styles/CadastroCarrousel.css" rel="stylesheet" />
+     <link href="../styles/StyleAdmin.css" rel="stylesheet" />
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">DigiMenu</a>
+            <img id="imgLogo" src="../img/logo.png" alt="Logo" />
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

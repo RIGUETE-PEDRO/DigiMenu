@@ -4,14 +4,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Pedidos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
+    <link href="../styles/StyleAdmin.css" rel="stylesheet" />
 </head>
 <body>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="../Default.aspx">DigiMenu</a>
+    <img id="imgLogo" src="../img/logo.png" alt="Logo" />
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -51,9 +52,16 @@
                         <div class="mt-2">
                             <asp:Repeater ID="rptItens" runat="server">
                                 <HeaderTemplate>
-                                    <table class="table table-sm mb-0"><thead><tr>
-                                        <th>Produto</th><th class="text-end">Qtd</th><th class="text-end">Unit.</th><th class="text-end">Subtotal</th>
-                                    </tr></thead><tbody>
+                                    <table class="table table-sm mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Produto</th>
+                                                <th class="text-end">Qtd</th>
+                                                <th class="text-end">Unit.</th>
+                                                <th class="text-end">Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                     <tr>
