@@ -8,7 +8,7 @@
     <title>Cadastro de Funcionario</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
-    <link href="styles/StyleCadastro.css?v=2" rel="stylesheet" />
+    <link href="styles/StyleCadastro.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -16,31 +16,31 @@
         <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
             <div class="card" style="width: 100%; max-width: 400px;">
                 <div class="card-body">
-                    <h5 class="card-title text-center mb-4">Cadastro de Funcionario</h5>
+                    <h5 class="card-title text-center mb-4 text">Cadastro de Funcionario</h5>
 
                     <!-- Formulário de cadastro -->
                     <div class="mb-3">
-                        <label for="txtNome" class="form-label required-label">Nome Completo</label>
+                        <label for="txtNome" class="form-label required-label text">Nome Completo</label>
                         <asp:TextBox ID="txtNome" runat="server" CssClass="form-control" Placeholder="Digite seu nome" required="required"></asp:TextBox>
                     </div>
 
                     <div class="mb-3">
-                        <label for="txtEmail" class="form-label required-label">E-mail</label>
+                        <label for="txtEmail" class="form-label required-label text">E-mail</label>
                         <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Placeholder="Digite seu e-mail" required="required"></asp:TextBox>
                     </div>
 
                     <div class="mb-3">
-                        <label for="txtSenha" class="form-label required-label">Senha</label>
+                        <label for="txtSenha" class="form-label required-label text">Senha</label>
                         <asp:TextBox ID="txtSenha" runat="server" CssClass="form-control" TextMode="Password" Placeholder="Digite sua senha" required="required"></asp:TextBox>
                     </div>
 
                     <div class="mb-3">
-                        <label for="txtConfirmaSenha" class="form-label required-label">Confirmar Senha</label>
+                        <label for="txtConfirmaSenha" class="form-label required-label text">Confirmar Senha</label>
                         <asp:TextBox ID="txtConfirmaSenha" runat="server" CssClass="form-control" TextMode="Password" Placeholder="Confirme sua senha" required="required"></asp:TextBox>
                     </div>
 
                     <div class="mb-3">
-                        <label for="txtTelefone" class="form-label required-label">Telefone</label>
+                        <label for="txtTelefone" class="form-label required-label text">Telefone</label>
                         <asp:TextBox ID="txtTelefone" runat="server" CssClass="form-control" TextMode="Number" Placeholder="Digite seu telefone" required="required"></asp:TextBox>
                     </div>
 
