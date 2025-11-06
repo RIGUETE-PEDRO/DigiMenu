@@ -18,7 +18,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <img id="imgLogo" src="" alt="Logo" />
+                    <img id="imgLogo" src="img/logo.png" alt="Logo" />
                 </a>
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">

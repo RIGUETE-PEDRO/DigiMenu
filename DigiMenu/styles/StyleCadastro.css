@@ -1,6 +1,5 @@
 ﻿
-
-.body {
+body {
     background-image: url(../img/img-fundo.jpg);
     background-repeat: no-repeat;
     background-size: cover; /* Faz a imagem cobrir toda a tela */
@@ -28,4 +27,14 @@
     font-weight: 700;
     margin-right: 4px;
     display: inline-block;
+}
+
+.text {
+    color: white;
+}
+
+.card {
+    background-color: transparent;
+    border: 1px solid white;
+    backdrop-filter: blur(1000px);
 }
