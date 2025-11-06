@@ -103,6 +103,7 @@
     </Content>
     <Content Include="StatusPedido.aspx" />
     <Content Include="styles\CadastroCarrousel.css" />
+    <Content Include="styles\StyleAdmin.css" />
     <Content Include="styles\StyleCadastro.css" />
     <Content Include="styles\StyleLogin.css" />
     <Content Include="styles\StylePrincipal.css" />
