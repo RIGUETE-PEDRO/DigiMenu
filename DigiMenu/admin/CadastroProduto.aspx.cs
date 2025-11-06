@@ -185,7 +185,7 @@ namespace DigiMenu
                 Response.Redirect("CadastroProduto.aspx?salvo=1", false);
                 Context.ApplicationInstance.CompleteRequest();
             }
-            catch (Exception ex)
+            catch 
             {
                 PlaceHolderMensagens.Controls.Clear();
                 var divSucesso = mensagem.MostrarMensagem("Erro ao cadastrar produto:", "erro");

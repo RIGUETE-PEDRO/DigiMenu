@@ -102,6 +102,7 @@
     </Content>
     <Content Include="StatusPedido.aspx" />
     <Content Include="styles\CadastroCarrousel.css" />
+    <Content Include="styles\statusPedido.css" />
     <Content Include="styles\StyleCadastro.css" />
     <Content Include="styles\StyleLogin.css" />
     <Content Include="styles\StylePrincipal.css" />
@@ -285,7 +286,9 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="api\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

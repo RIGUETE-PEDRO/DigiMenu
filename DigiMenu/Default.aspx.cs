@@ -120,7 +120,7 @@ namespace DigiMenu
         {
             ddlCategoria.Visible = rbCategoria.Checked;
             txtPreco.Visible = rbPreco.Checked;
-            ddlOferta.Visible = rbOferta.Checked;
+     
         }
 
         protected void compra_Click(object sender, EventArgs e)

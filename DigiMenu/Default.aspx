@@ -18,7 +18,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="#">
-                    <img id="imgLogo" src="" alt="Logo" />
+                    <img id="imgLogo" src="img/logo.png" alt="Logo" />
                 </a>
 
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
@@ -34,6 +34,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" aria-disabled="true">Bebidas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="StatusPedido.aspx" aria-disabled="true">Pedidos</a>
                         </li>
                     </ul>
                     <div class="d-flex" role="search">
@@ -55,12 +58,12 @@
                     </div>
                     <div class="userDisplay d-flex align-items-center" id="divUser" runat="server" style="display: none;">
                         <span class="me-3" id="lblUserName" runat="server"></span>
-                            
-                        <div class="userDisplay d-flex align-items-center" id="div1" runat="server" style="display: none;">
-                                
-                             
 
-                                <asp:LinkButton ID="btnLogout" runat="server" CssClass="logout" OnClick="btnLogout_Click">Sair</asp:LinkButton>
+                        <div class="userDisplay d-flex align-items-center" id="div1" runat="server" style="display: none;">
+
+
+
+                            <asp:LinkButton ID="btnLogout" runat="server" CssClass="logout" OnClick="btnLogout_Click">Sair</asp:LinkButton>
                         </div>
 
                     </div>
@@ -69,35 +72,35 @@
             </div>
         </nav>
 
-         <div class="carrousel">
+        <div class="carrousel">
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="..." alt="First slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="..." alt="Second slide">
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="..." alt="Third slide">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="..." alt="First slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="..." alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="..." alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-</div>
 
         <!--filtros-->
 
@@ -107,8 +110,7 @@
             <!-- Radio buttons para escolher o tipo de filtro -->
             <asp:RadioButton ID="rbCategoria" GroupName="filtro" Text="Categoria" runat="server" AutoPostBack="true" OnCheckedChanged="Filtro_CheckedChanged" Checked="true" />
             <asp:RadioButton ID="rbPreco" GroupName="filtro" Text="Preço" runat="server" AutoPostBack="true" OnCheckedChanged="Filtro_CheckedChanged" />
-            <asp:RadioButton ID="rbOferta" GroupName="filtro" Text="Oferta" runat="server" AutoPostBack="true" OnCheckedChanged="Filtro_CheckedChanged" />
-
+           
             <div class="mt-2">
                 <!-- Inputs correspondentes -->
                 <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select mb-2">
@@ -126,10 +128,10 @@
                 </asp:DropDownList>
             </div>
 
-           
+
 
         </div>
-        
+
 
         <div class="container mt-4">
             <div class="row" id="produtosRow">
