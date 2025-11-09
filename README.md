@@ -13,12 +13,12 @@ o sistema serve para atender clientes com paginas de compras e cardapios interat
 ##
 <h2>Ferramentas Usadas<h2>
   <div>
-  <img src="ImgReadme/5968364.png" alt="SQL Server" width="120"/>
+  <img src="ImgReadme/sqlServer.webp" alt="SQL Server" width="120"/>
 
  
 
   </div>
-    ##
+
 <h2>COMO CONFIGURAR</h2>
 <details>
 
