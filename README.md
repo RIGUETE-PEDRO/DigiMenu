@@ -16,9 +16,9 @@ o sistema serve para atender clientes com paginas de compras e cardapios interat
 
 <summary>Passo 1</summary>
 
-atravez da tecnologia git utilizaremos para baixar o projeto 
+atravez da tecnologia git utilizaremos para baixar o projeto utilizando a tecnologia git 
 ```git
-    https://github.com/RIGUETE-PEDRO/DigiMenu.git
+    git clone https://github.com/RIGUETE-PEDRO/DigiMenu.git
 ```
 </details>
 <details>
@@ -26,7 +26,9 @@ atravez da tecnologia git utilizaremos para baixar o projeto
 
 para o proximo passo iremos pegar o script do banco, que se encontra dentro do projeto que acabamos de baixar
 
-
+logo apos vamos copiar o script para a criação do banco de dados [ddl.sql](./ddl.sql)
+vamos executar no banco de dados sql server, sucessivamente tambem iremos executar o [dml.sql](./dml.sql)
+assim teremos os dados populado no banco para inicialização do projeto
 
 
 </details>
