@@ -20,6 +20,7 @@ O sistema serve para atender clientes com páginas de compras e cardápios inter
 <div align="center">
   <img src="ImgReadme/sqlServer.webp" alt="SQL Server" width="120" style="margin: 10px;">
   <img src="ImgReadme/dotNET.png" alt=".NET" width="120" style="margin: 10px;">
+  <img src="ImgReadme/vs2022.png" alt="vs2022" width="120" style="margin: 10px;">
 </div>
 
 ---
