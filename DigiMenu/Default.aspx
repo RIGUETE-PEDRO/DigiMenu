@@ -24,19 +24,19 @@
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Principal</a>
+                            <a class="nav-link active" aria-current="page" href="Default.aspx">Principal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" aria-disabled="true">Lanches</a>
+                            <a class="nav-link" href="Default.aspx?cat=Lanches">Lanches</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="#" aria-disabled="true">Pizzas</a>
+                            <a class="nav-link " href="Default.aspx?cat=Pizzas">Pizzas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" aria-disabled="true">Bebidas</a>
+                            <a class="nav-link" href="Default.aspx?cat=Bebidas">Bebidas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="StatusPedido.aspx" aria-disabled="true">Pedidos</a>
+                            <a class="nav-link" href="StatusPedido.aspx">Pedidos</a>
                         </li>
                     </ul>
                     <div class="d-flex" role="search">
@@ -107,29 +107,20 @@
         <div class="container mt-4">
             <h2>Filtros</h2>
 
-            <!-- Radio buttons para escolher o tipo de filtro -->
-            <asp:RadioButton ID="rbCategoria" GroupName="filtro" Text="Categoria" runat="server" AutoPostBack="true" OnCheckedChanged="Filtro_CheckedChanged" Checked="true" />
-            <asp:RadioButton ID="rbPreco" GroupName="filtro" Text="Preço" runat="server" AutoPostBack="true" OnCheckedChanged="Filtro_CheckedChanged" />
-           
-            <div class="mt-2">
-                <!-- Inputs correspondentes -->
-                <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select mb-2">
-                    <asp:ListItem Text="Selecione a categoria" Value="" />
-                    <asp:ListItem Text="Bebidas" Value="Bebidas" />
-                    <asp:ListItem Text="Comidas" Value="Comidas" />
-                </asp:DropDownList>
+            <!-- Filtro por preço (faixa) -->
+            <asp:RadioButton ID="rbPreco" GroupName="filtro" Text="Preço" runat="server" Checked="true" />
 
-                <asp:TextBox ID="txtPreco" runat="server" CssClass="form-control mb-2" Placeholder="Digite o preço"></asp:TextBox>
-
-                <asp:DropDownList ID="ddlOferta" runat="server" CssClass="form-select mb-2">
-                    <asp:ListItem Text="Selecione a oferta" Value="" />
-                    <asp:ListItem Text="10%" Value="10" />
-                    <asp:ListItem Text="20%" Value="20" />
-                </asp:DropDownList>
+            <div class="row mt-2 g-2">
+                <div class="col-12 col-md-4">
+                    <asp:TextBox ID="txtPrecoMin" runat="server" CssClass="form-control" Placeholder="Preço mínimo" />
+                </div>
+                <div class="col-12 col-md-4">
+                    <asp:TextBox ID="txtPrecoMax" runat="server" CssClass="form-control" Placeholder="Preço máximo" />
+                </div>
+                <div class="col-12 col-md-4 d-grid">
+                    <asp:Button ID="btnFiltrarPreco" runat="server" CssClass="btn btn-outline-primary" Text="Filtrar" OnClick="btnFiltrarPreco_Click" />
+                </div>
             </div>
-
-
-
         </div>
 
 

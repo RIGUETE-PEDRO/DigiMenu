@@ -5,11 +5,24 @@ using System.Text;
 using System.Data.Entity.Validation;
 using DigiMenu.DAL;
 using System.Threading;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace DigiMenu.DAO
 {
     public class ProdutoDAO
     {
+        // DTO para exibição em listas (WebForms/MVC)
+        public class ProdutoListaDTO
+        {
+            public int IdProduto { get; set; }
+            public string Nome { get; set; }
+            public string Descricao { get; set; }
+            public decimal Preco { get; set; }
+            public int Estoque { get; set; }
+            public string Imagem { get; set; }
+        }
+
         // DTO para dados do carrossel por produto (usado pela camada de apresentação)
         public class ProdutoCarrosselDados
         {
@@ -17,6 +30,32 @@ namespace DigiMenu.DAO
             public string Nome { get; set; }
             public bool Ativo { get; set; }
             public int? Ordem { get; set; }
+        }
+
+        // Normalização de nome de categoria (remove acentos, plural simples)
+        private static string NormalizarCategoria(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+            s = s.Trim().ToLowerInvariant();
+            s = RemoverAcentos(s);
+            if (s.EndsWith("s")) s = s.Substring(0, s.Length - 1); // plural simples
+            return s;
+        }
+
+        private static string RemoverAcentos(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return text;
+            var normalized = text.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder();
+            foreach (var ch in normalized)
+            {
+                var uc = CharUnicodeInfo.GetUnicodeCategory(ch);
+                if (uc != UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(ch);
+                }
+            }
+            return sb.ToString().Normalize(NormalizationForm.FormC);
         }
 
         public List<Produto> Listar()
@@ -27,7 +66,6 @@ namespace DigiMenu.DAO
             }
         }
 
-        // Ajustado: localizar a imagem do produto no banco e retornar o caminho relativo
         public string Delete(int idProduto)
         {
             using (var ctx = new DigiMenuEntities())
@@ -75,6 +113,7 @@ namespace DigiMenu.DAO
                 existente.Preco = produto.Preco;
                 existente.Estoque = produto.Estoque;
                 existente.Ativo = produto.Ativo;
+                existente.Categoria = produto.Categoria;
 
                 // Atualiza imagem, se fornecida
                 var imagemExistente = ctx.ImagemProduto.FirstOrDefault(i => i.ProdutoId == existente.IdProduto);
@@ -93,15 +132,11 @@ namespace DigiMenu.DAO
                         };
                         ctx.ImagemProduto.Add(imagemExistente);
                     }
-                    else
+                    else if (imagemProduto.CaminhoImagem != null)
                     {
-                        // Atualiza caminho se vier preenchido; se vier vazio, aplica padrão
-                        if (imagemProduto.CaminhoImagem != null)
-                        {
-                            imagemExistente.CaminhoImagem = string.IsNullOrWhiteSpace(imagemProduto.CaminhoImagem)
-                                ? IMAGEM_PADRAO
-                                : imagemProduto.CaminhoImagem;
-                        }
+                        imagemExistente.CaminhoImagem = string.IsNullOrWhiteSpace(imagemProduto.CaminhoImagem)
+                            ? IMAGEM_PADRAO
+                            : imagemProduto.CaminhoImagem;
                     }
                 }
 
@@ -120,7 +155,7 @@ namespace DigiMenu.DAO
                             sb.AppendLine($" - Propriedade: {ve.PropertyName} Erro: {ve.ErrorMessage}");
                         }
                     }
-                    throw new Exception("Erro de validação ao atualizar produto: " + sb.ToString(), ex);
+                    throw new Exception("Erro de validação ao atualizar produto: " + sb + string.Empty, ex);
                 }
             }
         }
@@ -162,6 +197,137 @@ namespace DigiMenu.DAO
             using (var ctx = new DigiMenuEntities())
             {
                 return ctx.Produto.Where(p => p.Ativo).ToList();
+            }
+        }
+
+        // NOVO: lista produtos ativos (DTO)
+        public List<ProdutoListaDTO> ListarAtivos()
+        {
+            using (var ctx = new DigiMenuEntities())
+            {
+                return ctx.Produto
+                    .Where(p => p.Ativo)
+                    .Select(p => new ProdutoListaDTO
+                    {
+                        IdProduto = p.IdProduto,
+                        Nome = p.Nome,
+                        Descricao = p.Descricao,
+                        Preco = p.Preco,
+                        Estoque = p.Estoque,
+                        Imagem = p.ImagemProduto.Select(img => img.CaminhoImagem).FirstOrDefault()
+                    }).ToList();
+            }
+        }
+
+        // NOVO: lista produtos ativos por id da categoria
+        public List<ProdutoListaDTO> ListarAtivosPorCategoriaId(int categoriaId)
+        {
+            using (var ctx = new DigiMenuEntities())
+            {
+                return ctx.Produto
+                    .Where(p => p.Ativo && p.Categoria == categoriaId)
+                    .Select(p => new ProdutoListaDTO
+                    {
+                        IdProduto = p.IdProduto,
+                        Nome = p.Nome,
+                        Descricao = p.Descricao,
+                        Preco = p.Preco,
+                        Estoque = p.Estoque,
+                        Imagem = p.ImagemProduto.Select(img => img.CaminhoImagem).FirstOrDefault()
+                    }).ToList();
+            }
+        }
+
+        // NOVO: lista produtos ativos por nome de categoria (normalizado)
+        public List<ProdutoListaDTO> ListarAtivosPorCategoriaNome(string categoriaNome)
+        {
+            string alvo = NormalizarCategoria(categoriaNome);
+            using (var ctx = new DigiMenuEntities())
+            {
+                var categorias = ctx.Categoria
+                    .Select(c => new { c.id, c.nome })
+                    .ToList()
+                    .Select(c => new { c.id, nomeNorm = NormalizarCategoria(c.nome) })
+                    .ToList();
+
+                var catMatch = categorias.FirstOrDefault(c => c.nomeNorm == alvo || c.nomeNorm.StartsWith(alvo) || alvo.StartsWith(c.nomeNorm));
+                IQueryable<Produto> query;
+                if (catMatch != null)
+                {
+                    int cid = catMatch.id;
+                    query = ctx.Produto.Where(p => p.Ativo && p.Categoria == cid);
+                }
+                else
+                {
+                    // fallback por navegação
+                    query = ctx.Produto.Where(p => p.Ativo && p.Categoria1 != null);
+                }
+
+                var listaBase = query
+                    .Select(p => new { p, CatNome = p.Categoria1.nome })
+                    .ToList();
+
+                return listaBase
+                    .Where(x =>
+                    {
+                        var nomeCatNorm = NormalizarCategoria(x.CatNome);
+                        return nomeCatNorm == alvo || nomeCatNorm.StartsWith(alvo) || alvo.StartsWith(nomeCatNorm);
+                    })
+                    .Select(x => new ProdutoListaDTO
+                    {
+                        IdProduto = x.p.IdProduto,
+                        Nome = x.p.Nome,
+                        Descricao = x.p.Descricao,
+                        Preco = x.p.Preco,
+                        Estoque = x.p.Estoque,
+                        Imagem = x.p.ImagemProduto.Select(img => img.CaminhoImagem).FirstOrDefault()
+                    })
+                    .ToList();
+            }
+        }
+
+        // NOVO: filtro por preço máximo
+        public List<ProdutoListaDTO> ListarAtivosPorPrecoMax(decimal precoMax)
+        {
+            using (var ctx = new DigiMenuEntities())
+            {
+                return ctx.Produto
+                    .Where(p => p.Ativo && p.Preco <= precoMax)
+                    .Select(p => new ProdutoListaDTO
+                    {
+                        IdProduto = p.IdProduto,
+                        Nome = p.Nome,
+                        Descricao = p.Descricao,
+                        Preco = p.Preco,
+                        Estoque = p.Estoque,
+                        Imagem = p.ImagemProduto.Select(img => img.CaminhoImagem).FirstOrDefault()
+                    })
+                    .ToList();
+            }
+        }
+
+        // NOVO: filtro por faixa de preço
+        public List<ProdutoListaDTO> ListarAtivosPorFaixaPreco(decimal? precoMin, decimal? precoMax)
+        {
+            using (var ctx = new DigiMenuEntities())
+            {
+                var query = ctx.Produto.Where(p => p.Ativo);
+                if (precoMin.HasValue)
+                    query = query.Where(p => p.Preco >= precoMin.Value);
+                if (precoMax.HasValue)
+                    query = query.Where(p => p.Preco <= precoMax.Value);
+
+                return query
+                    .Select(p => new ProdutoListaDTO
+                    {
+                        IdProduto = p.IdProduto,
+                        Nome = p.Nome,
+                        Descricao = p.Descricao,
+                        Preco = p.Preco,
+                        Estoque = p.Estoque,
+                        Imagem = p.ImagemProduto.Select(img => img.CaminhoImagem).FirstOrDefault()
+                    })
+                    .ToList();
             }
         }
 
