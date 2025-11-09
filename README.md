@@ -16,9 +16,9 @@ o sistema serve para atender clientes com paginas de compras e cardapios interat
 
 <summary>Passo 1</summary>
 
-atravez da tecnologia git utilizaremos para baixar o projeto 
+atravez da tecnologia git utilizaremos para baixar o projeto utilizando a tecnologia git 
 ```git
-    https://github.com/RIGUETE-PEDRO/DigiMenu.git
+    git clone https://github.com/RIGUETE-PEDRO/DigiMenu.git
 ```
 </details>
 <details>
