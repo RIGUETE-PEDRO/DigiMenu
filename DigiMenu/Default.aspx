@@ -12,7 +12,7 @@
 <body>
     <form id="form1" runat="server">
         <!-- nav bar do bootstrap -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbarDesigner">
+        <nav class="navbar navbar-expand-lg navbarDesigner">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,6 +21,7 @@
                     <img id="imgLogo" src="img/logo.png" alt="Logo" />
                 </a>
 
+                 <!-- Navegação Principal -->
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -39,11 +40,14 @@
                             <a class="nav-link" href="StatusPedido.aspx" aria-disabled="true">Pedidos</a>
                         </li>
                     </ul>
+
+                    <!-- Barra de Pesquisa com Controles de Servidor -->
                     <div class="d-flex" role="search">
                         <asp:TextBox ID="txtPesquisa" runat="server" CssClass="form-control me-2" Placeholder="Digite o produto" />
-                        <asp:Button ID="btnPesquisar" runat="server" CssClass="btn btn-outline-success" Text="Pesquisar" OnClick="btnPesquisar_Click" />
+                        <asp:Button ID="btnPesquisar" runat="server" CssClass="btn btn-primary" Text="Pesquisar" OnClick="btnPesquisar_Click" />
                     </div>
 
+                    <!-- Carrinho -->
                     <div id="cart">
                         <a href="carrinho.aspx" class="cart">
                             <img src="img/shopping_cart_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt="imagem de carinho" />
@@ -51,27 +55,25 @@
                         </a>
                     </div>
 
+                    <!-- Login/Usuário com Controles de Servidor -->
                     <div class="buttonLogin" id="divLogin" runat="server">
                         <a href="FrmLogin.aspx" class="login">
-                            <p>Login</p>
+                            <p class="pLogin">Login</p>
                         </a>
                     </div>
                     <div class="userDisplay d-flex align-items-center" id="divUser" runat="server" style="display: none;">
                         <span class="me-3" id="lblUserName" runat="server"></span>
 
                         <div class="userDisplay d-flex align-items-center" id="div1" runat="server" style="display: none;">
-
-
-
                             <asp:LinkButton ID="btnLogout" runat="server" CssClass="logout" OnClick="btnLogout_Click">Sair</asp:LinkButton>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </nav>
 
+
+        <!-- Carrossel (Mantido como estava) -->
         <div class="carrousel">
 
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -102,58 +104,60 @@
             </div>
         </div>
 
-        <!--filtros-->
 
+
+               <!-- FILTROS: Estrutura mais limpa com Flexbox -->
         <div class="container mt-4">
-            <h2>Filtros</h2>
+            <section class="filters">
+                <h2>Filtros</h2>
+                <div class="filter-options">
+                    <div class="filter-group">
+                        <!-- Radio buttons -->
+                        <asp:RadioButton ID="rbCategoria" GroupName="filtro" Text="Categoria" runat="server" AutoPostBack="true" OnCheckedChanged="Filtro_CheckedChanged" Checked="true" />
+                        <asp:RadioButton ID="rbPreco" GroupName="filtro" Text="Preço" runat="server" AutoPostBack="true" OnCheckedChanged="Filtro_CheckedChanged" />
+                    </div>
+                    
+                    <!-- DropDownList Categoria -->
+                    <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select" Placeholder="Selecione a categoria">
+                        <asp:ListItem Text="Selecione a categoria" Value="" />
+                        <asp:ListItem Text="Bebidas" Value="Bebidas" />
+                        <asp:ListItem Text="Comidas" Value="Comidas" />
+                    </asp:DropDownList>
 
-            <!-- Radio buttons para escolher o tipo de filtro -->
-            <asp:RadioButton ID="rbCategoria" GroupName="filtro" Text="Categoria" runat="server" AutoPostBack="true" OnCheckedChanged="Filtro_CheckedChanged" Checked="true" />
-            <asp:RadioButton ID="rbPreco" GroupName="filtro" Text="Preço" runat="server" AutoPostBack="true" OnCheckedChanged="Filtro_CheckedChanged" />
-           
-            <div class="mt-2">
-                <!-- Inputs correspondentes -->
-                <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select mb-2">
-                    <asp:ListItem Text="Selecione a categoria" Value="" />
-                    <asp:ListItem Text="Bebidas" Value="Bebidas" />
-                    <asp:ListItem Text="Comidas" Value="Comidas" />
-                </asp:DropDownList>
+                    <!-- TextBox Preço -->
+                    <asp:TextBox ID="txtPreco" runat="server" CssClass="form-control" Placeholder="Digite o preço"></asp:TextBox>
 
-                <asp:TextBox ID="txtPreco" runat="server" CssClass="form-control mb-2" Placeholder="Digite o preço"></asp:TextBox>
-
-                <asp:DropDownList ID="ddlOferta" runat="server" CssClass="form-select mb-2">
-                    <asp:ListItem Text="Selecione a oferta" Value="" />
-                    <asp:ListItem Text="10%" Value="10" />
-                    <asp:ListItem Text="20%" Value="20" />
-                </asp:DropDownList>
-            </div>
-
-
-
+                    <!-- DropDownList Oferta -->
+                    <asp:DropDownList ID="ddlOferta" runat="server" CssClass="form-select">
+                        <asp:ListItem Text="Selecione a oferta" Value="" />
+                        <asp:ListItem Text="10%" Value="10" />
+                        <asp:ListItem Text="20%" Value="20" />
+                    </asp:DropDownList>
+                </div>
+            </section>
         </div>
 
-
+        <!-- PRODUTOS: Novo layout de Card com Repeater -->
         <div class="container mt-4">
-            <div class="row" id="produtosRow">
+            <div class="row product-grid" id="produtosRow">
                 <asp:Repeater ID="rptProdutos" runat="server">
                     <ItemTemplate>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
-                            <div class="card flex-fill">
-                                <img src='<%# Eval("Imagem") %>' class="card-img-top produto-imagem" alt='<%# Eval("Nome") %>' />
-                                <div class="card-body d-flex flex-column">
+                        <!-- Usando col-lg-3 para 4 colunas em desktop, col-md-4 para 3 em tablet, col-sm-6 para 2 em mobile -->
+                        <div class="col-12 col-sm-6 col-md-2 col-lg-3 mb-4 d-flex">
+                            <div class="product-card">
+                                <img src='<%# Eval("Imagem") %>' alt='<%# Eval("Nome") %>' />
+                                <div class="product-info">
                                     <h5 class="card-title"><%# Eval("Nome") %></h5>
-                                    <p class="card-text flex-grow-1"><%# Eval("Descricao") %></p>
+                                    <p class="card-text"><%# Eval("Descricao") %></p>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Preço: R$ <%# Eval("Preco") %></li>
-                                    <li class="list-group-item">Estoque: <%# Eval("Estoque") %></li>
+                                <ul class="product-details">
+                                    <li class="price">Preço: R$ <%# Eval("Preco") %></li>
+                                    <li>Estoque: <%# Eval("Estoque") %></li>
                                 </ul>
-                                <div class="card-body d-flex justify-content-between">
-                                    <asp:Button Text="Comprar" OnClick="compra_Click" runat="server" ID="compra" class="btn btn-primary btn-sm" />
-                                    <asp:Button Text="Detalhes" runat="server" class="btn btn-secondary btn-sm" />
-
-
-
+                                <div class="product-actions">
+                                    <!-- Botões com classes customizadas para o novo estilo -->
+                                    <asp:Button Text="Comprar" OnClick="compra_Click" runat="server" ID="compra" CssClass="btn-custom btn-primary-custom" />
+                                    <asp:Button Text="Detalhes" runat="server" CssClass="btn-custom btn-secondary-custom" />
                                 </div>
                             </div>
                         </div>
@@ -161,9 +165,6 @@
                 </asp:Repeater>
             </div>
         </div>
-
-
-
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

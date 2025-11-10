@@ -6,10 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Cadastro de Produto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <link href="https://cdn.datatables.net/v/dt/dt-2.3.4/datatables.min.css" rel="stylesheet" integrity="sha384-pmGS6IIcXhAVIhcnh9X/mxffzZNHbuxboycGuQQoP3pAbb0SwlSUUHn2v22bOenI" crossorigin="anonymous">
     <link href="../styles/StyleAdmin.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg navbarDesigner">
         <div class="container-fluid">
              <img id="imgLogo" src="../img/logo.png" alt="Logo" />
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +18,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link " aria-current="page" href="FrmPainelAdministrativo.aspx">Home</a>
+                    <a class="nav-link " aria-current="page" href="FrmPainelAdministrativo.aspx">Início</a>
                     <a class="nav-link active" href="CadastroProduto.aspx">Produtos</a>
                     <a class="nav-link" href="CadastroCarrousel.aspx">Carousel</a>
                     <a class="nav-link" href="FrmPedidos.aspx">Pedidos</a>
@@ -28,7 +29,8 @@
 
     <form id="form1" runat="server">
         <div class="container-fluid">
-            <div class="row g-4 align-items-start">
+            <div class="row g-4 align-items-start mt-2">
+
                 <!-- Coluna esquerda: Formulário -->
                 <div class="col-12 col-lg-5">
                     <div class="card shadow-sm h-100">
@@ -88,7 +90,7 @@
                                 <span class="text-muted small">Lista</span>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-sm table-hover align-middle mb-0">
+                                <table class="table table-striped">
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col">CÓD</th>
@@ -132,5 +134,27 @@
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/v/dt/dt-2.3.4/datatables.min.js" integrity="sha384-X2pTSfom8FUa+vGQ+DgTCSyBZYkC1RliOduHa0X96D060s7Q//fnOh3LcazRNHyo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js"></script>
+    <script>
+        // Inicializa DataTables na tabela de produtos
+        document.addEventListener('DOMContentLoaded', function () {
+            var table = document.querySelector('.table');
+            if (table) {
+                $(table).DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
+                    },
+                    "columnDefs": [
+                        { "orderable": false, "targets": 5 } // Desabilita ordenação na coluna AÇÕES
+                    ]
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>
