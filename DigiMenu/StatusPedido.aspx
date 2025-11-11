@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StatusPedido.aspx.cs" Inherits="DigiMenu.StatusPedido" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="StatusPedido.aspx.cs" Inherits="DigiMenu.StatusPedido" %>
+
 
 <!DOCTYPE html>
 
@@ -23,62 +24,69 @@
                 </div>
             </div>
         </nav>
-        <div>
-       
-    <div class="container mt-4">
-        <h2>SEUS PEDIDOS</h2>
-        <asp:PlaceHolder ID="phMsg" runat="server" />
+        
 
-        <asp:Repeater ID="rptPedidos" runat="server" OnItemCommand="rptPedidos_ItemCommand">
-            <HeaderTemplate>
-                <div class="list-group">
-            </HeaderTemplate>
-            <ItemTemplate>
-                <div class="list-group-item">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>Pedido #<%# Eval("IdPedido") %></strong>
-                            <div class="text-muted">Data: <%# ((DateTime)Eval("Data")).ToString("dd/MM/yyyy HH:mm") %> | Cliente: <%# Eval("Cliente") %> | Status: <%# Eval("Status") %></div>
+            <div class="container mt-4">
+                <h2>SEUS PEDIDOS</h2>
+                <asp:PlaceHolder ID="phMsg" runat="server" />
+
+                <asp:Repeater ID="rptPedidos" runat="server" OnItemCommand="rptPedidos_ItemCommand">
+                    <HeaderTemplate>
+                        <div class="list-group">
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <div class="list-group-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Pedido #<%# Eval("IdPedido") %></strong>
+                                    <div class="text-muted">Data: <%# ((DateTime)Eval("Data")).ToString("dd/MM/yyyy HH:mm") %> | Cliente: <%# Eval("Cliente") %> | Status: <%# Eval("Status") %></div>
+                                </div>
+                                <div>
+                                    <span class="me-3">Total: R$ <%# string.Format("{0:N2}", Eval("Total")) %></span>
+
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <asp:Repeater ID="rptItens" runat="server">
+                                    <HeaderTemplate>
+                                        <table class="table table-sm mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Produto</th>
+                                                    <th class="text-end">Qtd</th>
+                                                    <th class="text-end">Unit.</th>
+                                                    <th class="text-end">Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td><%# Eval("Produto") %></td>
+                                            <td class="text-end"><%# Eval("Quantidade") %></td>
+                                            <td class="text-end">R$ <%# string.Format("{0:N2}", Eval("PrecoUnitario")) %></td>
+                                            <td class="text-end">R$ <%# string.Format("{0:N2}", (decimal)Eval("PrecoUnitario") * (int)Eval("Quantidade")) %></td>
+                                        </tr>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </tbody></table>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+                            </div>
                         </div>
-                        <div>
-                            <span class="me-3">Total: R$ <%# string.Format("{0:N2}", Eval("Total")) %></span>
-    
+                    </ItemTemplate>
+                    <FooterTemplate>
                         </div>
-                    </div>
-                    <div class="mt-2">
-                        <asp:Repeater ID="rptItens" runat="server">
-                            <HeaderTemplate>
-                                <table class="table table-sm mb-0"><thead><tr>
-                                    <th>Produto</th><th class="text-end">Qtd</th><th class="text-end">Unit.</th><th class="text-end">Subtotal</th>
-                                </tr></thead><tbody>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <tr>
-                                    <td><%# Eval("Produto") %></td>
-                                    <td class="text-end"><%# Eval("Quantidade") %></td>
-                                    <td class="text-end">R$ <%# string.Format("{0:N2}", Eval("PrecoUnitario")) %></td>
-                                    <td class="text-end">R$ <%# string.Format("{0:N2}", (decimal)Eval("PrecoUnitario") * (int)Eval("Quantidade")) %></td>
-                                </tr>
-                            </ItemTemplate>
-                            <FooterTemplate>
-                                </tbody></table>
-                            </FooterTemplate>
-                        </asp:Repeater>
-                    </div>
-                </div>
-            </ItemTemplate>
-            <FooterTemplate>
-                </div>
-            </FooterTemplate>
-        </asp:Repeater>
+                    </FooterTemplate>
+                </asp:Repeater>
 
-        <asp:Panel ID="pnlSemPedidos" runat="server" Visible="false" CssClass="alert alert-info mt-3">
-            Nenhum pedido pendente.
-        </asp:Panel>
- 
+                <asp:Panel ID="pnlSemPedidos" runat="server" Visible="false" CssClass="alert alert-info mt-3">
+                    Nenhum pedido pendente.
+                </asp:Panel>
 
-            
-        </div>
+
+
+            </div>
     </form>
 </body>
 </html>

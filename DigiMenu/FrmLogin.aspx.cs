@@ -1,6 +1,8 @@
 ﻿using DigiMenu.DAO;
 using System;
 using System.Web.Services.Description;
+using System.Web;
+using System.Web.Security; // adicionada
 
 namespace DigiMenu.admin
 {
@@ -10,59 +12,82 @@ namespace DigiMenu.admin
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            
-                string usuario = txtUsuario.Text.Trim();
-                string senha = txtSenha.Text.Trim();
-                var mensagem = new Mensagens();
+            string usuario = txtUsuario.Text.Trim();
+            string senha = txtSenha.Text.Trim();
+            var mensagem = new Mensagens();
 
             string senhaHash = new HashHelper().GerarHashSHA256(senha);
 
-                try
+            try
+            {
+                var usuarioDao = new UsuarioDAO();
+                var user = usuarioDao.Autenticar(usuario, senhaHash);
+
+                if (user != null)
                 {
-                    var usuarioDao = new UsuarioDAO();
-                    var user = usuarioDao.Autenticar(usuario, senhaHash);
+                    // Autenticação bem-sucedida (session)
+                    Session["UsuarioId"] = user.Id;
+                    Session["UsuarioNome"] = user.Nome;
+                    Session["TipoUsuarioId"] = user.TipoUsuarioId;
 
-                    if (user != null)
+                    // Cookie persistente próprio (opcional)
+                    var cookie = new HttpCookie("DigiMenuUser");
+                    cookie.Values["Id"] = user.Id.ToString();
+                    cookie.Values["Nome"] = user.Nome ?? string.Empty;
+                    cookie.Values["Tipo"] = user.TipoUsuarioId.ToString();
+                    cookie.HttpOnly = true;
+                    cookie.Secure = Request.IsSecureConnection;
+                    cookie.Expires = DateTime.Now.AddDays(7);
+                    Response.Cookies.Add(cookie);
+
+                    // Gerar ticket Forms Authentication com o papel no UserData (Admin se TipoUsuarioId==2)
+                    bool isAdmin = user.TipoUsuarioId == 2;
+                    string roles = isAdmin ? "Admin" : "User";
+                    var ticket = new FormsAuthenticationTicket(
+                        1,
+                        user.Nome ?? user.Id.ToString(),
+                        DateTime.Now,
+                        DateTime.Now.AddMinutes(60),
+                        false,
+                        roles,
+                        FormsAuthentication.FormsCookiePath
+                    );
+                    string encrypted = FormsAuthentication.Encrypt(ticket);
+                    var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted)
                     {
-                        // Autenticação bem-sucedida
-                        Session["UsuarioId"] = user.Id;
-                        Session["UsuarioNome"] = user.Nome;
-                        Session["TipoUsuarioId"] = user.TipoUsuarioId;
-                        
-                        LogDAO log = new LogDAO();
-                        log.Registrar(user.Id, 2);
+                        HttpOnly = true,
+                        Secure = Request.IsSecureConnection,
+                        Path = FormsAuthentication.FormsCookiePath
+                    };
+                    Response.Cookies.Add(authCookie);
 
-                        if (user.TipoUsuarioId == 2)
-                        {
-                            // Administrador
-                            Response.Redirect("admin/FrmPainelAdministrativo.aspx");
-                        }
-                        else
-                        {
-                            // Usuário comum
-                            Response.Redirect("Default.aspx");
-                    }
-                    
+                    LogDAO log = new LogDAO();
+                    log.Registrar(user.Id, 2);
+
+                    if (isAdmin)
+                    {
+                        Response.Redirect("admin/FrmPainelAdministrativo.aspx", false);
                     }
                     else
                     {
+                        Response.Redirect("Default.aspx", false);
+                    }
+                }
+                else
+                {
                     PlaceHolderMensagens.Controls.Clear();
                     var div = mensagem.MostrarMensagem("usuario ou senha errado.", "erro");
                     PlaceHolderMensagens.Controls.Add(div);
                     return;
                 }
-                }
-                catch                 {
-
-                //mensagem de modularizada
+            }
+            catch
+            {
                 PlaceHolderMensagens.Controls.Clear();
                 var div = mensagem.MostrarMensagem("erro ao processar login.", "erro");
                 PlaceHolderMensagens.Controls.Add(div);
                 return;
             }
-            }
-        
-
-        
+        }
     }
 }
