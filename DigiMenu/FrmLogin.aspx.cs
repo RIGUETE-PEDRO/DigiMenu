@@ -29,6 +29,9 @@ namespace DigiMenu.admin
                     Session["UsuarioId"] = user.Id;
                     Session["UsuarioNome"] = user.Nome;
                     Session["TipoUsuarioId"] = user.TipoUsuarioId;
+                    // Ajuste: chaves esperadas em outras páginas
+                    Session["UsuarioLogado"] = user.Nome; // usado para validar se está logado
+                    Session["TipoUsuario"] = user.TipoUsuarioId; // usado para validar perfil
 
                     // Cookie persistente próprio (opcional)
                     var cookie = new HttpCookie("DigiMenuUser");
@@ -64,13 +67,14 @@ namespace DigiMenu.admin
                     LogDAO log = new LogDAO();
                     log.Registrar(user.Id, 2);
 
+                    // Redireciona conforme o tipo (tipo 2 -> área administrativa via urlMapping ~/administracao)
                     if (isAdmin)
                     {
-                        Response.Redirect("admin/FrmPainelAdministrativo.aspx", false);
+                        Response.Redirect("~/administracao", false);
                     }
                     else
                     {
-                        Response.Redirect("Default.aspx", false);
+                        Response.Redirect("~/Default.aspx", false);
                     }
                 }
                 else

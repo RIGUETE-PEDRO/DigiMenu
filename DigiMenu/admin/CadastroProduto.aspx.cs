@@ -39,6 +39,19 @@ namespace DigiMenu
                 }
             }
 
+            if (Session["UsuarioLogado"] == null)
+            {
+                Response.Redirect("~/FrmLogin.aspx");
+                return;
+            }
+
+            // Verifica se é administrador (tipo 2)
+            if (Session["TipoUsuario"] == null || Convert.ToInt32(Session["TipoUsuario"]) != 2)
+            {
+                Response.Redirect("~/FrmLogin.aspx");
+                return;
+            }
+
             if (!IsPostBack && Request.QueryString["salvo"] == "1")
             {
 

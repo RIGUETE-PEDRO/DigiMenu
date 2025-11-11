@@ -21,6 +21,18 @@ namespace DigiMenu.admin
                 CarregarPedidosNaoPendentes();
                 CarregarStatusDisponiveis();
             }
+            if (Session["UsuarioLogado"] == null)
+            {
+                Response.Redirect("~/FrmLogin.aspx");
+                return;
+            }
+
+            // Verifica se é administrador (tipo 2)
+            if (Session["TipoUsuario"] == null || Convert.ToInt32(Session["TipoUsuario"]) != 2)
+            {
+                Response.Redirect("~/FrmLogin.aspx");
+                return;
+            }
         }
 
         private void GarantirSecaoAceitos()

@@ -18,10 +18,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link " aria-current="page" href="FrmPainelAdministrativo.aspx">Início</a>
-                    <a class="nav-link active" href="CadastroProduto.aspx">Produtos</a>
-                    <a class="nav-link" href="CadastroCarrousel.aspx">Carousel</a>
-                    <a class="nav-link" href="FrmPedidos.aspx">Pedidos</a>
+                    <a class="nav-link " aria-current="page" href="administracao">Início</a>
+                    <a class="nav-link active" href="Cadastro-de-produto">Produtos</a>
+                    <a class="nav-link" href="Configurar-carrousel">Carousel</a>
+                    <a class="nav-link" href="Lista-de-Pedidos">Pedidos</a>
                 </div>
             </div>
         </div>

@@ -21,9 +21,9 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="#">Início</a>
-        <a class="nav-link" href="CadastroProduto.aspx">Produtos</a>
-        <a class="nav-link" href="CadastroCarrousel.aspx">Carousel</a>
-        <a class="nav-link" href="FrmPedidos.aspx">Pedidos</a>
+        <a class="nav-link" href="Cadastro-de-produto">Produtos</a>
+        <a class="nav-link" href="Configurar-carrousel">Carousel</a>
+        <a class="nav-link" href="Lista-de-Pedidos">Pedidos</a>
       </div>
     </div>
   </div>
