@@ -2,6 +2,7 @@
 using System;
 using System.Web.Services.Description;
 using System.Web;
+using System.Web.Security; // adicionada
 
 namespace DigiMenu.admin
 {
@@ -24,33 +25,52 @@ namespace DigiMenu.admin
 
                 if (user != null)
                 {
-                    // Autenticação bem-sucedida
+                    // Autenticação bem-sucedida (session)
                     Session["UsuarioId"] = user.Id;
                     Session["UsuarioNome"] = user.Nome;
                     Session["TipoUsuarioId"] = user.TipoUsuarioId;
 
-                    // Cria cookie persistente para manter usuário logado
+                    // Cookie persistente próprio (opcional)
                     var cookie = new HttpCookie("DigiMenuUser");
                     cookie.Values["Id"] = user.Id.ToString();
                     cookie.Values["Nome"] = user.Nome ?? string.Empty;
                     cookie.Values["Tipo"] = user.TipoUsuarioId.ToString();
                     cookie.HttpOnly = true;
-                    cookie.Secure = Request.IsSecureConnection; // usa secure em HTTPS
-                    cookie.Expires = DateTime.Now.AddDays(7); // expira em 7 dias
+                    cookie.Secure = Request.IsSecureConnection;
+                    cookie.Expires = DateTime.Now.AddDays(7);
                     Response.Cookies.Add(cookie);
+
+                    // Gerar ticket Forms Authentication com o papel no UserData (Admin se TipoUsuarioId==2)
+                    bool isAdmin = user.TipoUsuarioId == 2;
+                    string roles = isAdmin ? "Admin" : "User";
+                    var ticket = new FormsAuthenticationTicket(
+                        1,
+                        user.Nome ?? user.Id.ToString(),
+                        DateTime.Now,
+                        DateTime.Now.AddMinutes(60),
+                        false,
+                        roles,
+                        FormsAuthentication.FormsCookiePath
+                    );
+                    string encrypted = FormsAuthentication.Encrypt(ticket);
+                    var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted)
+                    {
+                        HttpOnly = true,
+                        Secure = Request.IsSecureConnection,
+                        Path = FormsAuthentication.FormsCookiePath
+                    };
+                    Response.Cookies.Add(authCookie);
 
                     LogDAO log = new LogDAO();
                     log.Registrar(user.Id, 2);
 
-                    if (user.TipoUsuarioId == 2)
+                    if (isAdmin)
                     {
-                        // Administrador
-                        Response.Redirect("admin/FrmPainelAdministrativo.aspx");
+                        Response.Redirect("admin/FrmPainelAdministrativo.aspx", false);
                     }
                     else
                     {
-                        // Usuário comum
-                        Response.Redirect("Default.aspx");
+                        Response.Redirect("Default.aspx", false);
                     }
                 }
                 else
@@ -63,7 +83,6 @@ namespace DigiMenu.admin
             }
             catch
             {
-                //mensagem de modularizada
                 PlaceHolderMensagens.Controls.Clear();
                 var div = mensagem.MostrarMensagem("erro ao processar login.", "erro");
                 PlaceHolderMensagens.Controls.Add(div);

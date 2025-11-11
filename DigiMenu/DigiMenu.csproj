@@ -85,6 +85,7 @@
     <Content Include="admin\CadastroProduto.aspx" />
     <Content Include="admin\CadastroCarrousel.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="img\deletar.svg" />
     <Content Include="img\edit.svg" />
     <Content Include="img\img-fundo.jpg" />
@@ -136,6 +137,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\CategoriaDAO.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Mensagens.cs" />
     <Compile Include="FrmCadastro.aspx.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>
@@ -276,6 +280,7 @@
     <Content Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="admin\Web.config" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
