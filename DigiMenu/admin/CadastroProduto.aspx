@@ -81,7 +81,6 @@
                     </div>
                 </div>
 
-                <!-- Coluna direita: Tabela -->
                 <div class="col-12 col-lg-7">
                     <div class="card shadow-sm h-100">
                         <div class="card-body">
@@ -90,7 +89,7 @@
                                 <span class="text-muted small">Lista</span>
                             </div>
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                <table class="table table-sm table-hover align-middle mb-0">
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col">CÓD</th>
@@ -134,27 +133,5 @@
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/v/dt/dt-2.3.4/datatables.min.js" integrity="sha384-X2pTSfom8FUa+vGQ+DgTCSyBZYkC1RliOduHa0X96D060s7Q//fnOh3LcazRNHyo" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js"></script>
-    <script>
-        // Inicializa DataTables na tabela de produtos
-        document.addEventListener('DOMContentLoaded', function () {
-            var table = document.querySelector('.table');
-            if (table) {
-                $(table).DataTable({
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json"
-                    },
-                    "columnDefs": [
-                        { "orderable": false, "targets": 5 } // Desabilita ordenação na coluna AÇÕES
-                    ]
-                });
-            }
-        });
-    </script>
-
 </body>
 </html>
