@@ -60,6 +60,11 @@ namespace DigiMenu
             }
         }
 
+        protected void btnFiltrarPreco_Click(object sender, EventArgs e)
+        {
+            AplicarFiltroFaixaPreco();
+        }
+
         private void AjustarLoginHeader()
         {
             var nomeCompleto = Session["UsuarioNome"] as string;
@@ -118,10 +123,7 @@ namespace DigiMenu
             // Mantido se futuramente adicionar outros filtros (categoria etc.)
         }
 
-        protected void btnFiltrarPreco_Click(object sender, EventArgs e)
-        {
-            AplicarFiltroFaixaPreco();
-        }
+        
 
         private void AplicarFiltroFaixaPreco()
         {
