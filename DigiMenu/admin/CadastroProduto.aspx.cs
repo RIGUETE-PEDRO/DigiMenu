@@ -195,7 +195,7 @@ namespace DigiMenu
 
 
                 // Post/Redirect/Get para evitar reenvio ao atualizar (F5)
-                Response.Redirect("CadastroProduto.aspx?salvo=1", false);
+                Response.Redirect("Cadastro-de-produto?salvo=1", false);
                 Context.ApplicationInstance.CompleteRequest();
             }
             catch
