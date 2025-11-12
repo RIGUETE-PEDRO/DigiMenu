@@ -329,7 +329,7 @@ namespace DigiMenu
             int idProduto;
             if (int.TryParse(btn.CommandArgument, out idProduto))
             {
-                Response.Redirect("~/admin/CadastroProduto.aspx?cod=" + idProduto);
+                Response.Redirect("~/Cadastro-de-produto?cod=" + idProduto);
             }
             PreencherFormulario(false);
         }
@@ -397,7 +397,7 @@ namespace DigiMenu
             var btn = (ImageButton)sender;
             if (int.TryParse(btn.CommandArgument, out int idProduto))
             {
-                Response.Redirect($"~/admin/CadastroProduto.aspx?cod={idProduto}&view=1", false);
+                Response.Redirect($"~/Cadastro-de-produto?cod={idProduto}&view=1", false);
                 Context.ApplicationInstance.CompleteRequest();
             }
         }
@@ -531,7 +531,7 @@ namespace DigiMenu
 
             LimparCampos();
             CarregarProdutos();
-            Response.Redirect("CadastroProduto.aspx");
+            Response.Redirect("Cadastro-de-produto");
         }
     }
 }
