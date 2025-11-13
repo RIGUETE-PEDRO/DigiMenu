@@ -38,10 +38,30 @@ namespace DigiMenu.DAL
                     {
                         registro = new Carousel { Nome = chave };
                         ctx.Carousel.Add(registro);
+                        // Não precisamos salvar já; podemos associar via navegação e salvar no final
                     }
 
                     registro.Ativo = dto.Ativo;
                     registro.Ordem = (dto.Ativo && dto.Ordem > 0) ? dto.Ordem : 0;
+
+                    // Vincula/desvincula ImagemProduto ao Carousel correspondente
+                    var imagensDoProduto = ctx.ImagemProduto.Where(i => i.ProdutoId == dto.IdProduto).ToList();
+                    if (imagensDoProduto.Count > 0)
+                    {
+                        foreach (var img in imagensDoProduto)
+                        {
+                            if (dto.Ativo)
+                            {
+                                // associa pela propriedade de navegação (EF cuidará do Id)
+                                img.Carousel = registro;
+                            }
+                            else
+                            {
+                                // remove associação quando desativado
+                                img.Carousel = null;
+                            }
+                        }
+                    }
                 }
 
                 ctx.SaveChanges();
@@ -81,6 +101,23 @@ namespace DigiMenu.DAL
                 }
 
                 ctx.SaveChanges();
+            }
+        }
+
+        internal ICollection<ImagemProduto> BuscarTodosImagens()
+        {
+            using (var context = new DigiMenuEntities())
+            {
+                // Corrigido: Usar System.Data.Entity para Include
+                var imagens = context.ImagemProduto
+                    .Include("Carousel")
+                    .ToList();
+
+                var imagensAtivas = imagens
+                    .Where(i => i.Carousel != null && i.Carousel.Ativo)
+                    .ToList();
+
+                return imagensAtivas;
             }
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DigiMenu.DAL
@@ -25,6 +26,14 @@ namespace DigiMenu.DAL
             using (var ctx = new DigiMenuEntities())
             {
                 return ctx.ImagemProduto.FirstOrDefault(i => i.ProdutoId == idProduto);
+            }
+        }
+
+        public List<ImagemProduto> BuscarTodos()
+        {
+            using (var context = new DigiMenuEntities())
+            {
+                return context.ImagemProduto.OrderBy(c => c.IdImagemProduto).ToList();
             }
         }
     }

@@ -138,6 +138,8 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\CategoriaDAO.cs" />
+    <Compile Include="DAO\ImagemProdutoQuery.cs" />
+    <Compile Include="DTO\ImagemProdutoDTO.cs" />
     <Compile Include="Mensagens.cs" />
     <Compile Include="FrmCadastro.aspx.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>

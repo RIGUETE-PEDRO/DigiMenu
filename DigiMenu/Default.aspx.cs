@@ -1,9 +1,13 @@
-﻿using System;
+﻿using DigiMenu.DAL;
+using DigiMenu.DAO;
+using DigiMenu.DTO;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DigiMenu.DAO;
+using System.Data.Entity; // Include
 
 namespace DigiMenu
 {
@@ -57,6 +61,55 @@ namespace DigiMenu
             {
                 AjustarLoginHeader();
                 AplicarFiltroQueryString();
+
+                // Carrega dados do carrossel
+                var listaDados = BuscaDadosInterisos();
+
+                // Indicadores (usam apenas o índice)
+                rptIndicators.DataSource = listaDados;
+                rptIndicators.DataBind();
+
+                // Slides usam o DTO completo (UrlImagem, NomeProduto, Descricao, PrecoProduto)
+                rptCarousel.DataSource = listaDados;
+                rptCarousel.DataBind();
+            }
+        }
+
+        private List<ImagemProdutoDTO> BuscaDadosInterisos()
+        {
+            using (var context = new DigiMenuEntities())
+            {
+                // Busca imagens vinculadas a carrosséis ativos e ordena pela ordem configurada
+                var dadosQuery = context.ImagemProduto
+                    .Include("Produto")
+                    .Include("Carousel")
+                    .Where(i => i.Carousel.Ativo)
+                    .OrderBy(i => i.Carousel.Ordem)
+                    .Select(i => new
+                    {
+                        i.IdImagemProduto,
+                        i.CaminhoImagem,
+                        ProdutoId = i.Produto.IdProduto,
+                        NomeProduto = i.Produto.Nome,
+                        Descricao = i.Produto.Descricao,
+                        PrecoProduto = i.Produto.Preco, // decimal
+                        OrdemCarousel = i.Carousel.Ordem
+                    })
+                    .ToList();
+
+                // Converte para DTO, formata preço e garante caminho relativo à raiz
+                var dados = dadosQuery.Select(i => new ImagemProdutoDTO
+                {
+                    IdImagemProduto = i.IdImagemProduto,
+                    UrlImagem = ResolveUrl("~/" + (i.CaminhoImagem ?? string.Empty).TrimStart('~', '/')),
+                    ProdutoId = i.ProdutoId,
+                    NomeProduto = i.NomeProduto,
+                    Descricao = i.Descricao,
+                    PrecoProduto = i.PrecoProduto.ToString("F2"),
+                    OrdemCarousel = i.OrdemCarousel
+                }).ToList();
+
+                return dados;
             }
         }
 
@@ -122,8 +175,6 @@ namespace DigiMenu
         {
             // Mantido se futuramente adicionar outros filtros (categoria etc.)
         }
-
-        
 
         private void AplicarFiltroFaixaPreco()
         {
