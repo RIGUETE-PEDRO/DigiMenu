@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg navbarDesigner">
         <div class="container-fluid">
             <img id="imgLogo" src="../img/logo.png" alt="Logo" />
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,10 +19,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link" aria-current="page" href="administracao">Home</a>
-                    <a class="nav-link" href="Cadastro-de-produto">Produtos</a>
-                    <a class="nav-link active" href="#">Carousel</a>
-                    <a class="nav-link" href="Lista-de-Pedidos">Pedidos</a>
+                    <a class="nav-link text-white" aria-current="page" href="administracao">Início</a>
+                    <a class="nav-link text-white" href="Cadastro-de-produto">Produtos</a>
+                    <a class="nav-link text-white active" href="#">Carousel</a>
+                    <a class="nav-link text-white" href="Lista-de-Pedidos">Pedidos</a>
                 </div>
             </div>
         </div>
@@ -30,45 +30,47 @@
 
     <form id="form1" runat="server">
         <div class="container-fluid">
-            <div class="row g-4 align-items-start">
-                <div class="col-12 col-lg-5">
-                    <div class="card shadow-sm h-100">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-6">
+                    <div class="card carousel-card shadow-sm my-5">
                         <div class="card-body">
-                            <h2 class="form-title mb-4 h4">Carrousel Ativos</h2>
+                            <h3 class="carousel-title mb-4">Carrossel Ativos</h3>
 
                             <asp:PlaceHolder ID="PlaceHolderMensagens" runat="server"></asp:PlaceHolder>
-                            <asp:Repeater ID="rptProdutos" runat="server">
-                                <HeaderTemplate>
-                                    <table class="table">
+
+                            <div class="table-responsive">
+                                <table class="table carousel-table mb-0">
+                                    <thead>
                                         <tr>
-                                            <th>Nome</th>
-                                            <th>Ativo</th>
-                                            <th>Ordem</th>
+                                            <th class="align-middle">Nome</th>
+                                            <th class="text-center" style="width:90px;">Ativo</th>
+                                            <th class="text-center" style="width:120px;">Ordem</th>
                                         </tr>
-                                </HeaderTemplate>
-                                <ItemTemplate>
-                                    <tr>
-                                        <td>
-                                            <asp:Literal ID="litNome" runat="server" Text='<%# Eval("Nome") %>' />
-                                        </td>
-                                        <td>
-                                            <asp:CheckBox ID="chkAtivo" runat="server" Checked='<%# Eval("Ativo") %>' />
-                                        </td>
-                                        <td>
-                                            <asp:TextBox ID="txtOrdem" runat="server" CssClass="form-control input_number" Text='<%# Eval("Ordem") %>' />
-                                        </td>
-                                    </tr>
-                                </ItemTemplate>
+                                    </thead>
 
-                                <FooterTemplate>
-                                    </table>
-                                    <asp:Button ID="btnSalvar" runat="server" Text="Salvar Configurações" CssClass="btn btn-primary mt-3" OnClick="btnSalvar_Click" />
-                                </FooterTemplate>
-                            </asp:Repeater>
-                            
-                            
+                                    <asp:Repeater ID="rptProdutos" runat="server">
+                                        <ItemTemplate>
+                                            <tr class="carousel-row">
+                                                <td class="py-3 align-middle">
+                                                    <asp:Literal ID="litNome" runat="server" Text='<%# Eval("Nome") %>' />
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <asp:CheckBox ID="chkAtivo" runat="server" Checked='<%# Eval("Ativo") %>' CssClass="form-check-input" />
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <asp:TextBox ID="txtOrdem" runat="server" CssClass="form-control input_number d-inline-block" Text='<%# Eval("Ordem") %>' />
+                                                </td>
+                                            </tr>
+                                        </ItemTemplate>
+                                        <FooterTemplate>
+                                            </table>
+                                        </FooterTemplate>
+                                    </asp:Repeater>
+                                </div>
 
-     
+                            <div class="mt-4">
+                                <asp:Button ID="btnSalvar" runat="server" Text="Salvar Configurações" CssClass="btn btn-primary" OnClick="btnSalvar_Click" />
+                            </div>
 
                         </div>
                     </div>

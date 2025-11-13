@@ -87,8 +87,11 @@
     <Content Include="Default.aspx" />
     <Content Include="img\deletar.svg" />
     <Content Include="img\edit.svg" />
+    <Content Include="img\hamburguer.jpeg" />
     <Content Include="img\img-fundo.jpg" />
+    <Content Include="img\lanches.jpg" />
     <Content Include="img\logo.png" />
+    <Content Include="img\pizza.jpg" />
     <Content Include="img\shopping_cart_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" />
     <Content Include="img\visualizar.svg" />
     <Content Include="Model1.Context.tt">

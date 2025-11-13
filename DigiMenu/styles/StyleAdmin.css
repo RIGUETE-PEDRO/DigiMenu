@@ -1,9 +1,10 @@
 ﻿body {
     background: #f8f9fa;
+    padding-bottom: 80px;
 }
 
 .navbarDesigner {
-    background: #00aed4;
+    background: #1b2951;
 }
 
 #imgLogo {
@@ -17,5 +18,163 @@
     font-size: 24px;
     text-align: center;
     padding: 10px;
+}
+
+/* Estilos novos para pedidos (cartões e tabelas) */
+.order-card {
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+    .order-header h5 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+.badge-status {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.75rem;
+    border-radius: 0.4rem;
+    color: #fff;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+}
+
+.total-label {
+    font-weight: 700;
+    color: #138a3a; /* verde similar ao exemplo */
+    margin-bottom: 0.5rem;
+}
+
+/* CheckBox list as list-group */
+#cblPedidosAceitos input[type="checkbox"] {
+    margin-right: 0.6rem;
+}
+
+.list-group .list-group-item {
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Espaçamento responsivo */
+@media (max-width: 576px) {
+    .order-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+        .order-header .text-end {
+            text-align: left !important;
+        }
+}
+
+/* ---------------------------
+   Estilos para Cadastro Carrousel
+   --------------------------- */
+.carousel-card {
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 0;
+}
+
+    .carousel-card .card-body {
+        padding: 28px;
+    }
+
+/* Título maior */
+.carousel-title {
+    font-weight: 700;
+    color: #1f2d3d;
+}
+
+/* Tabela estilizada sem bordas externas */
+.carousel-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    background: transparent;
+}
+
+    /* Cabeçalho leve */
+    .carousel-table thead th {
+        border-bottom: 1px solid #e9ecef;
+        color: #6c757d;
+        font-weight: 600;
+        padding: 12px 16px;
+        background: transparent;
+    }
+
+/* Linhas com espaçamento interno e separador inferior */
+.carousel-row td {
+    border-bottom: 1px solid #f0f2f4;
+    padding: 18px 16px;
+    vertical-align: middle;
+    background: #fff;
+}
+
+/* última linha sem borda (se preferir, mantenha) */
+.carousel-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Checkbox centralizado */
+.carousel-row .form-check-input {
+    transform: scale(1);
+    margin-left: 0;
+}
+
+/* Ordem: controle menor */
+.input_number {
+    width: 88px;
+    max-width: 100%;
+    display: inline-block;
+}
+
+/* Botão tamanho adequado */
+.btn-primary {
+    border-radius: 6px;
+}
+
+/* Sombra suave no cartão */
+.carousel-card {
+    box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+    background: #ffffff;
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+    .carousel-table thead {
+        display: none;
+    }
+
+    .carousel-row td {
+        display: block;
+        width: 100%;
+        padding: 12px 0;
+    }
+
+        .carousel-row td + td {
+            border-top: none;
+        }
+
+    .input_number {
+        width: 100%;
+        margin-top: 8px;
+    }
 }
 

@@ -25,19 +25,19 @@
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="Default.aspx">Principal</a>
+                            <a class="nav-link text-white active" aria-current="page" href="Default.aspx">Principal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Default.aspx?cat=Lanches">Lanches</a>
+                            <a class="nav-link text-white" href="Default.aspx?cat=Lanches">Lanches</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="Default.aspx?cat=Pizzas">Pizzas</a>
+                            <a class="nav-link text-white" href="Default.aspx?cat=Pizzas">Pizzas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Default.aspx?cat=Bebidas">Bebidas</a>
+                            <a class="nav-link text-white" href="Default.aspx?cat=Bebidas">Bebidas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="StatusPedido.aspx">Pedidos</a>
+                            <a class="nav-link text-white" href="StatusPedido.aspx">Pedidos</a>
                         </li>
                     </ul>
 

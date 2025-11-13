@@ -1,10 +1,10 @@
 ﻿body {
- 
+    background-color: #f8f9fa;
 }
 
-#imgLogo {
-    width: 100px;
-    height: auto;
+.navbarDesigner {
+    background-color: #1b2951;
 }
+ 
 
 
