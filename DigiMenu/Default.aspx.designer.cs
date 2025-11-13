@@ -96,22 +96,31 @@ namespace DigiMenu
         protected global::System.Web.UI.WebControls.RadioButton rbPreco;
 
         /// <summary>
-        /// Controle txtPreco.
+        /// Controle txtPrecoMin.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPreco;
+        protected global::System.Web.UI.WebControls.TextBox txtPrecoMin;
 
         /// <summary>
-        /// Controle ddlOferta.
+        /// Controle txtPrecoMax.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlOferta;
+        protected global::System.Web.UI.WebControls.TextBox txtPrecoMax;
+
+        /// <summary>
+        /// Controle btnFiltrarPreco.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltrarPreco;
 
         /// <summary>
         /// Controle rptProdutos.

@@ -18,10 +18,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link " aria-current="page" href="administracao">Início</a>
-                    <a class="nav-link active" href="Cadastro-de-produto">Produtos</a>
-                    <a class="nav-link" href="Configurar-carrousel">Carousel</a>
-                    <a class="nav-link" href="Lista-de-Pedidos">Pedidos</a>
+                    <a class="nav-link text-white" aria-current="page" href="administracao">Início</a>
+                    <a class="nav-link text-white active" href="Cadastro-de-produto">Produtos</a>
+                    <a class="nav-link text-white" href="Configurar-carrousel">Carousel</a>
+                    <a class="nav-link text-white" href="Lista-de-Pedidos">Pedidos</a>
                 </div>
             </div>
         </div>
