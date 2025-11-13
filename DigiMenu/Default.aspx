@@ -73,36 +73,45 @@
         </nav>
 
 
-        <!-- Carrossel (Mantido como estava) -->
+        <!-- Carrossel -->
         <div class="carrousel">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <!-- Indicadores -->
+    <div class="carousel-indicators">
+        <asp:Repeater ID="rptIndicators" runat="server">
+            <ItemTemplate>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to='<%# Container.ItemIndex %>' class='<%# Container.ItemIndex == 0 ? "active" : "" %>' aria-current='<%# Container.ItemIndex == 0 ? "true" : "false" %>' aria-label='Slide <%# Container.ItemIndex + 1 %>'></button>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
 
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="d-block w-100" src="..." alt="First slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="..." alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="..." alt="Third slide">
+    <!-- Slides -->
+    <div class="carousel-inner">
+        <asp:Repeater ID="rptCarousel" runat="server">
+            <ItemTemplate>
+                <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
+                    <img class="d-block w-100 img_carrousel" src='<%# Eval("UrlImagem") %>' alt='<%# Eval("NomeProduto") %>'>
+                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-1">
+                        <h5><%# Eval("NomeProduto") %></h5>
+                        <p class="mb-1"><%# Eval("Descricao") %></p>
+                        <span class="badge bg-success fs-6">R$ <%# Eval("PrecoProduto") %></span>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+
+    <!-- Controles -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Próximo</span>
+    </button>
+</div>
+
 
 
 

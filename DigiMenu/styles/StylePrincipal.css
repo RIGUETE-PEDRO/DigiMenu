@@ -246,4 +246,22 @@
 
 }
 
+.carousel-inner {
+    border-radius: 10px;
+    height: 400px;
+}
 
+.img_carrousel {
+    /* 1. Define a altura da imagem para preencher o contêiner (300px) */
+    height: 100%;
+    /* 2. Mantém a imagem responsiva na largura */
+    width: 100%;
+    /* 3. ESSENCIAL: Garante que a imagem cubra todo o espaço 
+          sem ser esticada, cortando o que for necessário. */
+    object-fit: contain;
+}
+
+.carousel-item {
+    /* Garante que o item do carrossel também tenha essa altura */
+    height: 100%;
+}

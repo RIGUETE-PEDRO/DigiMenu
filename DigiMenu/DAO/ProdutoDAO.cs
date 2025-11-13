@@ -170,12 +170,32 @@ namespace DigiMenu.DAO
                 ctx.Produto.Add(produto);
                 ctx.SaveChanges();
 
+                // Se produto marcado como ativo (oferta), criamos/garantimos um registro de Carousel para ele
+                Carousel carouselRegistro = null;
+                if (produto.Ativo)
+                {
+                    string chave = $"P:{produto.IdProduto}";
+                    carouselRegistro = ctx.Carousel.FirstOrDefault(c => c.Nome == chave);
+                    if (carouselRegistro == null)
+                    {
+                        carouselRegistro = new Carousel
+                        {
+                            Nome = chave,
+                            Ativo = true,
+                            Ordem = 0
+                        };
+                        ctx.Carousel.Add(carouselRegistro);
+                        ctx.SaveChanges();
+                    }
+                }
+
                 if (imagemProduto == null)
                 {
                     imagemProduto = new ImagemProduto
                     {
                         ProdutoId = produto.IdProduto,
-                        CaminhoImagem = IMAGEM_PADRAO
+                        CaminhoImagem = IMAGEM_PADRAO,
+                        Carousel = carouselRegistro // associa se existir
                     };
                 }
                 else
@@ -184,6 +204,11 @@ namespace DigiMenu.DAO
                     if (string.IsNullOrWhiteSpace(imagemProduto.CaminhoImagem))
                     {
                         imagemProduto.CaminhoImagem = IMAGEM_PADRAO;
+                    }
+                    // associa ao carrossel se criado
+                    if (carouselRegistro != null)
+                    {
+                        imagemProduto.Carousel = carouselRegistro;
                     }
                 }
 
