@@ -47,18 +47,6 @@ CREATE TABLE Tarefas (
 );
 
 -- ===========================
--- Tabela Log
--- ===========================
-CREATE TABLE Log (
-    IdLog INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    TarefasId INT NOT NULL,
-    DataHora DATETIME NULL,
-    UsuarioId INT NOT NULL,
-    FOREIGN KEY (TarefasId) REFERENCES Tarefas(IdTarefas) ON DELETE CASCADE,
-    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
-);
-
--- ===========================
 -- Tabela Pais
 -- ===========================
 CREATE TABLE Pais (
