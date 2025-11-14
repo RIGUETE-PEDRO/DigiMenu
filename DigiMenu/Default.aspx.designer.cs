@@ -87,13 +87,22 @@ namespace DigiMenu
         protected global::System.Web.UI.WebControls.LinkButton btnLogout;
 
         /// <summary>
-        /// Controle rbPreco.
+        /// Controle rptIndicators.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbPreco;
+        protected global::System.Web.UI.WebControls.Repeater rptIndicators;
+
+        /// <summary>
+        /// Controle rptCarousel.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptCarousel;
 
         /// <summary>
         /// Controle txtPrecoMin.

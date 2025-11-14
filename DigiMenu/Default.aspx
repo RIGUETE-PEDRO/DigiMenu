@@ -21,7 +21,7 @@
                     <img id="imgLogo" src="img/logo.png" alt="Logo" />
                 </a>
 
-                 <!-- Navegação Principal -->
+                <!-- Navegação Principal -->
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -73,27 +73,70 @@
         </nav>
 
 
-
-
-
-               <!-- FILTROS: Estrutura mais limpa com Flexbox -->
-        <div class="container mt-4">
-            <h2>Filtros</h2>
-
-            <!-- Filtro por preço (faixa) -->
-            <asp:RadioButton ID="rbPreco" GroupName="filtro" Text="Preço" runat="server" Checked="true" />
-
-            <div class="row mt-2 g-2">
-                <div class="col-12 col-md-4">
-                    <asp:TextBox ID="txtPrecoMin" runat="server" CssClass="form-control" Placeholder="Preço mínimo" />
+        <!-- Carrossel -->
+        <div class="carrousel">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <!-- Indicadores -->
+                <div class="carousel-indicators">
+                    <asp:Repeater ID="rptIndicators" runat="server">
+                        <ItemTemplate>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to='<%# Container.ItemIndex %>' class='<%# Container.ItemIndex == 0 ? "active" : "" %>' aria-current='<%# Container.ItemIndex == 0 ? "true" : "false" %>' aria-label='Slide <%# Container.ItemIndex + 1 %>'></button>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
-                <div class="col-12 col-md-4">
-                    <asp:TextBox ID="txtPrecoMax" runat="server" CssClass="form-control" Placeholder="Preço máximo" />
+
+                <!-- Slides -->
+                <div class="carousel-inner">
+                    <asp:Repeater ID="rptCarousel" runat="server">
+                        <ItemTemplate>
+                            <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
+                                <img class="d-block w-100 img_carrousel" src='<%# Eval("UrlImagem") %>' alt='<%# Eval("NomeProduto") %>'>
+                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-1">
+                                    <h5><%# Eval("NomeProduto") %></h5>
+                                    <p class="mb-1"><%# Eval("Descricao") %></p>
+                                    <span class="badge bg-success fs-6">R$ <%# Eval("PrecoProduto") %></span>
+                                </div>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
                 </div>
-                <div class="col-12 col-md-4 d-grid">
-                    <asp:Button ID="btnFiltrarPreco" runat="server" CssClass="btn btn-outline-primary" Text="Filtrar" OnClick="btnFiltrarPreco_Click" />
-                </div>
+
+                <!-- Controles -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Próximo</span>
+                </button>
             </div>
+
+
+
+
+            <!-- FILTROS: Estrutura mais limpa com Flexbox -->
+            <div class="container mt-4">
+                <div class ="filtro">
+
+
+                    <h2 class="titulo-filtro">Filtros</h2>
+
+                    <!-- Filtro por preço (faixa) -->
+                    <h3 class="titulo-filtro">preço</h3>
+
+                    <div class="row mt-1 g-1">
+                        <div class="col-12 col-md-4">
+                            <asp:TextBox ID="txtPrecoMin" runat="server" CssClass="form-control" Placeholder="Preço mínimo" />
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <asp:TextBox ID="txtPrecoMax" runat="server" CssClass="form-control" Placeholder="Preço máximo" />
+                        </div>
+                        <div class="col-12 col-md-4 d-grid">
+                            <asp:Button ID="btnFiltrarPreco" runat="server" CssClass="btn btn-outline-primary" Text="Filtrar" OnClick="btnFiltrarPreco_Click" />
+                        </div>
+                    </div>
+                </div>
         </div>
 
         <!-- PRODUTOS: Novo layout de Card com Repeater -->
