@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>DigiMenu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link href="styles/StylePrincipal.css" rel="stylesheet" />
 </head>
@@ -120,10 +120,8 @@
                 <div class ="filtro">
 
 
-                    <h2 class="titulo-filtro">Filtros</h2>
+                    <h2 class="titulo-filtro">Filtros de preço</h2>
 
-                    <!-- Filtro por preço (faixa) -->
-                    <h3 class="titulo-filtro">preço</h3>
 
                     <div class="row mt-1 g-1">
                         <div class="col-12 col-md-4">
@@ -132,8 +130,9 @@
                         <div class="col-12 col-md-4">
                             <asp:TextBox ID="txtPrecoMax" runat="server" CssClass="form-control" Placeholder="Preço máximo" />
                         </div>
+
                         <div class="col-12 col-md-4 d-grid">
-                            <asp:Button ID="btnFiltrarPreco" runat="server" CssClass="btn btn-outline-primary" Text="Filtrar" OnClick="btnFiltrarPreco_Click" />
+                            <asp:Button class="buttonFiltrar" id="btnFiltrarPreco" runat="server" Text="Filtrar" OnClick="btnFiltrarPreco_Click" />
                         </div>
                     </div>
                 </div>
@@ -158,8 +157,16 @@
                                 </ul>
                                 <div class="product-actions">
                                     <!-- Botões com classes customizadas para o novo estilo -->
-                                    <asp:Button Text="Comprar" OnClick="compra_Click" runat="server" ID="compra" CssClass="btn-custom btn-primary-custom" />
-                                    <asp:Button Text="Detalhes" runat="server" CssClass="btn-custom btn-secondary-custom" />
+                                    <asp:Button Text="Comprar" runat="server" ID="compra" CssClass="btn-custom btn-primary-custom" />
+                                   <asp:Button 
+                                    Text="Detalhes" 
+                                    ID="btnDetalhes" 
+                                    runat="server" 
+                                    CssClass="btn-custom btn-secondary-custom"
+                                    CommandName="Detalhes"
+                                    CommandArgument='<%# Eval("IdProduto") %>'
+                                    OnCommand="btnDetalhes_Command" />
+
                                 </div>
                             </div>
                         </div>

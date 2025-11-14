@@ -210,45 +210,10 @@ namespace DigiMenu
             return null;
         }
 
+       
         protected void compra_Click(object sender, EventArgs e)
         {
-            if (Session["UsuarioId"] == null)
-            {
-                Response.Redirect("FrmLogin.aspx");
-                return;
-            }
-            var btn = sender as Button;
-            if (btn == null) return;
-            if (!int.TryParse(btn.CommandArgument, out int produtoId)) return;
-            int usuarioId = (int)Session["UsuarioId"];
-
-            using (var ctx = new DigiMenuEntities())
-            {
-                var carrinho = ctx.Carrinho.FirstOrDefault(c => c.UsuarioId == usuarioId);
-                if (carrinho == null)
-                {
-                    carrinho = new Carrinho { UsuarioId = usuarioId, DataCriacao = DateTime.Now };
-                    ctx.Carrinho.Add(carrinho);
-                    ctx.SaveChanges();
-                }
-                var item = ctx.ItemCarrinho.FirstOrDefault(i => i.CarrinhoId == carrinho.IdCarrinho && i.ProdutoId == produtoId);
-                var produto = ctx.Produto.FirstOrDefault(p => p.IdProduto == produtoId);
-                if (produto == null) return;
-                if (item == null)
-                {
-                    item = new ItemCarrinho { CarrinhoId = carrinho.IdCarrinho, ProdutoId = produtoId, Quantidade = 1, PrecoTotal = produto.Preco };
-                    ctx.ItemCarrinho.Add(item);
-                }
-                else
-                {
-                    int q = (item.Quantidade ?? 0) + 1;
-                    item.Quantidade = q;
-                    item.PrecoTotal = q * produto.Preco;
-                }
-                ctx.SaveChanges();
-            }
-            new LogDAO().Registrar(usuarioId, 6);
-            Response.Redirect("carrinho.aspx");
+            
         }
 
         protected void btnLogout_Click(object sender, EventArgs e)
@@ -261,6 +226,18 @@ namespace DigiMenu
                 Response.Cookies.Add(cookie);
             }
             Response.Redirect("FrmLogin.aspx");
+        }
+
+       
+
+       
+
+        protected void btnDetalhes_Command(object sender, CommandEventArgs e)
+        {
+            if (int.TryParse(e.CommandArgument.ToString(), out int idProduto))
+            {
+                Response.Redirect("Detalhes.aspx?produtoId=" + idProduto);
+            }
         }
     }
 }

@@ -79,6 +79,7 @@
     <Content Include="admin\FrmPedidos.aspx" />
     <Content Include="cadastroFuncionario.aspx" />
     <Content Include="carrinho.aspx" />
+    <Content Include="Detalhes.aspx" />
     <Content Include="FrmCadastro.aspx" />
     <Content Include="FrmLogin.aspx" />
     <Content Include="admin\FrmPainelAdministrativo.aspx" />
@@ -113,6 +114,7 @@
     <Content Include="styles\StyleLogin.css" />
     <Content Include="styles\StylePrincipal.css" />
     <Content Include="styles\styleProduto.css" />
+    <Content Include="styles\StyleDetalhes.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +144,16 @@
     </Compile>
     <Compile Include="DAO\CategoriaDAO.cs" />
     <Compile Include="DAO\ImagemProdutoQuery.cs" />
+    <Compile Include="Detalhes.aspx.cs">
+      <DependentUpon>Detalhes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Detalhes.aspx.designer.cs">
+      <DependentUpon>Detalhes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DTO\ImagemProdutoDTO.cs" />
+    <Compile Include="DTO\ProdutoCarrosselDadosDTO.cs" />
+    <Compile Include="DTO\ProdutoListaDTO.cs" />
     <Compile Include="Mensagens.cs" />
     <Compile Include="FrmCadastro.aspx.cs">
       <DependentUpon>FrmCadastro.aspx</DependentUpon>
@@ -196,7 +207,6 @@
     <Compile Include="DAO\ImagemProdutoDAO.cs" />
     <Compile Include="DAO\ItemCarrinhoDAO.cs" />
     <Compile Include="DAO\ItemPedidoDAO.cs" />
-    <Compile Include="DAO\LogDAO.cs" />
     <Compile Include="DAO\PaisDAO.cs" />
     <Compile Include="DAO\PedidoDAO.cs" />
     <Compile Include="DAO\ProdutoDAO.cs" />

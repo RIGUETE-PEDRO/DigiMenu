@@ -188,9 +188,9 @@ namespace DigiMenu
                 produtoDAO.Salvar(produto, imagemProduto);
 
 
-                LogDAO log = new LogDAO();
+                
                 int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
-                log.Registrar(usuarioId, 3); // 3 = Cadastro Produto
+           
 
 
 
@@ -308,9 +308,9 @@ namespace DigiMenu
                 PlaceHolderMensagens.Controls.Clear();
                 var divSucesso = mensagem.MostrarMensagem("Produto excluído com sucesso.", "sucesso");
                 PlaceHolderMensagens.Controls.Add(divSucesso);
-                LogDAO log = new LogDAO();
+               
                 int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
-                log.Registrar(usuarioId, 5);
+              
             }
             catch
             {
@@ -517,9 +517,9 @@ namespace DigiMenu
                 var divSucesso = mensagem.MostrarMensagem("Produto atualizado com sucesso!", "sucesso");
                 PlaceHolderMensagens.Controls.Add(divSucesso);
 
-                LogDAO log = new LogDAO();
+          
                 int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
-                log.Registrar(usuarioId, 4);
+          
             }
             else
             {

@@ -78,9 +78,7 @@ namespace DigiMenu
                 // Salvar usuário usando DAO
                 dao.Salvar(novoUsuario);
 
-                var log = new LogDAO();
-                // Registrar log de cadastro
-                log.Registrar(novoUsuario.Id, 1);
+                
                 
 
 

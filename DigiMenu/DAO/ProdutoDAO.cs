@@ -7,30 +7,13 @@ using DigiMenu.DAL;
 using System.Threading;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using DigiMenu.DTO;
 
 namespace DigiMenu.DAO
 {
     public class ProdutoDAO
     {
-        // DTO para exibição em listas (WebForms/MVC)
-        public class ProdutoListaDTO
-        {
-            public int IdProduto { get; set; }
-            public string Nome { get; set; }
-            public string Descricao { get; set; }
-            public decimal Preco { get; set; }
-            public int Estoque { get; set; }
-            public string Imagem { get; set; }
-        }
-
-        // DTO para dados do carrossel por produto (usado pela camada de apresentação)
-        public class ProdutoCarrosselDados
-        {
-            public int IdProduto { get; set; }
-            public string Nome { get; set; }
-            public bool Ativo { get; set; }
-            public int? Ordem { get; set; }
-        }
+        
 
         // Normalização de nome de categoria (remove acentos, plural simples)
         private static string NormalizarCategoria(string s)
@@ -357,7 +340,7 @@ namespace DigiMenu.DAO
         }
 
         // Corrigido: DAO não toca em UI. Só retorna dados para a camada de apresentação.
-        public List<ProdutoCarrosselDados> BuscarDadosCarrossel(List<Produto> produtosAtivos)
+        public List<ProdutoCarrosselDadosDTO> BuscarDadosCarrossel(List<Produto> produtosAtivos)
         {
             using (var ctx = new DigiMenuEntities())
             {
@@ -367,7 +350,7 @@ namespace DigiMenu.DAO
                         string chave = $"P:{p.IdProduto}"; // chave preferencial por Id de produto
                         var cfg = ctx.Carousel.FirstOrDefault(c => c.Nome == chave)
                                   ?? ctx.Carousel.FirstOrDefault(c => c.Nome == p.Nome);
-                        return new ProdutoCarrosselDados
+                        return new ProdutoCarrosselDadosDTO
                         {
                             IdProduto = p.IdProduto,
                             Nome = p.Nome,

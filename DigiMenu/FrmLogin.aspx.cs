@@ -64,8 +64,8 @@ namespace DigiMenu.admin
                     };
                     Response.Cookies.Add(authCookie);
 
-                    LogDAO log = new LogDAO();
-                    log.Registrar(user.Id, 2);
+                   
+                   
 
                     // Redireciona conforme o tipo (tipo 2 -> área administrativa via urlMapping ~/administracao)
                     if (isAdmin)
