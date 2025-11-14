@@ -23,6 +23,7 @@
                     <a class="nav-link text-white" href="Cadastro-de-produto">Produtos</a>
                     <a class="nav-link text-white active" href="#">Carousel</a>
                     <a class="nav-link text-white" href="Lista-de-Pedidos">Pedidos</a>
+                    <a class="nav-link text-white" href="../Default.aspx">Visualizar Página</a>
                 </div>
             </div>
         </div>
