@@ -38,13 +38,6 @@ CREATE TABLE Usuario (
     FOREIGN KEY (TipoUsuarioId) REFERENCES TipoUsuario(Id)
 );
 
--- ===========================
--- Tabela Tarefas
--- ===========================
-CREATE TABLE Tarefas (
-    IdTarefas INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Tarefa VARCHAR(200) NULL
-);
 
 -- ===========================
 -- Tabela Pais
