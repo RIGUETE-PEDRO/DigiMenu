@@ -100,7 +100,6 @@ CREATE TABLE Endereco (
     Cidade varchar(255) NOT NULL,
     Logradouro VARCHAR(255) NOT NULL,
     Numero VARCHAR(20) NULL,
-    Cep VARCHAR(20) NULL,
     Complemento VARCHAR(100) NULL,
     UsuarioId INT NOT NULL,
     FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
