@@ -39,33 +39,10 @@ CREATE TABLE Usuario (
 );
 
 
--- ===========================
--- Tabela Pais
--- ===========================
-CREATE TABLE Pais (
-    IdPais INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Nome VARCHAR(80) NULL
-);
 
--- ===========================
--- Tabela Estado
--- ===========================
-CREATE TABLE Estado (
-    IdEstado INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Nome VARCHAR(80) NULL,
-    PaisId INT NOT NULL,
-    FOREIGN KEY (PaisId) REFERENCES Pais(IdPais) ON DELETE CASCADE
-);
 
--- ===========================
--- Tabela Cidade
--- ===========================
-CREATE TABLE Cidade (
-    IdCidade INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Nome VARCHAR(100) NULL,
-    EstadoId INT NOT NULL,
-    FOREIGN KEY (EstadoId) REFERENCES Estado(IdEstado) ON DELETE CASCADE
-);
+
+
 
 -- ===========================
 -- Tabela Produto
@@ -120,13 +97,12 @@ CREATE TABLE ItemPedido (
 -- ===========================
 CREATE TABLE Endereco (
     IdEndereco INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    CidadeId INT NOT NULL,
+    Cidade varchar(255) NOT NULL,
     Logradouro VARCHAR(255) NOT NULL,
     Numero VARCHAR(20) NULL,
     Cep VARCHAR(20) NULL,
     Complemento VARCHAR(100) NULL,
     UsuarioId INT NOT NULL,
-    FOREIGN KEY (CidadeId) REFERENCES Cidade(IdCidade) ON DELETE CASCADE,
     FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
 );
 
