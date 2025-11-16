@@ -38,53 +38,11 @@ CREATE TABLE Usuario (
     FOREIGN KEY (TipoUsuarioId) REFERENCES TipoUsuario(Id)
 );
 
--- ===========================
--- Tabela Tarefas
--- ===========================
-CREATE TABLE Tarefas (
-    IdTarefas INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Tarefa VARCHAR(200) NULL
-);
 
--- ===========================
--- Tabela Log
--- ===========================
-CREATE TABLE Log (
-    IdLog INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    TarefasId INT NOT NULL,
-    DataHora DATETIME NULL,
-    UsuarioId INT NOT NULL,
-    FOREIGN KEY (TarefasId) REFERENCES Tarefas(IdTarefas) ON DELETE CASCADE,
-    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
-);
 
--- ===========================
--- Tabela Pais
--- ===========================
-CREATE TABLE Pais (
-    IdPais INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Nome VARCHAR(80) NULL
-);
 
--- ===========================
--- Tabela Estado
--- ===========================
-CREATE TABLE Estado (
-    IdEstado INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Nome VARCHAR(80) NULL,
-    PaisId INT NOT NULL,
-    FOREIGN KEY (PaisId) REFERENCES Pais(IdPais) ON DELETE CASCADE
-);
 
--- ===========================
--- Tabela Cidade
--- ===========================
-CREATE TABLE Cidade (
-    IdCidade INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Nome VARCHAR(100) NULL,
-    EstadoId INT NOT NULL,
-    FOREIGN KEY (EstadoId) REFERENCES Estado(IdEstado) ON DELETE CASCADE
-);
+
 
 -- ===========================
 -- Tabela Produto
@@ -121,6 +79,22 @@ CREATE TABLE Pedido (
     FOREIGN KEY (StatusId) REFERENCES Status(IdStatus)
 );
 
+
+
+-- ===========================
+-- Tabela Endereco
+-- ===========================
+CREATE TABLE Endereco (
+    IdEndereco INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Cidade VARCHAR(255) NOT NULL,
+    Logradouro VARCHAR(255) NOT NULL,
+    Numero VARCHAR(20) NULL,
+    Complemento VARCHAR(100) NULL,
+    UsuarioId INT NOT NULL,
+
+    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
+);
+
 -- ===========================
 -- Tabela ItemPedido
 -- ===========================
@@ -130,23 +104,11 @@ CREATE TABLE ItemPedido (
     PrecoUnitario DECIMAL(9,2) NOT NULL,
     ProdutoId INT NOT NULL,
     PedidoId INT NOT NULL,
-    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto) ON DELETE CASCADE,
-    FOREIGN KEY (PedidoId) REFERENCES Pedido(IdPedido) ON DELETE CASCADE
-);
+    IdEndereco INT NOT NULL,  -- ← AQUI ENTRA A FK CERTA!
 
--- ===========================
--- Tabela Endereco
--- ===========================
-CREATE TABLE Endereco (
-    IdEndereco INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    CidadeId INT NOT NULL,
-    Logradouro VARCHAR(255) NOT NULL,
-    Numero VARCHAR(20) NULL,
-    Cep VARCHAR(20) NULL,
-    Complemento VARCHAR(100) NULL,
-    UsuarioId INT NOT NULL,
-    FOREIGN KEY (CidadeId) REFERENCES Cidade(IdCidade) ON DELETE CASCADE,
-    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
+    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto) ON DELETE CASCADE,
+    FOREIGN KEY (PedidoId) REFERENCES Pedido(IdPedido) ON DELETE CASCADE,
+    FOREIGN KEY (IdEndereco) REFERENCES Endereco(IdEndereco) ON DELETE CASCADE
 );
 
 -- ===========================
