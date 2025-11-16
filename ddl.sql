@@ -79,18 +79,7 @@ CREATE TABLE Pedido (
     FOREIGN KEY (StatusId) REFERENCES Status(IdStatus)
 );
 
--- ===========================
--- Tabela ItemPedido
--- ===========================
-CREATE TABLE ItemPedido (
-    IdItemPedido INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Quantidade INT NOT NULL,
-    PrecoUnitario DECIMAL(9,2) NOT NULL,
-    ProdutoId INT NOT NULL,
-    PedidoId INT NOT NULL,
-    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto) ON DELETE CASCADE,
-    FOREIGN KEY (PedidoId) REFERENCES Pedido(IdPedido) ON DELETE CASCADE
-);
+
 
 -- ===========================
 -- Tabela Endereco
@@ -102,10 +91,24 @@ CREATE TABLE Endereco (
     Numero VARCHAR(20) NULL,
     Complemento VARCHAR(100) NULL,
     UsuarioId INT NOT NULL,
-    IdItemPedido INT NOT NULL,
 
-    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE,
-    FOREIGN KEY (IdItemPedido) REFERENCES ItemPedido(IdItemPedido) ON DELETE CASCADE
+    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
+);
+
+-- ===========================
+-- Tabela ItemPedido
+-- ===========================
+CREATE TABLE ItemPedido (
+    IdItemPedido INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Quantidade INT NOT NULL,
+    PrecoUnitario DECIMAL(9,2) NOT NULL,
+    ProdutoId INT NOT NULL,
+    PedidoId INT NOT NULL,
+    IdEndereco INT NOT NULL,  -- ← AQUI ENTRA A FK CERTA!
+
+    FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto) ON DELETE CASCADE,
+    FOREIGN KEY (PedidoId) REFERENCES Pedido(IdPedido) ON DELETE CASCADE,
+    FOREIGN KEY (IdEndereco) REFERENCES Endereco(IdEndereco) ON DELETE CASCADE
 );
 
 -- ===========================
