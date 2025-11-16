@@ -29,33 +29,16 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <EntityType Name="Cidade">
-          <Key>
-            <PropertyRef Name="IdCidade" />
-          </Key>
-          <Property Name="IdCidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nome" Type="varchar" MaxLength="100" />
-          <Property Name="EstadoId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Endereco">
           <Key>
             <PropertyRef Name="IdEndereco" />
           </Key>
           <Property Name="IdEndereco" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CidadeId" Type="int" Nullable="false" />
+          <Property Name="Cidade" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Logradouro" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Numero" Type="varchar" MaxLength="20" />
-          <Property Name="Cep" Type="varchar" MaxLength="20" />
           <Property Name="Complemento" Type="varchar" MaxLength="100" />
           <Property Name="UsuarioId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Estado">
-          <Key>
-            <PropertyRef Name="IdEstado" />
-          </Key>
-          <Property Name="IdEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nome" Type="varchar" MaxLength="80" />
-          <Property Name="PaisId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ImagemProduto">
           <Key>
@@ -85,22 +68,7 @@
           <Property Name="PrecoUnitario" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="ProdutoId" Type="int" Nullable="false" />
           <Property Name="PedidoId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="IdLog" />
-          </Key>
-          <Property Name="IdLog" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TarefasId" Type="int" Nullable="false" />
-          <Property Name="DataHora" Type="datetime" />
-          <Property Name="UsuarioId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Pais">
-          <Key>
-            <PropertyRef Name="IdPais" />
-          </Key>
-          <Property Name="IdPais" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nome" Type="varchar" MaxLength="80" />
+          <Property Name="IdEndereco" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Pedido">
           <Key>
@@ -130,13 +98,6 @@
           </Key>
           <Property Name="IdStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="45" />
-        </EntityType>
-        <EntityType Name="Tarefas">
-          <Key>
-            <PropertyRef Name="IdTarefas" />
-          </Key>
-          <Property Name="IdTarefas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Tarefa" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="TipoUsuario">
           <Key>
@@ -171,35 +132,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Cidade__EstadoId__48CFD27E">
-          <End Role="Estado" Type="Self.Estado" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Cidade" Type="Self.Cidade" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Estado">
-              <PropertyRef Name="IdEstado" />
-            </Principal>
-            <Dependent Role="Cidade">
-              <PropertyRef Name="EstadoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Endereco__Cidade__59063A47">
-          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Endereco" Type="Self.Endereco" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cidade">
-              <PropertyRef Name="IdCidade" />
-            </Principal>
-            <Dependent Role="Endereco">
-              <PropertyRef Name="CidadeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Endereco__Usuari__59FA5E80">
+        <Association Name="FK__Endereco__Usuari__6FE99F9F">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -210,20 +143,6 @@
             </Principal>
             <Dependent Role="Endereco">
               <PropertyRef Name="UsuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Estado__PaisId__45F365D3">
-          <End Role="Pais" Type="Self.Pais" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Estado" Type="Self.Estado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pais">
-              <PropertyRef Name="IdPais" />
-            </Principal>
-            <Dependent Role="Estado">
-              <PropertyRef Name="PaisId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -309,34 +228,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Log__TarefasId__403A8C7D">
-          <End Role="Tarefas" Type="Self.Tarefas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Log" Type="Self.Log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tarefas">
-              <PropertyRef Name="IdTarefas" />
-            </Principal>
-            <Dependent Role="Log">
-              <PropertyRef Name="TarefasId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Log__UsuarioId__412EB0B6">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Log" Type="Self.Log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Log">
-              <PropertyRef Name="UsuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Pedido__StatusId__52593CB8">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
@@ -387,43 +278,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ItemPedido_Endereco">
+          <End Role="Endereco" Type="Self.Endereco" Multiplicity="1" />
+          <End Role="ItemPedido" Type="Self.ItemPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Endereco">
+              <PropertyRef Name="IdEndereco" />
+            </Principal>
+            <Dependent Role="ItemPedido">
+              <PropertyRef Name="IdEndereco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DigiMenuModelStoreContainer">
           <EntitySet Name="Carousel" EntityType="Self.Carousel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Carrinho" EntityType="Self.Carrinho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Cidade" EntityType="Self.Cidade" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Endereco" EntityType="Self.Endereco" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImagemProduto" EntityType="Self.ImagemProduto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemCarrinho" EntityType="Self.ItemCarrinho" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemPedido" EntityType="Self.ItemPedido" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tarefas" EntityType="Self.Tarefas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Carrinho__Usuari__5CD6CB2B" Association="Self.FK__Carrinho__Usuari__5CD6CB2B">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Carrinho" EntitySet="Carrinho" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cidade__EstadoId__48CFD27E" Association="Self.FK__Cidade__EstadoId__48CFD27E">
-            <End Role="Estado" EntitySet="Estado" />
-            <End Role="Cidade" EntitySet="Cidade" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Endereco__Cidade__59063A47" Association="Self.FK__Endereco__Cidade__59063A47">
-            <End Role="Cidade" EntitySet="Cidade" />
-            <End Role="Endereco" EntitySet="Endereco" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Endereco__Usuari__59FA5E80" Association="Self.FK__Endereco__Usuari__59FA5E80">
+          <AssociationSet Name="FK__Endereco__Usuari__6FE99F9F" Association="Self.FK__Endereco__Usuari__6FE99F9F">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Endereco" EntitySet="Endereco" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Estado__PaisId__45F365D3" Association="Self.FK__Estado__PaisId__45F365D3">
-            <End Role="Pais" EntitySet="Pais" />
-            <End Role="Estado" EntitySet="Estado" />
           </AssociationSet>
           <AssociationSet Name="FK__ImagemPro__Carou__6754599E" Association="Self.FK__ImagemPro__Carou__6754599E">
             <End Role="Carousel" EntitySet="Carousel" />
@@ -449,14 +335,6 @@
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ItemPedido" EntitySet="ItemPedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Log__TarefasId__403A8C7D" Association="Self.FK__Log__TarefasId__403A8C7D">
-            <End Role="Tarefas" EntitySet="Tarefas" />
-            <End Role="Log" EntitySet="Log" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Log__UsuarioId__412EB0B6" Association="Self.FK__Log__UsuarioId__412EB0B6">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Log" EntitySet="Log" />
-          </AssociationSet>
           <AssociationSet Name="FK__Pedido__StatusId__52593CB8" Association="Self.FK__Pedido__StatusId__52593CB8">
             <End Role="Status" EntitySet="Status" />
             <End Role="Pedido" EntitySet="Pedido" />
@@ -473,6 +351,10 @@
             <End Role="TipoUsuario" EntitySet="TipoUsuario" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
+          <AssociationSet Name="FK_ItemPedido_Endereco" Association="Self.FK_ItemPedido_Endereco">
+            <End Role="Endereco" EntitySet="Endereco" />
+            <End Role="ItemPedido" EntitySet="ItemPedido" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -482,18 +364,12 @@
           <EntitySet Name="Carousel" EntityType="DigiMenuModel.Carousel" />
           <EntitySet Name="Carrinho" EntityType="DigiMenuModel.Carrinho" />
           <EntitySet Name="Categoria" EntityType="DigiMenuModel.Categoria" />
-          <EntitySet Name="Cidade" EntityType="DigiMenuModel.Cidade" />
-          <EntitySet Name="Endereco" EntityType="DigiMenuModel.Endereco" />
-          <EntitySet Name="Estado" EntityType="DigiMenuModel.Estado" />
           <EntitySet Name="ImagemProduto" EntityType="DigiMenuModel.ImagemProduto" />
           <EntitySet Name="ItemCarrinho" EntityType="DigiMenuModel.ItemCarrinho" />
           <EntitySet Name="ItemPedido" EntityType="DigiMenuModel.ItemPedido" />
-          <EntitySet Name="Log" EntityType="DigiMenuModel.Log" />
-          <EntitySet Name="Pais" EntityType="DigiMenuModel.Pais" />
           <EntitySet Name="Pedido" EntityType="DigiMenuModel.Pedido" />
           <EntitySet Name="Produto" EntityType="DigiMenuModel.Produto" />
           <EntitySet Name="Status" EntityType="DigiMenuModel.Status" />
-          <EntitySet Name="Tarefas" EntityType="DigiMenuModel.Tarefas" />
           <EntitySet Name="TipoUsuario" EntityType="DigiMenuModel.TipoUsuario" />
           <EntitySet Name="Usuario" EntityType="DigiMenuModel.Usuario" />
           <AssociationSet Name="FK__ImagemPro__Carou__6754599E" Association="DigiMenuModel.FK__ImagemPro__Carou__6754599E">
@@ -512,22 +388,6 @@
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Produto" EntitySet="Produto" />
           </AssociationSet>
-          <AssociationSet Name="FK__Cidade__EstadoId__48CFD27E" Association="DigiMenuModel.FK__Cidade__EstadoId__48CFD27E">
-            <End Role="Estado" EntitySet="Estado" />
-            <End Role="Cidade" EntitySet="Cidade" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Endereco__Cidade__59063A47" Association="DigiMenuModel.FK__Endereco__Cidade__59063A47">
-            <End Role="Cidade" EntitySet="Cidade" />
-            <End Role="Endereco" EntitySet="Endereco" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Endereco__Usuari__59FA5E80" Association="DigiMenuModel.FK__Endereco__Usuari__59FA5E80">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Endereco" EntitySet="Endereco" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Estado__PaisId__45F365D3" Association="DigiMenuModel.FK__Estado__PaisId__45F365D3">
-            <End Role="Pais" EntitySet="Pais" />
-            <End Role="Estado" EntitySet="Estado" />
-          </AssociationSet>
           <AssociationSet Name="FK__ImagemPro__Produ__66603565" Association="DigiMenuModel.FK__ImagemPro__Produ__66603565">
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ImagemProduto" EntitySet="ImagemProduto" />
@@ -544,14 +404,6 @@
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ItemPedido" EntitySet="ItemPedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Log__TarefasId__403A8C7D" Association="DigiMenuModel.FK__Log__TarefasId__403A8C7D">
-            <End Role="Tarefas" EntitySet="Tarefas" />
-            <End Role="Log" EntitySet="Log" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Log__UsuarioId__412EB0B6" Association="DigiMenuModel.FK__Log__UsuarioId__412EB0B6">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Log" EntitySet="Log" />
-          </AssociationSet>
           <AssociationSet Name="FK__Pedido__StatusId__52593CB8" Association="DigiMenuModel.FK__Pedido__StatusId__52593CB8">
             <End Role="Status" EntitySet="Status" />
             <End Role="Pedido" EntitySet="Pedido" />
@@ -563,6 +415,15 @@
           <AssociationSet Name="FK__Usuario__TipoUsu__3B75D760" Association="DigiMenuModel.FK__Usuario__TipoUsu__3B75D760">
             <End Role="TipoUsuario" EntitySet="TipoUsuario" />
             <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <EntitySet Name="Endereco" EntityType="DigiMenuModel.Endereco" />
+          <AssociationSet Name="FK__Endereco__Usuari__6FE99F9F" Association="DigiMenuModel.FK__Endereco__Usuari__6FE99F9F">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Endereco" EntitySet="Endereco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemPedido_Endereco" Association="DigiMenuModel.FK_ItemPedido_Endereco">
+            <End Role="Endereco" EntitySet="Endereco" />
+            <End Role="ItemPedido" EntitySet="ItemPedido" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Carousel">
@@ -592,40 +453,6 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Produto" Relationship="DigiMenuModel.FK__Produto__Categor__4CA06362" FromRole="Categoria" ToRole="Produto" />
-        </EntityType>
-        <EntityType Name="Cidade">
-          <Key>
-            <PropertyRef Name="IdCidade" />
-          </Key>
-          <Property Name="IdCidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="EstadoId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Estado" Relationship="DigiMenuModel.FK__Cidade__EstadoId__48CFD27E" FromRole="Cidade" ToRole="Estado" />
-          <NavigationProperty Name="Endereco" Relationship="DigiMenuModel.FK__Endereco__Cidade__59063A47" FromRole="Cidade" ToRole="Endereco" />
-        </EntityType>
-        <EntityType Name="Endereco">
-          <Key>
-            <PropertyRef Name="IdEndereco" />
-          </Key>
-          <Property Name="IdEndereco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CidadeId" Type="Int32" Nullable="false" />
-          <Property Name="Logradouro" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Cep" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Complemento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cidade" Relationship="DigiMenuModel.FK__Endereco__Cidade__59063A47" FromRole="Endereco" ToRole="Cidade" />
-          <NavigationProperty Name="Usuario" Relationship="DigiMenuModel.FK__Endereco__Usuari__59FA5E80" FromRole="Endereco" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Estado">
-          <Key>
-            <PropertyRef Name="IdEstado" />
-          </Key>
-          <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="PaisId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cidade" Relationship="DigiMenuModel.FK__Cidade__EstadoId__48CFD27E" FromRole="Estado" ToRole="Cidade" />
-          <NavigationProperty Name="Pais" Relationship="DigiMenuModel.FK__Estado__PaisId__45F365D3" FromRole="Estado" ToRole="Pais" />
         </EntityType>
         <EntityType Name="ImagemProduto">
           <Key>
@@ -661,25 +488,8 @@
           <Property Name="PedidoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Pedido" Relationship="DigiMenuModel.FK__ItemPedid__Pedid__5629CD9C" FromRole="ItemPedido" ToRole="Pedido" />
           <NavigationProperty Name="Produto" Relationship="DigiMenuModel.FK__ItemPedid__Produ__5535A963" FromRole="ItemPedido" ToRole="Produto" />
-        </EntityType>
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="IdLog" />
-          </Key>
-          <Property Name="IdLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TarefasId" Type="Int32" Nullable="false" />
-          <Property Name="DataHora" Type="DateTime" Precision="3" />
-          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Tarefas" Relationship="DigiMenuModel.FK__Log__TarefasId__403A8C7D" FromRole="Log" ToRole="Tarefas" />
-          <NavigationProperty Name="Usuario" Relationship="DigiMenuModel.FK__Log__UsuarioId__412EB0B6" FromRole="Log" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Pais">
-          <Key>
-            <PropertyRef Name="IdPais" />
-          </Key>
-          <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Estado" Relationship="DigiMenuModel.FK__Estado__PaisId__45F365D3" FromRole="Pais" ToRole="Estado" />
+          <Property Name="IdEndereco" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Endereco" Relationship="DigiMenuModel.FK_ItemPedido_Endereco" FromRole="ItemPedido" ToRole="Endereco" />
         </EntityType>
         <EntityType Name="Pedido">
           <Key>
@@ -718,14 +528,6 @@
           <Property Name="Nome" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Pedido" Relationship="DigiMenuModel.FK__Pedido__StatusId__52593CB8" FromRole="Status" ToRole="Pedido" />
         </EntityType>
-        <EntityType Name="Tarefas">
-          <Key>
-            <PropertyRef Name="IdTarefas" />
-          </Key>
-          <Property Name="IdTarefas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tarefa" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Log" Relationship="DigiMenuModel.FK__Log__TarefasId__403A8C7D" FromRole="Tarefas" ToRole="Log" />
-        </EntityType>
         <EntityType Name="TipoUsuario">
           <Key>
             <PropertyRef Name="Id" />
@@ -746,10 +548,9 @@
           <Property Name="Criacao" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="TipoUsuarioId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Carrinho" Relationship="DigiMenuModel.FK__Carrinho__Usuari__5CD6CB2B" FromRole="Usuario" ToRole="Carrinho" />
-          <NavigationProperty Name="Endereco" Relationship="DigiMenuModel.FK__Endereco__Usuari__59FA5E80" FromRole="Usuario" ToRole="Endereco" />
-          <NavigationProperty Name="Log" Relationship="DigiMenuModel.FK__Log__UsuarioId__412EB0B6" FromRole="Usuario" ToRole="Log" />
           <NavigationProperty Name="Pedido" Relationship="DigiMenuModel.FK__Pedido__UsuarioI__5165187F" FromRole="Usuario" ToRole="Pedido" />
           <NavigationProperty Name="TipoUsuario" Relationship="DigiMenuModel.FK__Usuario__TipoUsu__3B75D760" FromRole="Usuario" ToRole="TipoUsuario" />
+          <NavigationProperty Name="Endereco" Relationship="DigiMenuModel.FK__Endereco__Usuari__6FE99F9F" FromRole="Usuario" ToRole="Endereco" />
         </EntityType>
         <Association Name="FK__ImagemPro__Carou__6754599E">
           <End Type="DigiMenuModel.Carousel" Role="Carousel" Multiplicity="0..1" />
@@ -800,62 +601,6 @@
             </Principal>
             <Dependent Role="Produto">
               <PropertyRef Name="Categoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Cidade__EstadoId__48CFD27E">
-          <End Type="DigiMenuModel.Estado" Role="Estado" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DigiMenuModel.Cidade" Role="Cidade" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Estado">
-              <PropertyRef Name="IdEstado" />
-            </Principal>
-            <Dependent Role="Cidade">
-              <PropertyRef Name="EstadoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Endereco__Cidade__59063A47">
-          <End Type="DigiMenuModel.Cidade" Role="Cidade" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DigiMenuModel.Endereco" Role="Endereco" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cidade">
-              <PropertyRef Name="IdCidade" />
-            </Principal>
-            <Dependent Role="Endereco">
-              <PropertyRef Name="CidadeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Endereco__Usuari__59FA5E80">
-          <End Type="DigiMenuModel.Usuario" Role="Usuario" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DigiMenuModel.Endereco" Role="Endereco" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Endereco">
-              <PropertyRef Name="UsuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Estado__PaisId__45F365D3">
-          <End Type="DigiMenuModel.Pais" Role="Pais" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DigiMenuModel.Estado" Role="Estado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pais">
-              <PropertyRef Name="IdPais" />
-            </Principal>
-            <Dependent Role="Estado">
-              <PropertyRef Name="PaisId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -915,34 +660,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Log__TarefasId__403A8C7D">
-          <End Type="DigiMenuModel.Tarefas" Role="Tarefas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DigiMenuModel.Log" Role="Log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tarefas">
-              <PropertyRef Name="IdTarefas" />
-            </Principal>
-            <Dependent Role="Log">
-              <PropertyRef Name="TarefasId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Log__UsuarioId__412EB0B6">
-          <End Type="DigiMenuModel.Usuario" Role="Usuario" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="DigiMenuModel.Log" Role="Log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Log">
-              <PropertyRef Name="UsuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Pedido__StatusId__52593CB8">
           <End Type="DigiMenuModel.Status" Role="Status" Multiplicity="1" />
           <End Type="DigiMenuModel.Pedido" Role="Pedido" Multiplicity="*" />
@@ -981,6 +698,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Endereco">
+          <Key>
+            <PropertyRef Name="IdEndereco" />
+          </Key>
+          <Property Name="IdEndereco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cidade" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Logradouro" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Complemento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="DigiMenuModel.FK__Endereco__Usuari__6FE99F9F" FromRole="Endereco" ToRole="Usuario" />
+          <NavigationProperty Name="ItemPedido" Relationship="DigiMenuModel.FK_ItemPedido_Endereco" FromRole="Endereco" ToRole="ItemPedido" />
+        </EntityType>
+        <Association Name="FK__Endereco__Usuari__6FE99F9F">
+          <End Type="DigiMenuModel.Usuario" Role="Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DigiMenuModel.Endereco" Role="Endereco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Endereco">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemPedido_Endereco">
+          <End Type="DigiMenuModel.Endereco" Role="Endereco" Multiplicity="1" />
+          <End Type="DigiMenuModel.ItemPedido" Role="ItemPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Endereco">
+              <PropertyRef Name="IdEndereco" />
+            </Principal>
+            <Dependent Role="ItemPedido">
+              <PropertyRef Name="IdEndereco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1014,37 +770,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Cidade">
-            <EntityTypeMapping TypeName="DigiMenuModel.Cidade">
-              <MappingFragment StoreEntitySet="Cidade">
-                <ScalarProperty Name="EstadoId" ColumnName="EstadoId" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Endereco">
-            <EntityTypeMapping TypeName="DigiMenuModel.Endereco">
-              <MappingFragment StoreEntitySet="Endereco">
-                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
-                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
-                <ScalarProperty Name="Cep" ColumnName="Cep" />
-                <ScalarProperty Name="Numero" ColumnName="Numero" />
-                <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
-                <ScalarProperty Name="CidadeId" ColumnName="CidadeId" />
-                <ScalarProperty Name="IdEndereco" ColumnName="IdEndereco" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Estado">
-            <EntityTypeMapping TypeName="DigiMenuModel.Estado">
-              <MappingFragment StoreEntitySet="Estado">
-                <ScalarProperty Name="PaisId" ColumnName="PaisId" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ImagemProduto">
             <EntityTypeMapping TypeName="DigiMenuModel.ImagemProduto">
               <MappingFragment StoreEntitySet="ImagemProduto">
@@ -1069,29 +794,12 @@
           <EntitySetMapping Name="ItemPedido">
             <EntityTypeMapping TypeName="DigiMenuModel.ItemPedido">
               <MappingFragment StoreEntitySet="ItemPedido">
+                <ScalarProperty Name="IdEndereco" ColumnName="IdEndereco" />
                 <ScalarProperty Name="PedidoId" ColumnName="PedidoId" />
                 <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
                 <ScalarProperty Name="PrecoUnitario" ColumnName="PrecoUnitario" />
                 <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
                 <ScalarProperty Name="IdItemPedido" ColumnName="IdItemPedido" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Log">
-            <EntityTypeMapping TypeName="DigiMenuModel.Log">
-              <MappingFragment StoreEntitySet="Log">
-                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
-                <ScalarProperty Name="DataHora" ColumnName="DataHora" />
-                <ScalarProperty Name="TarefasId" ColumnName="TarefasId" />
-                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Pais">
-            <EntityTypeMapping TypeName="DigiMenuModel.Pais">
-              <MappingFragment StoreEntitySet="Pais">
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
-                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1127,14 +835,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tarefas">
-            <EntityTypeMapping TypeName="DigiMenuModel.Tarefas">
-              <MappingFragment StoreEntitySet="Tarefas">
-                <ScalarProperty Name="Tarefa" ColumnName="Tarefa" />
-                <ScalarProperty Name="IdTarefas" ColumnName="IdTarefas" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TipoUsuario">
             <EntityTypeMapping TypeName="DigiMenuModel.TipoUsuario">
               <MappingFragment StoreEntitySet="TipoUsuario">
@@ -1153,6 +853,18 @@
                 <ScalarProperty Name="HashSenha" ColumnName="HashSenha" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Endereco">
+            <EntityTypeMapping TypeName="DigiMenuModel.Endereco">
+              <MappingFragment StoreEntitySet="Endereco">
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="IdEndereco" ColumnName="IdEndereco" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -14,15 +14,21 @@ namespace DigiMenu
     
     public partial class Endereco
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Endereco()
+        {
+            this.ItemPedido = new HashSet<ItemPedido>();
+        }
+    
         public int IdEndereco { get; set; }
-        public int CidadeId { get; set; }
+        public string Cidade { get; set; }
         public string Logradouro { get; set; }
         public string Numero { get; set; }
-        public string Cep { get; set; }
         public string Complemento { get; set; }
         public int UsuarioId { get; set; }
     
-        public virtual Cidade Cidade { get; set; }
         public virtual Usuario Usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ItemPedido> ItemPedido { get; set; }
     }
 }

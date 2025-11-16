@@ -1,19 +1,21 @@
-﻿using DigiMenu.DAL;
+﻿
 using DigiMenu.DAO;
 using System;
 using System.Linq;
+
 
 namespace DigiMenu
 {
     public partial class FrmCadastro : System.Web.UI.Page
     {
+        Mensagens mensagem = new Mensagens();
         protected void Page_Load(object sender, EventArgs e)
         {
         }
 
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
-            lblMensagem.Visible = false;
+            
 
             string nome = txtNome.Text.Trim();
             string email = txtEmail.Text.Trim();
@@ -24,31 +26,43 @@ namespace DigiMenu
             // Validações básicas
             if (string.IsNullOrWhiteSpace(nome) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(senha))
             {
-                ExibirErro("Preencha todos os campos obrigatórios.");
+                PlaceHolderMensagens.Controls.Clear();
+                var div = mensagem.MostrarMensagem("Preencha todos os campos obrigatórios.", "erro");
+                PlaceHolderMensagens.Controls.Add(div);
+             
                 return;
             }
 
             if (!email.Contains("@") || !email.Contains("."))
             {
-                ExibirErro("E-mail inválido.");
+
+                PlaceHolderMensagens.Controls.Clear();
+                var div = mensagem.MostrarMensagem("E-mail inválido.", "erro");
+                PlaceHolderMensagens.Controls.Add(div);
                 return;
             }
 
             if (senha.Length < 6)
             {
-                ExibirErro("A senha deve ter pelo menos 6 caracteres.");
+                PlaceHolderMensagens.Controls.Clear();
+                var div = mensagem.MostrarMensagem("A senha deve ter pelo menos 6 caracteres.", "erro");
+                PlaceHolderMensagens.Controls.Add(div);
                 return;
             }
 
             if (senha != confirmarSenha)
             {
-                ExibirErro("As senhas não coincidem.");
+                PlaceHolderMensagens.Controls.Clear();
+                var div = mensagem.MostrarMensagem("As senhas não coincidem.", "erro");
+                PlaceHolderMensagens.Controls.Add(div);
                 return;
             }
 
             if (!string.IsNullOrWhiteSpace(telefone) && !telefone.All(char.IsDigit))
             {
-                ExibirErro("O telefone deve conter apenas números.");
+                PlaceHolderMensagens.Controls.Clear();
+                var div = mensagem.MostrarMensagem("O telefone deve conter apenas números.", "erro");
+                PlaceHolderMensagens.Controls.Add(div);
                 return;
             }
 
@@ -58,7 +72,10 @@ namespace DigiMenu
 
                 if (dao.EmailExiste(email))
                 {
-                    ExibirErro("E-mail já cadastrado.");
+                    PlaceHolderMensagens.Controls.Clear();
+                    var div = mensagem.MostrarMensagem("E-mail já cadastrado.", "erro");
+                    PlaceHolderMensagens.Controls.Add(div);
+                    
                     return;
                 }
 
@@ -78,13 +95,11 @@ namespace DigiMenu
                 // Salvar usuário usando DAO
                 dao.Salvar(novoUsuario);
 
+                PlaceHolderMensagens.Controls.Clear();
+                var divSucesso = mensagem.MostrarMensagem("Usuário cadastrado com sucesso!", "sucesso");
+                PlaceHolderMensagens.Controls.Add(divSucesso);
                 
                 
-
-
-                lblMensagem.Text = "Usuário cadastrado com sucesso!";
-                lblMensagem.CssClass += " text-success";
-                lblMensagem.Visible = true;
 
                 LimparCampos();
             }
@@ -93,16 +108,14 @@ namespace DigiMenu
                 string msg = ex.Message;
                 if (ex.InnerException != null) msg += " | Inner: " + ex.InnerException.Message;
                 if (ex.InnerException?.InnerException != null) msg += " | Inner2: " + ex.InnerException.InnerException.Message;
-                ExibirErro("Ocorreu um erro ao cadastrar o usuário: " + msg);
+                PlaceHolderMensagens.Controls.Clear();
+                var div = mensagem.MostrarMensagem("Ocorreu um erro ao cadastrar o usuário: " + msg, "erro");
+                PlaceHolderMensagens.Controls.Add(div);
+                
             }
         }
 
-        private void ExibirErro(string mensagem)
-        {
-            lblMensagem.Text = mensagem;
-            lblMensagem.CssClass += " text-danger";
-            lblMensagem.Visible = true;
-        }
+        
 
         private void LimparCampos()
         {

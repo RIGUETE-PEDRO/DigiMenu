@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DigiMenu.DAL;
 
 namespace DigiMenu.admin
 {
@@ -81,217 +82,76 @@ namespace DigiMenu.admin
 
         private void CarregarPedidos()
         {
-            using (var ctx = new DigiMenuEntities())
-            {
-                var pendentes = ctx.Pedido
-                    .Where(p => p.StatusId == 1 || p.Status.Nome == "Pendente")
-                    .Select(p => new
-                    {
-                        p.IdPedido,
-                        p.Data,
-                        p.Total,
-                        Cliente = p.Usuario.Nome,
-                        Status = p.Status.Nome,
-                        Itens = p.ItemPedido.Select(i => new
-                        {
-                            Produto = i.Produto.Nome,
-                            i.Quantidade,
-                            i.PrecoUnitario
-                        }).ToList()
-                    })
-                    .OrderByDescending(p => p.Data)
-                    .ToList();
-
-                var rpt = FindControl("rptPedidos") as Repeater;
-                var pnlSem = FindControl("pnlSemPedidos") as Panel;
-
-                if (pnlSem != null)
-                {
-                    pnlSem.Visible = pendentes.Count == 0;
-                }
-
-                if (rpt != null)
-                {
-                    rpt.DataSource = pendentes;
-                    rpt.DataBind();
-
-                    int index = 0;
-                    foreach (RepeaterItem item in rpt.Items)
-                    {
-                        var pedido = pendentes[index++];
-                        var rptItens = item.FindControl("rptItens") as Repeater;
-                        if (rptItens != null)
-                        {
-                            rptItens.DataSource = pedido.Itens;
-                            rptItens.DataBind();
-                        }
-                    }
-                }
-            }
+            var dao = new PedidoDAO();
+            dao.AdminCarregarPendentes(rptPedidos, pnlSemPedidos);
         }
 
-        // Lista todos os pedidos NÃO pendentes (inclui 2, 3, etc.)
         private void CarregarPedidosNaoPendentes()
         {
-            using (var ctx = new DigiMenuEntities())
-            {
-                var naoPendentes = ctx.Pedido
-                    .Where(p => p.StatusId != 1)
-                    .Select(p => new
-                    {
-                        p.IdPedido,
-                        p.Data,
-                        p.Total,
-                        Cliente = p.Usuario.Nome,
-                        Status = p.Status.Nome
-                    })
-                    .OrderByDescending(p => p.Data)
-                    .ToList();
-
-                var rpt = FindControl("rptPedidosAceitos") as Repeater;
-                var pnlSem = FindControl("pnlSemAceitos") as Panel;
-
-                if (pnlSem != null)
-                {
-                    pnlSem.Visible = naoPendentes.Count == 0;
-                }
-
-                if (rpt != null)
-                {
-                    rpt.DataSource = naoPendentes;
-                    rpt.DataBind();
-                }
-
-                var cbl = FindControl("cblPedidosAceitos") as CheckBoxList;
-                if (cbl != null)
-                {
-                    cbl.Items.Clear();
-                    foreach (var p in naoPendentes)
-                    {
-                        string texto = $"#{p.IdPedido} - {p.Cliente} - {p.Data:dd/MM HH:mm} - Total R$ {p.Total:N2} - {p.Status}";
-                        cbl.Items.Add(new ListItem(texto, p.IdPedido.ToString()));
-                    }
-                }
-            }
+            var dao = new PedidoDAO();
+            dao.AdminCarregarNaoPendentes(null, cblPedidosAceitos, pnlSemAceitos);
         }
 
         private void CarregarStatusDisponiveis()
         {
-            var ddl = FindControl("ddlNovoStatus") as DropDownList;
-            if (ddl == null) return;
-            using (var ctx = new DigiMenuEntities())
-            {
-                var lista = ctx.Status.OrderBy(s => s.IdStatus).Select(s => new { s.IdStatus, s.Nome }).ToList();
-                ddl.DataSource = lista;
-                ddl.DataTextField = "Nome";
-                ddl.DataValueField = "IdStatus";
-                ddl.DataBind();
-            }
+            var dao = new PedidoDAO();
+            dao.CarregarStatus(ddlNovoStatus);
         }
 
         protected void rptPedidos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            int id;
-            if (!int.TryParse(e.CommandArgument.ToString(), out id)) return;
+            int pedidoId;
+            if (!int.TryParse(e.CommandArgument.ToString(), out pedidoId)) return;
 
-            using (var ctx = new DigiMenuEntities())
+            var itemDao = new ItemPedidoDAO();
+            var novoStatusId = itemDao.ObterStatusIdPorComando(e.CommandName);
+
+            if (novoStatusId.HasValue)
             {
-                var pedido = ctx.Pedido.FirstOrDefault(p => p.IdPedido == id);
-                if (pedido == null) return;
-
-                if (e.CommandName == "Aceitar")
-                {
-                    pedido.StatusId = 2; // Aceito
-                }
-                else if (e.CommandName == "Negar")
-                {
-                    pedido.StatusId = 3; // Negado
-                }
-                ctx.SaveChanges();
+                var dao = new PedidoDAO();
+                dao.AlterarStatus(pedidoId, novoStatusId.Value);
+                MostrarMensagem("Status atualizado.", "sucesso");
+                CarregarPedidos();
+                CarregarPedidosNaoPendentes();
             }
-
-            CarregarPedidos();
-            CarregarPedidosNaoPendentes();
-            CarregarStatusDisponiveis();
-        }
-
-        protected void rptPedidosAceitos_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem) return;
-            var ddl = e.Item.FindControl("ddlStatus") as DropDownList;
-            if (ddl == null) return;
-
-            using (var ctx = new DigiMenuEntities())
-            {
-                var statuses = ctx.Status.OrderBy(s => s.IdStatus).Select(s => new { s.IdStatus, s.Nome }).ToList();
-                ddl.DataSource = statuses;
-                ddl.DataTextField = "Nome";
-                ddl.DataValueField = "IdStatus";
-                ddl.DataBind();
-            }
-
-            var dataItem = e.Item.DataItem;
-            var propNome = dataItem.GetType().GetProperty("Status");
-            if (propNome != null)
-            {
-                string statusNome = propNome.GetValue(dataItem, null) as string;
-                var li = ddl.Items.FindByText(statusNome);
-                if (li != null) li.Selected = true;
-            }
-        }
-
-        protected void rptPedidosAceitos_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            if (e.CommandName != "AlterarStatus") return;
-
-            int id;
-            if (!int.TryParse(e.CommandArgument.ToString(), out id)) return;
-
-            var ddl = e.Item.FindControl("ddlStatus") as DropDownList;
-            if (ddl == null) return;
-
-            int novoStatusId;
-            if (!int.TryParse(ddl.SelectedValue, out novoStatusId)) return;
-
-            using (var ctx = new DigiMenuEntities())
-            {
-                var pedido = ctx.Pedido.FirstOrDefault(p => p.IdPedido == id);
-                if (pedido == null) return;
-                pedido.StatusId = novoStatusId;
-                ctx.SaveChanges();
-            }
-
-            CarregarPedidos();
-            CarregarPedidosNaoPendentes();
-            CarregarStatusDisponiveis();
         }
 
         protected void btnAplicarStatus_Click(object sender, EventArgs e)
         {
-            var cbl = FindControl("cblPedidosAceitos") as CheckBoxList;
-            var ddl = FindControl("ddlNovoStatus") as DropDownList;
-            if (cbl == null || ddl == null) return;
-
             int novoStatusId;
-            if (!int.TryParse(ddl.SelectedValue, out novoStatusId)) return;
-
-            var selecionados = cbl.Items.Cast<ListItem>().Where(li => li.Selected).Select(li => li.Value).ToList();
-            if (selecionados.Count == 0) return;
-
-            using (var ctx = new DigiMenuEntities())
+            if (!int.TryParse(ddlNovoStatus.SelectedValue, out novoStatusId))
             {
-                var ids = selecionados.Select(int.Parse).ToList();
-                var pedidos = ctx.Pedido.Where(p => ids.Contains(p.IdPedido)).ToList();
-                foreach (var pedido in pedidos)
-                {
-                    pedido.StatusId = novoStatusId;
-                }
-                ctx.SaveChanges();
+                MostrarMensagem("Selecione um status válido.", "erro");
+                return;
             }
 
+            var idsSelecionados = cblPedidosAceitos.Items.Cast<ListItem>()
+                .Where(i => i.Selected)
+                .Select(i => int.Parse(i.Value))
+                .ToList();
+
+            if (idsSelecionados.Count == 0)
+            {
+                MostrarMensagem("Selecione ao menos um pedido.", "alerta");
+                return;
+            }
+
+            var dao = new PedidoDAO();
+            dao.AlterarStatusEmMassa(idsSelecionados, novoStatusId);
+            MostrarMensagem("Status aplicado aos pedidos selecionados.", "sucesso");
             CarregarPedidos();
             CarregarPedidosNaoPendentes();
-            CarregarStatusDisponiveis();
+        }
+
+        private void MostrarMensagem(string texto, string tipo)
+        {
+            var ph = phMsg; // PlaceHolder no markup
+            if (ph != null)
+            {
+                ph.Controls.Clear();
+                var msg = new Mensagens().MostrarMensagem(texto, tipo);
+                ph.Controls.Add(msg);
+            }
         }
     }
 }

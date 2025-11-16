@@ -44,7 +44,7 @@
                         <asp:TextBox ID="txtTelefone" runat="server" CssClass="form-control" TextMode="Number" Placeholder="Digite seu telefone" required="required"></asp:TextBox>
                     </div>
 
-                    <asp:Label ID="lblMensagem" runat="server" ForeColor="Red"></asp:Label>
+                    <asp:PlaceHolder ID="PlaceHolderMensagens" runat="server"></asp:PlaceHolder>
 
                     <asp:Button ID="btnCadastrar" OnClick="btnCadastrar_Click" runat="server" Text="Cadastrar" CssClass="btn btn-primary w-100" />
                     

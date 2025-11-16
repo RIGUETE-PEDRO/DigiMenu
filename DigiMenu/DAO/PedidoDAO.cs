@@ -20,6 +20,7 @@ namespace DigiMenu.DAL
                         p.Total,
                         Cliente = p.Usuario.Nome,
                         Status = p.Status.Nome,
+                        Endereco = p.ItemPedido.Select(i => i.Endereco).FirstOrDefault(), // endereço único
                         Itens = p.ItemPedido.Select(i => new
                         {
                             Produto = i.Produto.Nome,
@@ -27,7 +28,7 @@ namespace DigiMenu.DAL
                             i.PrecoUnitario
                         })
                     })
-                    .AsEnumerable()
+                    .AsEnumerable() // passa para memória para projetar navegáveis
                     .Select(p => new
                     {
                         p.IdPedido,
@@ -35,6 +36,10 @@ namespace DigiMenu.DAL
                         p.Total,
                         p.Cliente,
                         p.Status,
+                        Cidade = p.Endereco != null ? p.Endereco.Cidade : null,
+                        Numero = p.Endereco != null ? p.Endereco.Numero : null,
+                        Complemento = p.Endereco != null ? p.Endereco.Complemento : null,
+                        Logradouro = p.Endereco != null ? p.Endereco.Logradouro : null,
                         Itens = p.Itens.ToList()
                     })
                     .OrderByDescending(p => p.Data)
@@ -77,12 +82,27 @@ namespace DigiMenu.DAL
                         p.Total,
                         Cliente = p.Usuario.Nome,
                         Status = p.Status.Nome,
+                        Endereco = p.ItemPedido.Select(i => i.Endereco).FirstOrDefault(),
                         Itens = p.ItemPedido.Select(i => new
                         {
                             Produto = i.Produto.Nome,
                             i.Quantidade,
                             i.PrecoUnitario
-                        }).ToList()
+                        })
+                    })
+                    .AsEnumerable()
+                    .Select(p => new
+                    {
+                        p.IdPedido,
+                        p.Data,
+                        p.Total,
+                        p.Cliente,
+                        p.Status,
+                        Cidade = p.Endereco != null ? p.Endereco.Cidade : null,
+                        Numero = p.Endereco != null ? p.Endereco.Numero : null,
+                        Complemento = p.Endereco != null ? p.Endereco.Complemento : null,
+                        Logradouro = p.Endereco != null ? p.Endereco.Logradouro : null,
+                        Itens = p.Itens.ToList()
                     })
                     .OrderByDescending(p => p.Data)
                     .ToList();
@@ -123,7 +143,21 @@ namespace DigiMenu.DAL
                         p.Data,
                         p.Total,
                         Cliente = p.Usuario.Nome,
-                        Status = p.Status.Nome
+                        Status = p.Status.Nome,
+                        Endereco = p.ItemPedido.Select(i => i.Endereco).FirstOrDefault()
+                    })
+                    .AsEnumerable()
+                    .Select(p => new
+                    {
+                        p.IdPedido,
+                        p.Data,
+                        p.Total,
+                        p.Cliente,
+                        p.Status,
+                        Cidade = p.Endereco != null ? p.Endereco.Cidade : null,
+                        Numero = p.Endereco != null ? p.Endereco.Numero : null,
+                        Complemento = p.Endereco != null ? p.Endereco.Complemento : null,
+                        Logradouro = p.Endereco != null ? p.Endereco.Logradouro : null
                     })
                     .OrderByDescending(p => p.Data)
                     .ToList();
@@ -142,7 +176,8 @@ namespace DigiMenu.DAL
                     cblPedidosNaoPendentes.Items.Clear();
                     foreach (var p in lista)
                     {
-                        string texto = $"#{p.IdPedido} - {p.Cliente} - {p.Data:dd/MM HH:mm} - Total R$ {p.Total:N2} - {p.Status}";
+                        string enderecoTxt = string.Join(", ", new[] { p.Cidade, p.Logradouro, p.Numero, p.Complemento }.Where(s => !string.IsNullOrWhiteSpace(s)));
+                        string texto = $"#{p.IdPedido} - {p.Cliente} - {p.Data:dd/MM HH:mm} - Total R$ {p.Total:N2} - {p.Status}" + (string.IsNullOrWhiteSpace(enderecoTxt) ? string.Empty : $" - {enderecoTxt}");
                         cblPedidosNaoPendentes.Items.Add(new ListItem(texto, p.IdPedido.ToString()));
                     }
                 }

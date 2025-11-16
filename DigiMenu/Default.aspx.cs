@@ -141,16 +141,11 @@ namespace DigiMenu
         private void AplicarFiltroQueryString()
         {
             var dao = new ProdutoDAO();
-            string catIdStr = Request.QueryString["catId"];
-            if (int.TryParse(catIdStr, out int catId) && catId > 0)
-            {
-                BindProdutos(dao.ListarAtivosPorCategoriaId(catId));
-                return;
-            }
             string cat = Request.QueryString["cat"]; // nome
             if (!string.IsNullOrWhiteSpace(cat))
             {
                 BindProdutos(dao.ListarAtivosPorCategoriaNome(cat));
+                //passar aqui para desligar o carrousel
                 return;
             }
             BindProdutos(dao.ListarAtivos());
@@ -211,10 +206,7 @@ namespace DigiMenu
         }
 
        
-        protected void compra_Click(object sender, EventArgs e)
-        {
-            
-        }
+       
 
         protected void btnLogout_Click(object sender, EventArgs e)
         {

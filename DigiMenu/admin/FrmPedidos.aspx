@@ -6,27 +6,27 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Pedidos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
     <link href="../styles/StyleAdmin.css" rel="stylesheet" />
 </head>
 <body>
-        <nav class="navbar navbar-expand-lg navbarDesigner">
-          <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbarDesigner">
+        <div class="container-fluid">
             <img id="imgLogo" src="../img/logo.png" alt="Logo" />
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-link text-white" aria-current="page" href="administracao">Início</a>
-                <a class="nav-link text-white" href="Cadastro-de-produto">Produtos</a>
-                <a class="nav-link text-white" href="Configurar-carrousel">Carousel</a>
-                <a class="nav-link text-white active" href="Lista-de-Pedidos">Pedidos</a>
-                <a class="nav-link text-white" href="../Default.aspx">Visualizar Página</a>
-              </div>
+                <div class="navbar-nav">
+                    <a class="nav-link text-white" aria-current="page" href="administracao">Início</a>
+                    <a class="nav-link text-white" href="Cadastro-de-produto">Produtos</a>
+                    <a class="nav-link text-white" href="Configurar-carrousel">Carousel</a>
+                    <a class="nav-link text-white active" href="Lista-de-Pedidos">Pedidos</a>
+                    <a class="nav-link text-white" href="../Default.aspx">Visualizar Página</a>
+                </div>
             </div>
-          </div>
-        </nav>
+        </div>
+    </nav>
 
     <form id="form1" runat="server">
         <div class="container mt-4">
@@ -47,6 +47,12 @@
                                     <span class='<%# (DataBinder.Eval(Container.DataItem,"Status") as string) == "Pendente" ? "badge badge-status badge-success" : "badge badge-status badge-secondary" %>'>
                                         <%# Eval("Status") %>
                                     </span>
+                                    <div>
+                                        <span class="me-3">Endereço</span>
+                                        <div class="text-muted">
+                                            <strong>Cidade: </strong><%# Eval("Cidade") %>,<strong>Numero: </strong><%# Eval("Numero") %> ,<strong>Complemento</strong> <%# Eval("Complemento") %>,<strong>Logradouro: </strong><%# Eval("Logradouro") %>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -73,15 +79,15 @@
                                             <tbody>
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                                <tr>
-                                                    <td><%# Eval("Produto") %></td>
-                                                    <td class="text-end"><%# Eval("Quantidade") %></td>
-                                                    <td class="text-end">R$ <%# string.Format("{0:N2}", Eval("PrecoUnitario")) %></td>
-                                                    <td class="text-end">R$ <%# string.Format("{0:N2}", (decimal)Eval("PrecoUnitario") * (int)Eval("Quantidade")) %></td>
-                                                </tr>
+                                    <tr>
+                                        <td><%# Eval("Produto") %></td>
+                                        <td class="text-end"><%# Eval("Quantidade") %></td>
+                                        <td class="text-end">R$ <%# string.Format("{0:N2}", Eval("PrecoUnitario")) %></td>
+                                        <td class="text-end">R$ <%# string.Format("{0:N2}", (decimal)Eval("PrecoUnitario") * (int)Eval("Quantidade")) %></td>
+                                    </tr>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                            </tbody>
+                                    </tbody>
                                         </table>
                                     </div>
                                 </FooterTemplate>

@@ -25,20 +25,7 @@ namespace DigiMenu.DAO
 
        
 
-        public static void Registrar(int usuarioId, int tarefaId)
-        {
-            using (var db = new DigiMenuEntities())
-            {
-                var log = new Log
-                {
-                    UsuarioId = usuarioId,
-                    TarefasId = tarefaId,
-                    DataHora = DateTime.Now
-                };
-                db.Log.Add(log);
-                db.SaveChanges();
-            }
-        }
+       
 
         public Usuario Autenticar(string login, string senhaHash)
         {

@@ -28,19 +28,14 @@ namespace DigiMenu
         public virtual DbSet<Carousel> Carousel { get; set; }
         public virtual DbSet<Carrinho> Carrinho { get; set; }
         public virtual DbSet<Categoria> Categoria { get; set; }
-        public virtual DbSet<Cidade> Cidade { get; set; }
-        public virtual DbSet<Endereco> Endereco { get; set; }
-        public virtual DbSet<Estado> Estado { get; set; }
         public virtual DbSet<ImagemProduto> ImagemProduto { get; set; }
         public virtual DbSet<ItemCarrinho> ItemCarrinho { get; set; }
         public virtual DbSet<ItemPedido> ItemPedido { get; set; }
-        public virtual DbSet<Log> Log { get; set; }
-        public virtual DbSet<Pais> Pais { get; set; }
         public virtual DbSet<Pedido> Pedido { get; set; }
         public virtual DbSet<Produto> Produto { get; set; }
         public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<Tarefas> Tarefas { get; set; }
         public virtual DbSet<TipoUsuario> TipoUsuario { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Endereco> Endereco { get; set; }
     }
 }

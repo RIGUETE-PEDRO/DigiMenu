@@ -24,6 +24,60 @@ namespace DigiMenu
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Controle endereco.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl endereco;
+
+        /// <summary>
+        /// Controle cidadeEntrega.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText cidadeEntrega;
+
+        /// <summary>
+        /// Controle logadouroEntrega.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText logadouroEntrega;
+
+        /// <summary>
+        /// Controle numeroEntrega.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText numeroEntrega;
+
+        /// <summary>
+        /// Controle complementoEntrega.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText complementoEntrega;
+
+        /// <summary>
+        /// Controle btnFinalizar.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFinalizar;
+
+        /// <summary>
         /// Controle btnContinuarComprando.
         /// </summary>
         /// <remarks>
@@ -78,12 +132,12 @@ namespace DigiMenu
         protected global::System.Web.UI.WebControls.Label lblTotal;
 
         /// <summary>
-        /// Controle btnFinalizar.
+        /// Controle PedirEndereco.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnFinalizar;
+        protected global::System.Web.UI.WebControls.Button PedirEndereco;
     }
 }
