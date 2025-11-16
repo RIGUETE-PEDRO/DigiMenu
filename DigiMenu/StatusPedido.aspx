@@ -6,11 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>Seus Pedidos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
     <link href="styles/StylePrincipal.css" rel="stylesheet" />
-    <%-- Por enquanto, acho melhor não usar o style de 'statusPedido', pois está ocorrendo atrito no navbar --%>
-    <%--<link href="styles/statusPedido.css" rel="stylesheet" />--%>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -29,32 +27,39 @@
             </div>
         </nav>
         
+        <%-- Seção dos Status dos Pedidos (agora em cartão) --%>
+        <div class="container mt-4">
+            <h2>SEUS PEDIDOS</h2>
+            <asp:PlaceHolder ID="phMsg" runat="server" />
 
-            <div class="container mt-4">
-                <h2>SEUS PEDIDOS</h2>
-                <asp:PlaceHolder ID="phMsg" runat="server" />
-
-                <asp:Repeater ID="rptPedidos" runat="server" OnItemCommand="rptPedidos_ItemCommand">
-                    <HeaderTemplate>
-                        <div class="list-group">
-                    </HeaderTemplate>
-                    <ItemTemplate>
-                        <div class="list-group-item">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <strong>Pedido #<%# Eval("IdPedido") %></strong>
-                                    <div class="text-muted">Data: <%# ((DateTime)Eval("Data")).ToString("dd/MM/yyyy HH:mm") %> | Cliente: <%# Eval("Cliente") %> | Status: <%# Eval("Status") %></div>
-                                </div>
-                                <div>
-                                    <span class="me-3">Total: R$ <%# string.Format("{0:N2}", Eval("Total")) %></span>
-
+            <asp:Repeater ID="rptPedidos" runat="server" OnItemCommand="rptPedidos_ItemCommand">
+                <ItemTemplate>
+                    <div class="card mb-4 order-card">
+                        <div class="card-body p-3 order-header">
+                            <div>
+                                <h5 class="mb-1">Pedido #<%# Eval("IdPedido") %></h5>
+                                <div class="text-muted small">
+                                    Data: <%# ((DateTime)Eval("Data")).ToString("dd/MM/yyyy HH:mm") %> |
+                                    Cliente: <%# Eval("Cliente") %> |
+                                    Status:
+                                    <span class='<%# (DataBinder.Eval(Container.DataItem,"Status") as string) == "Pendente" ? "badge badge-status badge-success" : "badge badge-status badge-secondary" %>'>
+                                        <%# Eval("Status") %>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="mt-2">
-                                <asp:Repeater ID="rptItens" runat="server">
-                                    <HeaderTemplate>
+
+                            <div class="text-end align-self-start">
+                                <div class="mb-2 total-label">Total: R$ <%# string.Format("{0:N2}", Eval("Total")) %></div>
+                                <%-- Se desejar botões para o usuário final, insira aqui (mantive somente o total por padrão) --%>
+                            </div>
+                        </div>
+
+                        <div class="card-body pt-0 pb-3 px-3">
+                            <asp:Repeater ID="rptItens" runat="server">
+                                <HeaderTemplate>
+                                    <div class="table-responsive">
                                         <table class="table table-sm mb-0">
-                                            <thead>
+                                            <thead class="table-light">
                                                 <tr>
                                                     <th>Produto</th>
                                                     <th class="text-end">Qtd</th>
@@ -63,34 +68,30 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                    </HeaderTemplate>
-                                    <ItemTemplate>
-                                        <tr>
-                                            <td><%# Eval("Produto") %></td>
-                                            <td class="text-end"><%# Eval("Quantidade") %></td>
-                                            <td class="text-end">R$ <%# string.Format("{0:N2}", Eval("PrecoUnitario")) %></td>
-                                            <td class="text-end">R$ <%# string.Format("{0:N2}", (decimal)Eval("PrecoUnitario") * (int)Eval("Quantidade")) %></td>
-                                        </tr>
-                                    </ItemTemplate>
-                                    <FooterTemplate>
-                                        </tbody></table>
-                                    </FooterTemplate>
-                                </asp:Repeater>
-                            </div>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                                <tr>
+                                                    <td><%# Eval("Produto") %></td>
+                                                    <td class="text-end"><%# Eval("Quantidade") %></td>
+                                                    <td class="text-end">R$ <%# string.Format("{0:N2}", Eval("PrecoUnitario")) %></td>
+                                                    <td class="text-end">R$ <%# string.Format("{0:N2}", (decimal)Eval("PrecoUnitario") * (int)Eval("Quantidade")) %></td>
+                                                </tr>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </FooterTemplate>
+                            </asp:Repeater>
                         </div>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        </div>
-                    </FooterTemplate>
-                </asp:Repeater>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
 
-                <asp:Panel ID="pnlSemPedidos" runat="server" Visible="false" CssClass="alert alert-info mt-3">
-                    Nenhum pedido pendente.
-                </asp:Panel>
-
-
-
-            </div>
+            <asp:Panel ID="pnlSemPedidos" runat="server" Visible="false" CssClass="alert alert-info mt-3">
+                Nenhum pedido pendente.
+            </asp:Panel>
+        </div>
     </form>
 </body>
 </html>

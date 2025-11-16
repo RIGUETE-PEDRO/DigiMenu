@@ -178,3 +178,72 @@
     }
 }
 
+/* ---------------------------
+   Estilos novos: Seção Pedidos (não pendentes)
+   --------------------------- */
+/* Cards para pedidos não pendentes (visual igual aos pendentes) */
+.accepted-order-card {
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 6px rgba(16,24,40,0.04);
+}
+
+    .accepted-order-card .card-body {
+        padding: 18px 20px;
+    }
+
+    .accepted-order-card h5 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    /* Centraliza o checkbox dentro do card (verticalmente) */
+    .accepted-order-card .card-body > .d-flex.align-items-start {
+        align-items: center !important;
+    }
+
+    /* Remove offset do checkbox e ajusta pequena margem à esquerda */
+    .accepted-order-card .select-order {
+        margin-top: 0;
+        margin-left: 6px;
+        width: 18px;
+        height: 18px;
+    }
+
+/* badge pequeno */
+.badge-status {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+    border-radius: 0.4rem;
+    color: #fff;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+}
+
+/* total em verde no canto direito */
+.accepted-order-card .text-success {
+    color: #138a3a !important;
+    font-weight: 700;
+}
+
+
+/* espaçamentos e responsividade */
+@media (max-width: 576px) {
+    .accepted-order-card .card-body {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .accepted-order-card .text-end {
+        text-align: left !important;
+    }
+}
+

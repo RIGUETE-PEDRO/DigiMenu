@@ -29,6 +29,7 @@
         </nav>
 
     <form id="form1" runat="server">
+        <%-- Seção de Pedidos Pendentes--%>
         <div class="container mt-4">
             <h2 class="mb-4">Pedidos pendentes</h2>
 
@@ -95,29 +96,83 @@
                 Nenhum pedido pendente.
             </asp:Panel>
 
-            <!-- Seção de pedidos não pendentes (mantive IDs que o code-behind usa) -->
+            <!-- Seção de pedidos não pendentes -->
             <hr class="my-5" />
             <h2>Pedidos (não pendentes)</h2>
 
-            <div class="row g-3 align-items-end mt-2">
-                <div class="col-12 col-md-4">
-                    <label class="form-label">Novo status</label>
-                    <asp:DropDownList ID="ddlNovoStatus" runat="server" CssClass="form-select" />
-                </div>
-                <div class="col-12 col-md-8 d-flex">
-                    <asp:Button ID="btnAplicarStatus" runat="server" CssClass="btn btn-primary ms-auto" Text="Aplicar status aos selecionados" OnClick="btnAplicarStatus_Click" />
-                </div>
-            </div>
+            <div class="non-pending-section mt-3">
+                <div class="d-flex align-items-center justify-content-between pb-3 border-bottom">
+                    <div class="d-flex align-items-center gap-3">
+                        <label class="form-label mb-0">Novo status</label>
+                        <asp:DropDownList ID="ddlNovoStatus" runat="server" CssClass="form-select" />
+                    </div>
 
-            <div class="mt-3">
-                <asp:CheckBoxList ID="cblPedidosAceitos" runat="server" CssClass="list-group" RepeatLayout="Flow" />
-            </div>
+                    <asp:Button ID="btnAplicarStatus" runat="server" CssClass="btn btn-primary" Text="Aplicar status aos selecionados"
+                                OnClick="btnAplicarStatus_Click" OnClientClick="syncSelections();" />
+                </div>
 
-            <asp:Panel ID="pnlSemAceitos" runat="server" Visible="false" CssClass="alert alert-info mt-3">
-                Nenhum pedido para listar.
-            </asp:Panel>
+                <div class="mt-3">
+                    <!-- Repeater que o code-behind pode popular (mantive o OnItemDataBound/OnItemCommand caso queira lógica por item) -->
+                    <asp:Repeater ID="rptPedidosAceitos" runat="server" OnItemDataBound="rptPedidosAceitos_ItemDataBound" OnItemCommand="rptPedidosAceitos_ItemCommand">
+                        <ItemTemplate>
+                            <div class="card mb-3 accepted-order-card">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div class="d-flex align-items-start gap-3">
+                                        <!-- checkbox visual. possui data-id para sincronização -->
+                                        <input type="checkbox" class="select-order" data-id='<%# Eval("IdPedido") %>' />
+
+                                        <div>
+                                            <h5 class="mb-1">Pedido #<%# Eval("IdPedido") %></h5>
+                                            <div class="text-muted small">
+                                                Data: <%# ((DateTime)Eval("Data")).ToString("dd/MM HH:mm") %> |
+                                                Cliente: <%# Eval("Cliente") %> |
+                                                Status:
+                                                <span class='<%# (DataBinder.Eval(Container.DataItem,"Status") as string) == "Pendente" ? "badge badge-status badge-success" : "badge badge-status badge-secondary" %>'>
+                                                    <%# Eval("Status") %>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-end">
+                                        <div class="text-success fw-bold mb-2">Total: R$ <%# string.Format("{0:N2}", Eval("Total")) %></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
+
+                <!-- CheckBoxList original (usado no code-behind para aplicar em lote) - mantido mas oculto -->
+                <asp:CheckBoxList ID="cblPedidosAceitos" runat="server" CssClass="d-none" RepeatLayout="Flow" />
+
+                <asp:Panel ID="pnlSemAceitos" runat="server" Visible="false" CssClass="alert alert-info mt-3">
+                    Nenhum pedido para listar.
+                </asp:Panel>
+            </div>
 
         </div>
+
+        <script>
+            // sincroniza checkboxes visuais (.select-order) com os inputs renderizados pelo CheckBoxList (id contém 'cblPedidosAceitos')
+            function syncSelections() {
+                try {
+                    var selected = Array.from(document.querySelectorAll('.select-order:checked')).map(function (cb) {
+                        return cb.getAttribute('data-id');
+                    });
+
+                    // encontra os inputs do CheckBoxList gerados pelo server (ids contém 'cblPedidosAceitos')
+                    var serverChecks = document.querySelectorAll("input[type='checkbox'][id*='cblPedidosAceitos']");
+                    serverChecks.forEach(function (input) {
+                        input.checked = selected.indexOf(input.value) >= 0;
+                    });
+                } catch (e) {
+                    console && console.log(e);
+                }
+                // permite o postback
+                return true;
+            }
+        </script>
     </form>
 </body>
 </html>

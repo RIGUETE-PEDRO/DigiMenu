@@ -8,28 +8,26 @@
     <title>Carrinho</title>
     <link href="styles/Carrinho.css" rel="stylesheet" />
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-    
-    <style>
-        .cart-container { max-width: 1000px; margin: 20px auto; }
-        .cart-header { display:flex; align-items:center; justify-content:space-between; margin-bottom: 1rem; }
-        .cart-empty { text-align:center; padding:60px 20px; color:#666; }
-        .produto-img { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; }
-    </style>
+ 
 </head>
 <body>
     <form id="form1" runat="server">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbarDesigner">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="Default.aspx">DigiMenu</a>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="Default.aspx">Principal</a>
-                        </li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg navbarDesigner">
+        <div class="container-fluid">
+           <a class="navbar-brand" href="#">
+               <img id="imgLogo" src="img/logo.png" alt="Logo" />
+           </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" aria-current="page" href="Default.aspx">Principal</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
+
+
 
         <div class="container cart-container">
             <div class="cart-header">
