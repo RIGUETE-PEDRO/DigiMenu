@@ -97,12 +97,15 @@ CREATE TABLE ItemPedido (
 -- ===========================
 CREATE TABLE Endereco (
     IdEndereco INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-    Cidade varchar(255) NOT NULL,
+    Cidade VARCHAR(255) NOT NULL,
     Logradouro VARCHAR(255) NOT NULL,
     Numero VARCHAR(20) NULL,
     Complemento VARCHAR(100) NULL,
     UsuarioId INT NOT NULL,
-    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE
+    IdItemPedido INT NOT NULL,
+
+    FOREIGN KEY (UsuarioId) REFERENCES Usuario(Id) ON DELETE CASCADE,
+    FOREIGN KEY (IdItemPedido) REFERENCES ItemPedido(IdItemPedido) ON DELETE CASCADE
 );
 
 -- ===========================
