@@ -16,13 +16,13 @@
     cursor: pointer;
 }
 
-.buttonLogin a {
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    font-size: 14px;
-    justify-content:center;
-}
+    .buttonLogin a {
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        font-size: 14px;
+        justify-content: center;
+    }
 
 .pLogin {
     text-align: center;
@@ -40,8 +40,7 @@
 }
 
     .userDisplay span {
-       background-color: #1b2999;
-        
+        background-color: #1b2999;
         padding: 6px 14px;
         border-radius: 20px;
         box-shadow: 0 0 6px rgba(0,0,0,0.3);
@@ -226,14 +225,15 @@
             min-width: 100%;
         }
 }
-#btnLogout{
+
+#btnLogout {
     background-color: red;
     color: white;
     border: none;
     padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
-    text-decoration-line:none;
+    text-decoration-line: none;
 }
 
 #cart {
@@ -241,10 +241,9 @@
     margin-left: 15px;
 }
 
-#imgLogo{
+#imgLogo {
     width: 80px;
     height: auto;
-
 }
 
 .carousel-inner {
@@ -332,6 +331,7 @@
             text-align: left !important;
         }
 }
+
 }
 
 .buttonFiltrar {
