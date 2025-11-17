@@ -89,7 +89,8 @@ namespace DigiMenu.admin
         private void CarregarPedidosNaoPendentes()
         {
             var dao = new PedidoDAO();
-            dao.AdminCarregarNaoPendentes(null, cblPedidosAceitos, pnlSemAceitos);
+            // Passa o repeater do markup para também exibir a lista (antes estava null)
+            dao.AdminCarregarNaoPendentes(rptPedidosAceitos, cblPedidosAceitos, pnlSemAceitos);
         }
 
         private void CarregarStatusDisponiveis()
@@ -114,6 +115,17 @@ namespace DigiMenu.admin
                 CarregarPedidos();
                 CarregarPedidosNaoPendentes();
             }
+        }
+
+        // Handlers referenciados no ASPX
+        protected void rptPedidosAceitos_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // Sem lógica específica por item; dados já vêm prontos do DAO
+        }
+
+        protected void rptPedidosAceitos_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            // Não há comandos por item nesta seção (seleção é via checkbox e botão aplicar)
         }
 
         protected void btnAplicarStatus_Click(object sender, EventArgs e)
