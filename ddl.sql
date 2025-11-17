@@ -104,13 +104,12 @@ CREATE TABLE ItemPedido (
     PrecoUnitario DECIMAL(9,2) NOT NULL,
     ProdutoId INT NOT NULL,
     PedidoId INT NOT NULL,
-    IdEndereco INT NOT NULL,  -- ← AQUI ENTRA A FK CERTA!
+    IdEndereco INT NOT NULL,
 
     FOREIGN KEY (ProdutoId) REFERENCES Produto(IdProduto) ON DELETE CASCADE,
     FOREIGN KEY (PedidoId) REFERENCES Pedido(IdPedido) ON DELETE CASCADE,
-    FOREIGN KEY (IdEndereco) REFERENCES Endereco(IdEndereco) ON DELETE CASCADE
+    FOREIGN KEY (IdEndereco) REFERENCES Endereco(IdEndereco) ON DELETE NO ACTION
 );
-
 -- ===========================
 -- Tabela Carrinho
 -- ===========================
