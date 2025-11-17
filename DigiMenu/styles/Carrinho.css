@@ -218,3 +218,14 @@ input.quantidade-input:focus,
     box-shadow: 0 0 0 0.15rem rgba(13,110,253,0.12);
     outline: none;
 }
+
+.quantidade {
+    width:160px;
+}
+
+.produto-img {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 6px;
+}
