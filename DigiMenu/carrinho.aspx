@@ -64,7 +64,7 @@
                                     <th>Produto</th>
                                     <th></th>
                                     <th>Preço</th>
-                                    <th style="width: 160px;">Quantidade</th>
+                                    <th>Quantidade</th>
                                     <th>Total</th>
                                     <th></th>
                                 </tr>
@@ -73,7 +73,7 @@
                                 <asp:Repeater ID="rptCarrinho" runat="server" OnItemCommand="rptCarrinho_ItemCommand">
                                     <ItemTemplate>
                                         <tr>
-                                            <td style="width: 72px;">
+                                            <td>
                                                 <img src="<%# Eval("Imagem") %>" class="produto-img" alt="<%# Eval("Nome") %>" />
                                             </td>
                                             <td>
