@@ -118,7 +118,7 @@
           <Property Name="Criacao" Type="date" Nullable="false" />
           <Property Name="TipoUsuarioId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Carrinho__Usuari__5CD6CB2B">
+        <Association Name="FK__Carrinho__Usuari__412EB0B6">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -132,7 +132,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Endereco__Usuari__6FE99F9F">
+        <Association Name="FK__Endereco__Usuari__34C8D9D1">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -146,7 +146,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImagemPro__Carou__6754599E">
+        <Association Name="FK__ImagemPro__Carou__4BAC3F29">
           <End Role="Carousel" Type="Self.Carousel" Multiplicity="0..1" />
           <End Role="ImagemProduto" Type="Self.ImagemProduto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -158,7 +158,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ImagemPro__Produ__66603565">
+        <Association Name="FK__ImagemPro__Produ__4AB81AF0">
           <End Role="Produto" Type="Self.Produto" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -172,7 +172,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemCarri__Carri__5FB337D6">
+        <Association Name="FK__ItemCarri__Carri__440B1D61">
           <End Role="Carrinho" Type="Self.Carrinho" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -186,7 +186,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemCarri__Produ__60A75C0F">
+        <Association Name="FK__ItemCarri__Produ__44FF419A">
           <End Role="Produto" Type="Self.Produto" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -200,7 +200,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemPedid__Pedid__5629CD9C">
+        <Association Name="FK__ItemPedid__IdEnd__3E52440B">
+          <End Role="Endereco" Type="Self.Endereco" Multiplicity="1" />
+          <End Role="ItemPedido" Type="Self.ItemPedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Endereco">
+              <PropertyRef Name="IdEndereco" />
+            </Principal>
+            <Dependent Role="ItemPedido">
+              <PropertyRef Name="IdEndereco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemPedid__Pedid__3D5E1FD2">
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -214,7 +226,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ItemPedid__Produ__5535A963">
+        <Association Name="FK__ItemPedid__Produ__3C69FB99">
           <End Role="Produto" Type="Self.Produto" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -228,7 +240,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pedido__StatusId__52593CB8">
+        <Association Name="FK__Pedido__StatusId__31EC6D26">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
           <ReferentialConstraint>
@@ -240,7 +252,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Pedido__UsuarioI__5165187F">
+        <Association Name="FK__Pedido__UsuarioI__30F848ED">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -254,7 +266,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Produto__Categor__4CA06362">
+        <Association Name="FK__Produto__Categor__2C3393D0">
           <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
           <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
           <ReferentialConstraint>
@@ -266,7 +278,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Usuario__TipoUsu__3B75D760">
+        <Association Name="FK__Usuario__TipoUsu__286302EC">
           <End Role="TipoUsuario" Type="Self.TipoUsuario" Multiplicity="1" />
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
           <ReferentialConstraint>
@@ -275,18 +287,6 @@
             </Principal>
             <Dependent Role="Usuario">
               <PropertyRef Name="TipoUsuarioId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ItemPedido_Endereco">
-          <End Role="Endereco" Type="Self.Endereco" Multiplicity="1" />
-          <End Role="ItemPedido" Type="Self.ItemPedido" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Endereco">
-              <PropertyRef Name="IdEndereco" />
-            </Principal>
-            <Dependent Role="ItemPedido">
-              <PropertyRef Name="IdEndereco" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -303,57 +303,57 @@
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Carrinho__Usuari__5CD6CB2B" Association="Self.FK__Carrinho__Usuari__5CD6CB2B">
+          <AssociationSet Name="FK__Carrinho__Usuari__412EB0B6" Association="Self.FK__Carrinho__Usuari__412EB0B6">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Carrinho" EntitySet="Carrinho" />
           </AssociationSet>
-          <AssociationSet Name="FK__Endereco__Usuari__6FE99F9F" Association="Self.FK__Endereco__Usuari__6FE99F9F">
+          <AssociationSet Name="FK__Endereco__Usuari__34C8D9D1" Association="Self.FK__Endereco__Usuari__34C8D9D1">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Endereco" EntitySet="Endereco" />
           </AssociationSet>
-          <AssociationSet Name="FK__ImagemPro__Carou__6754599E" Association="Self.FK__ImagemPro__Carou__6754599E">
+          <AssociationSet Name="FK__ImagemPro__Carou__4BAC3F29" Association="Self.FK__ImagemPro__Carou__4BAC3F29">
             <End Role="Carousel" EntitySet="Carousel" />
             <End Role="ImagemProduto" EntitySet="ImagemProduto" />
           </AssociationSet>
-          <AssociationSet Name="FK__ImagemPro__Produ__66603565" Association="Self.FK__ImagemPro__Produ__66603565">
+          <AssociationSet Name="FK__ImagemPro__Produ__4AB81AF0" Association="Self.FK__ImagemPro__Produ__4AB81AF0">
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ImagemProduto" EntitySet="ImagemProduto" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemCarri__Carri__5FB337D6" Association="Self.FK__ItemCarri__Carri__5FB337D6">
+          <AssociationSet Name="FK__ItemCarri__Carri__440B1D61" Association="Self.FK__ItemCarri__Carri__440B1D61">
             <End Role="Carrinho" EntitySet="Carrinho" />
             <End Role="ItemCarrinho" EntitySet="ItemCarrinho" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemCarri__Produ__60A75C0F" Association="Self.FK__ItemCarri__Produ__60A75C0F">
+          <AssociationSet Name="FK__ItemCarri__Produ__44FF419A" Association="Self.FK__ItemCarri__Produ__44FF419A">
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ItemCarrinho" EntitySet="ItemCarrinho" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemPedid__Pedid__5629CD9C" Association="Self.FK__ItemPedid__Pedid__5629CD9C">
+          <AssociationSet Name="FK__ItemPedid__IdEnd__3E52440B" Association="Self.FK__ItemPedid__IdEnd__3E52440B">
+            <End Role="Endereco" EntitySet="Endereco" />
+            <End Role="ItemPedido" EntitySet="ItemPedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemPedid__Pedid__3D5E1FD2" Association="Self.FK__ItemPedid__Pedid__3D5E1FD2">
             <End Role="Pedido" EntitySet="Pedido" />
             <End Role="ItemPedido" EntitySet="ItemPedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__ItemPedid__Produ__5535A963" Association="Self.FK__ItemPedid__Produ__5535A963">
+          <AssociationSet Name="FK__ItemPedid__Produ__3C69FB99" Association="Self.FK__ItemPedid__Produ__3C69FB99">
             <End Role="Produto" EntitySet="Produto" />
             <End Role="ItemPedido" EntitySet="ItemPedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pedido__StatusId__52593CB8" Association="Self.FK__Pedido__StatusId__52593CB8">
+          <AssociationSet Name="FK__Pedido__StatusId__31EC6D26" Association="Self.FK__Pedido__StatusId__31EC6D26">
             <End Role="Status" EntitySet="Status" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Pedido__UsuarioI__5165187F" Association="Self.FK__Pedido__UsuarioI__5165187F">
+          <AssociationSet Name="FK__Pedido__UsuarioI__30F848ED" Association="Self.FK__Pedido__UsuarioI__30F848ED">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Pedido" EntitySet="Pedido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Produto__Categor__4CA06362" Association="Self.FK__Produto__Categor__4CA06362">
+          <AssociationSet Name="FK__Produto__Categor__2C3393D0" Association="Self.FK__Produto__Categor__2C3393D0">
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Produto" EntitySet="Produto" />
           </AssociationSet>
-          <AssociationSet Name="FK__Usuario__TipoUsu__3B75D760" Association="Self.FK__Usuario__TipoUsu__3B75D760">
+          <AssociationSet Name="FK__Usuario__TipoUsu__286302EC" Association="Self.FK__Usuario__TipoUsu__286302EC">
             <End Role="TipoUsuario" EntitySet="TipoUsuario" />
             <End Role="Usuario" EntitySet="Usuario" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ItemPedido_Endereco" Association="Self.FK_ItemPedido_Endereco">
-            <End Role="Endereco" EntitySet="Endereco" />
-            <End Role="ItemPedido" EntitySet="ItemPedido" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>

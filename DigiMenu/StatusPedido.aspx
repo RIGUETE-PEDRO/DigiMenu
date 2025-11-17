@@ -50,7 +50,7 @@
                         <div>
                             <span class="me-3">Endereço</span>
                             <div class="text-muted">
-                                <strong>Cidade: </strong><%# Eval("Cidade") %>,<strong>Numero: </strong> <%# Eval("Numero") %> ,<strong>Complemento</strong> <%# Eval("Complemento") %>,<strong>Logradouro: </strong><%# Eval("Logradouro") %>
+                                <strong>Cidade:     </strong><%# Eval("Cidade") %>,<strong>     Numero: </strong> <%# Eval("Numero") %> ,<strong>        Complemento: </strong> <%# Eval("Complemento") %>,<strong>      Logradouro: </strong><%# Eval("Logradouro") %>
                             </div>
                         </div>
                         <div class="mt-2">
