@@ -13,18 +13,22 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbarDesigner">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="Default.aspx">DigiMenu</a>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="Default.aspx">Principal</a>
-                        </li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg navbarDesigner">
+        <div class="container-fluid">
+           <a class="navbar-brand" href="#">
+               <img id="imgLogo" src="img/logo.png" alt="Logo" />
+           </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" aria-current="page" href="Default.aspx">Principal</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
+
+
 
         <div class="container cart-container">
             <div class="embacar" runat="server">

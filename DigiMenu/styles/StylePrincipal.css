@@ -281,6 +281,59 @@
     color: white;
 }
 
+/* Estilo para apresentar pedidos em cartão (sem afetar o admin) */
+.order-card {
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    overflow: hidden;
+    background: #fff;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+    .order-header h5 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+.badge-status {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.75rem;
+    border-radius: 0.4rem;
+    color: #fff;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+}
+
+.total-label {
+    font-weight: 700;
+    color: #138a3a;
+}
+
+/* Ajustes responsivos simples */
+@media (max-width: 576px) {
+    .order-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+        .order-header .text-end {
+            text-align: left !important;
+        }
+}
+}
+
 .buttonFiltrar {
     background-color: red;
     color: white;
