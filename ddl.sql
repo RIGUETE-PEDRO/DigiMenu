@@ -28,7 +28,7 @@ create table Categoria(
 -- Tabela Usuario
 -- ===========================
 CREATE TABLE Usuario (
-    Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Id INT NOT NULL PRIMARY KEY,
     Nome VARCHAR(255) NOT NULL,
     HashSenha VARCHAR(300) NOT NULL,
     Telefone CHAR(20) NULL,
