@@ -20,7 +20,7 @@ CREATE TABLE TipoUsuario (
 -- Tabela categoria
 -- ===========================
 create table Categoria(
-	id int identity primary key,
+	id int identity(1,1) primary key,
 	nome varchar (100) not null 
 )
 
@@ -28,7 +28,7 @@ create table Categoria(
 -- Tabela Usuario
 -- ===========================
 CREATE TABLE Usuario (
-    Id INT NOT NULL PRIMARY KEY,
+    Id INT identity(1,1) NOT NULL PRIMARY KEY,
     Nome VARCHAR(255) NOT NULL,
     HashSenha VARCHAR(300) NOT NULL,
     Telefone CHAR(20) NULL,
