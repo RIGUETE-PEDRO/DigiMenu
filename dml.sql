@@ -64,29 +64,36 @@ INSERT INTO Carousel (Nome, Ativo, Ordem) VALUES
 
   --insert de imagemProduto
 
+
 INSERT INTO ImagemProduto (CaminhoImagem, ProdutoId, CarouselId) VALUES
-('imgProduto/2cd679912cd94e5da005573da15ce209.png', 3, 1),
-('imgProduto/0dbdeb0ee2ba4cd7ab02772247653df1.png', 4, 2),
-('imgProduto/310239f3411c47d09530e020562f6f67.png', 5, 3),
-('imgProduto/8e8bb358717b409f8c466942346b9653.png', 6, 4),
-('imgProduto/f3e50f17589c4a8fae17d66de79f9791.png', 7, 5),
-('imgProduto/c771dd0c35e646779a8d607402448d1c.png', 8, 6),
-('imgProduto/4e8edd8989bc462bb23a8b27a613717d.png', 9, 7),
-('imgProduto/5e1e7e2345034449bcc81d6051739423.png', 10, 8),
-('imgProduto/75dcf52a97604b4ab7c9bd9c4b0e0823.png', 11, 9),
-('imgProduto/3b52cfba8a53448f97744f7e1f34df75.png', 12, 10),
-('imgProduto/68c1167c514a4cc09e76151d4689cf0f.png', 13, 11),
-('imgProduto/3eedf5f5526d4e9ab6057168a4085c1c.png', 14, 12),
-('imgProduto/d4ffb64435f14d95abd6d4682c98ec45.png', 15, 13),
-('imgProduto/c6e03164c5774e59a2292a8b45fe3cbc.png', 16, 14),
-('imgProduto/9de54c5f2e10425789a083a9c3172f40.png', 17, 15),
-('imgProduto/7d631a15c63245de98f24d55e47333fc.png', 18, 16),
-('imgProduto/9f9ca8b45ea54283b10ee02f9302a5dc.png', 19, 17),
-('imgProduto/7ddab3f88eac4b1d810531a2f92badf5.png', 20, 18),
-('imgProduto/2f34e4906e204e4ca4a69b0e1a83c756.png', 21, 19),
-('imgProduto/32a6b408cda2408bb8c7391a9e2d8403.png', 22, 20),
-('imgProduto/0083a6e4488b4ae1b04bb1798caae9b5.png', 23, 21),
-('imgProduto/6fb471d66810498bb07c6513d2860efb.png', 24, 22);
+('imgProduto/2cd679912cd94e5da005573da15ce209.png', 1, 1),
+('imgProduto/0dbdeb0ee2ba4cd7ab02772247653df1.png', 2, 2),
+('imgProduto/310239f3411c47d09530e020562f6f67.png', 3, 3),
+('imgProduto/8e8bb358717b409f8c466942346b9653.png', 4, 4),
+('imgProduto/f3e50f17589c4a8fae17d66de79f9791.png', 5, 5),
+('imgProduto/c771dd0c35e646779a8d607402448d1c.png', 6, 6),
+('imgProduto/4e8edd8989bc462bb23a8b27a613717d.png', 7, 7),
+('imgProduto/5e1e7e2345034449bcc81d6051739423.png', 8, 8),
+('imgProduto/75dcf52a97604b4ab7c9bd9c4b0e0823.png', 9, 9),
+('imgProduto/3b52cfba8a53448f97744f7e1f34df75.png', 10, 10),
+('imgProduto/68c1167c514a4cc09e76151d4689cf0f.png', 11, 11),
+('imgProduto/3eedf5f5526d4e9ab6057168a4085c1c.png', 12, 12),
+('imgProduto/d4ffb64435f14d95abd6d4682c98ec45.png', 13, 13),
+('imgProduto/c6e03164c5774e59a2292a8b45fe3cbc.png', 14, 14),
+('imgProduto/9de54c5f2e10425789a083a9c3172f40.png', 15, 15),
+('imgProduto/7d631a15c63245de98f24d55e47333fc.png', 16, 16),
+('imgProduto/9f9ca8b45ea54283b10ee02f9302a5dc.png', 17, 17),
+('imgProduto/7ddab3f88eac4b1d810531a2f92badf5.png', 18, 18),
+('imgProduto/2f34e4906e204e4ca4a69b0e1a83c756.png', 19, 19),
+('imgProduto/32a6b408cda2408bb8c7391a9e2d8403.png', 20, 20),
+('imgProduto/0083a6e4488b4ae1b04bb1798caae9b5.png', 21, 21),
+('imgProduto/6fb471d66810498bb07c6513d2860efb.png', 22, 22);
+
+
+
+
+
+
 
 
 
