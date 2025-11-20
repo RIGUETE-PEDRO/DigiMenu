@@ -11,12 +11,13 @@
     <link href="styles/StylePrincipal.css" rel="stylesheet" />
 </head>
 <body>
+   <main>
     <form id="form1" runat="server">
         <nav class="navbar navbar-expand-lg navbarDesigner">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img id="imgLogo" src="img/logo.png" alt="Logo" />
-                </a>
+               <a class="navbar-brand" href="#">
+                   <img id="imgLogo" src="img/logo.png" alt="Logo" />
+               </a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -29,7 +30,7 @@
 
 
         <div class="container mt-4">
-            <h2>SEUS PEDIDOS</h2>
+            <h2>Seus Pedidos</h2>
             <asp:PlaceHolder ID="phMsg" runat="server" />
 
             <asp:Repeater ID="rptPedidos" runat="server" OnItemCommand="rptPedidos_ItemCommand">
@@ -50,7 +51,7 @@
                         <div>
                             <span class="me-3">Endereço</span>
                             <div class="text-muted">
-                                <strong>Cidade:     </strong><%# Eval("Cidade") %>,<strong>     Numero: </strong> <%# Eval("Numero") %> ,<strong>        Complemento: </strong> <%# Eval("Complemento") %>,<strong>      Logradouro: </strong><%# Eval("Logradouro") %>
+                                <strong>Cidade: </strong><%# Eval("Cidade") %>,<strong>Número: </strong> <%# Eval("Numero") %> ,<strong>Complemento: </strong> <%# Eval("Complemento") %>,<strong>Logradouro: </strong><%# Eval("Logradouro") %>
                             </div>
                         </div>
                         <div class="mt-2">
@@ -91,9 +92,11 @@
                 Nenhum pedido pendente.
             </asp:Panel>
 
-
-
         </div>
     </form>
+       </main>
+    <footer>
+        <p>&copy; 2025 Pedro Riguete & Maria Massucato. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>

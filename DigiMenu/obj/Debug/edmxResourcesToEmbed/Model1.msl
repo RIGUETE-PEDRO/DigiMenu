@@ -28,34 +28,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Cidade">
-      <EntityTypeMapping TypeName="DigiMenuModel.Cidade">
-        <MappingFragment StoreEntitySet="Cidade">
-          <ScalarProperty Name="EstadoId" ColumnName="EstadoId" />
-          <ScalarProperty Name="Nome" ColumnName="Nome" />
-          <ScalarProperty Name="IdCidade" ColumnName="IdCidade" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Endereco">
       <EntityTypeMapping TypeName="DigiMenuModel.Endereco">
         <MappingFragment StoreEntitySet="Endereco">
           <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
           <ScalarProperty Name="Complemento" ColumnName="Complemento" />
-          <ScalarProperty Name="Cep" ColumnName="Cep" />
           <ScalarProperty Name="Numero" ColumnName="Numero" />
           <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
-          <ScalarProperty Name="CidadeId" ColumnName="CidadeId" />
+          <ScalarProperty Name="Cidade" ColumnName="Cidade" />
           <ScalarProperty Name="IdEndereco" ColumnName="IdEndereco" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Estado">
-      <EntityTypeMapping TypeName="DigiMenuModel.Estado">
-        <MappingFragment StoreEntitySet="Estado">
-          <ScalarProperty Name="PaisId" ColumnName="PaisId" />
-          <ScalarProperty Name="Nome" ColumnName="Nome" />
-          <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -83,29 +64,12 @@
     <EntitySetMapping Name="ItemPedido">
       <EntityTypeMapping TypeName="DigiMenuModel.ItemPedido">
         <MappingFragment StoreEntitySet="ItemPedido">
+          <ScalarProperty Name="IdEndereco" ColumnName="IdEndereco" />
           <ScalarProperty Name="PedidoId" ColumnName="PedidoId" />
           <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
           <ScalarProperty Name="PrecoUnitario" ColumnName="PrecoUnitario" />
           <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
           <ScalarProperty Name="IdItemPedido" ColumnName="IdItemPedido" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Log">
-      <EntityTypeMapping TypeName="DigiMenuModel.Log">
-        <MappingFragment StoreEntitySet="Log">
-          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
-          <ScalarProperty Name="DataHora" ColumnName="DataHora" />
-          <ScalarProperty Name="TarefasId" ColumnName="TarefasId" />
-          <ScalarProperty Name="IdLog" ColumnName="IdLog" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Pais">
-      <EntityTypeMapping TypeName="DigiMenuModel.Pais">
-        <MappingFragment StoreEntitySet="Pais">
-          <ScalarProperty Name="Nome" ColumnName="Nome" />
-          <ScalarProperty Name="IdPais" ColumnName="IdPais" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -138,14 +102,6 @@
         <MappingFragment StoreEntitySet="Status">
           <ScalarProperty Name="Nome" ColumnName="Nome" />
           <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Tarefas">
-      <EntityTypeMapping TypeName="DigiMenuModel.Tarefas">
-        <MappingFragment StoreEntitySet="Tarefas">
-          <ScalarProperty Name="Tarefa" ColumnName="Tarefa" />
-          <ScalarProperty Name="IdTarefas" ColumnName="IdTarefas" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

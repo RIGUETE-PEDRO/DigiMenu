@@ -180,5 +180,10 @@
             }
         </script>
     </form>
+
+    <footer>
+        <p>&copy; 2025 Pedro Riguete & Maria Massucato. Todos os direitos reservados.</p>
+    </footer>
+
 </body>
 </html>

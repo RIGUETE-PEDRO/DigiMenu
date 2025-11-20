@@ -21,8 +21,8 @@ namespace DigiMenu
         public int PedidoId { get; set; }
         public int IdEndereco { get; set; }
     
+        public virtual Endereco Endereco { get; set; }
         public virtual Pedido Pedido { get; set; }
         public virtual Produto Produto { get; set; }
-        public virtual Endereco Endereco { get; set; }
     }
 }

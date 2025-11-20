@@ -5,32 +5,32 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="b84bb1022f2d4f3c8fa2eaf3d1119390" Name="Diagram1">
-        <EntityTypeShape EntityType="DigiMenuModel.Carousel" Width="1.5" PointX="8.25" PointY="25.5" />
-        <EntityTypeShape EntityType="DigiMenuModel.Carrinho" Width="1.5" PointX="5.25" PointY="17.25" />
-        <EntityTypeShape EntityType="DigiMenuModel.Categoria" Width="1.5" PointX="6" PointY="21.75" />
-        <EntityTypeShape EntityType="DigiMenuModel.ImagemProduto" Width="1.5" PointX="10.5" PointY="21.5" />
-        <EntityTypeShape EntityType="DigiMenuModel.ItemCarrinho" Width="1.5" PointX="7.5" PointY="17.125" />
-        <EntityTypeShape EntityType="DigiMenuModel.ItemPedido" Width="1.5" PointX="10.5" PointY="7.375" />
-        <EntityTypeShape EntityType="DigiMenuModel.Pedido" Width="1.5" PointX="5.25" PointY="7.25" />
-        <EntityTypeShape EntityType="DigiMenuModel.Produto" Width="1.5" PointX="8.25" PointY="21" />
-        <EntityTypeShape EntityType="DigiMenuModel.Status" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="DigiMenuModel.TipoUsuario" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="DigiMenuModel.Usuario" Width="1.5" PointX="3" PointY="6.875" />
-        <AssociationConnector Association="DigiMenuModel.FK__ImagemPro__Carou__6754599E" />
-        <AssociationConnector Association="DigiMenuModel.FK__Carrinho__Usuari__5CD6CB2B" />
-        <AssociationConnector Association="DigiMenuModel.FK__ItemCarri__Carri__5FB337D6" />
-        <AssociationConnector Association="DigiMenuModel.FK__Produto__Categor__4CA06362" />
-        <AssociationConnector Association="DigiMenuModel.FK__ImagemPro__Produ__66603565" />
-        <AssociationConnector Association="DigiMenuModel.FK__ItemCarri__Produ__60A75C0F" />
-        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Pedid__5629CD9C" />
-        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Produ__5535A963" />
-        <AssociationConnector Association="DigiMenuModel.FK__Pedido__StatusId__52593CB8" />
-        <AssociationConnector Association="DigiMenuModel.FK__Pedido__UsuarioI__5165187F" />
-        <AssociationConnector Association="DigiMenuModel.FK__Usuario__TipoUsu__3B75D760" />
-        <EntityTypeShape EntityType="DigiMenuModel.Endereco" Width="1.5" PointX="5.25" PointY="11.125" />
-        <AssociationConnector Association="DigiMenuModel.FK__Endereco__Usuari__6FE99F9F" />
-        <AssociationConnector Association="DigiMenuModel.FK_ItemPedido_Endereco" />
-        </Diagram>
+        <EntityTypeShape EntityType="DigiMenuModel.Carousel" Width="1.5" PointX="5.25" PointY="17.5" />
+        <EntityTypeShape EntityType="DigiMenuModel.Carrinho" Width="1.5" PointX="5.25" PointY="6.5" />
+        <EntityTypeShape EntityType="DigiMenuModel.Categoria" Width="1.5" PointX="3" PointY="13.75" />
+        <EntityTypeShape EntityType="DigiMenuModel.Endereco" Width="1.5" PointX="5.25" PointY="9.25" />
+        <EntityTypeShape EntityType="DigiMenuModel.ImagemProduto" Width="1.5" PointX="7.5" PointY="13.375" />
+        <EntityTypeShape EntityType="DigiMenuModel.ItemCarrinho" Width="1.5" PointX="7.5" PointY="6.375" />
+        <EntityTypeShape EntityType="DigiMenuModel.ItemPedido" Width="1.5" PointX="7.5" PointY="2.875" />
+        <EntityTypeShape EntityType="DigiMenuModel.Pedido" Width="1.5" PointX="5.25" PointY="2.625" />
+        <EntityTypeShape EntityType="DigiMenuModel.Produto" Width="1.5" PointX="5.25" PointY="13" />
+        <EntityTypeShape EntityType="DigiMenuModel.Status" Width="1.5" PointX="3" PointY="1.125" />
+        <EntityTypeShape EntityType="DigiMenuModel.TipoUsuario" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="DigiMenuModel.Usuario" Width="1.5" PointX="3" PointY="4.25" />
+        <AssociationConnector Association="DigiMenuModel.FK__ImagemPro__Carou__4BAC3F29" />
+        <AssociationConnector Association="DigiMenuModel.FK__Carrinho__Usuari__412EB0B6" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemCarri__Carri__440B1D61" />
+        <AssociationConnector Association="DigiMenuModel.FK__Produto__Categor__2C3393D0" />
+        <AssociationConnector Association="DigiMenuModel.FK__Endereco__Usuari__34C8D9D1" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__IdEnd__3E52440B" />
+        <AssociationConnector Association="DigiMenuModel.FK__ImagemPro__Produ__4AB81AF0" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemCarri__Produ__44FF419A" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Pedid__3D5E1FD2" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Produ__3C69FB99" />
+        <AssociationConnector Association="DigiMenuModel.FK__Pedido__StatusId__31EC6D26" />
+        <AssociationConnector Association="DigiMenuModel.FK__Pedido__UsuarioI__30F848ED" />
+        <AssociationConnector Association="DigiMenuModel.FK__Usuario__TipoUsu__286302EC" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>
