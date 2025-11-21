@@ -3,13 +3,13 @@ INSERT INTO TipoUsuario (TipoUsuario) VALUES ('User'), ('Admin');
 
   --insert usuario 
 
-INSERT INTO Usuario (Nome, HashSenha, Telefone, Email, Criacao, TipoUsuarioId)
+INSERT INTO Usuario (Nome, HashSenha, Telefone, Email, Criacao, TipoUsuarioId,broqueado)
 VALUES
 ('usuario', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225',
- '28999534886', 'usuario@gmail.com', '2025-11-17', 1),
+ '28999534886', 'usuario@gmail.com', '2025-11-17', 1,0),
 
 ('admin', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225',
- '28999534886', 'admin@gmail.com', '2025-11-17', 2);
+ '28999534886', 'admin@gmail.com', '2025-11-17', 2,0);
 
 
 --status de pedido
