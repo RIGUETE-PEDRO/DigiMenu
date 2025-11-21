@@ -71,62 +71,69 @@ namespace DigiMenu.DAL
         // ADMIN: Carrega pedidos pendentes (status pendente)
         public void AdminCarregarPendentes(Repeater rptPedidos, Panel pnlSemPedidos)
         {
-            using (var ctx = new DigiMenuEntities())
+            try
             {
-                var pendentes = ctx.Pedido
-                    .Where(p => p.StatusId == 1 || p.Status.Nome == "Pendente")
-                    .Select(p => new
-                    {
-                        p.IdPedido,
-                        p.Data,
-                        p.Total,
-                        Cliente = p.Usuario.Nome,
-                        Status = p.Status.Nome,
-                        Endereco = p.ItemPedido.Select(i => i.Endereco).FirstOrDefault(),
-                        Itens = p.ItemPedido.Select(i => new
-                        {
-                            Produto = i.Produto.Nome,
-                            i.Quantidade,
-                            i.PrecoUnitario
-                        })
-                    })
-                    .AsEnumerable()
-                    .Select(p => new
-                    {
-                        p.IdPedido,
-                        p.Data,
-                        p.Total,
-                        p.Cliente,
-                        p.Status,
-                        Cidade = p.Endereco != null ? p.Endereco.Cidade : null,
-                        Numero = p.Endereco != null ? p.Endereco.Numero : null,
-                        Complemento = p.Endereco != null ? p.Endereco.Complemento : null,
-                        Logradouro = p.Endereco != null ? p.Endereco.Logradouro : null,
-                        Itens = p.Itens.ToList()
-                    })
-                    .OrderByDescending(p => p.Data)
-                    .ToList();
-
-                if (pnlSemPedidos != null)
-                    pnlSemPedidos.Visible = pendentes.Count == 0;
-
-                if (rptPedidos != null)
+                using (var ctx = new DigiMenuEntities())
                 {
-                    rptPedidos.DataSource = pendentes;
-                    rptPedidos.DataBind();
-
-                    int index = 0;
-                    foreach (RepeaterItem item in rptPedidos.Items)
-                    {
-                        var pedido = pendentes[index++];
-                        var rptItens = item.FindControl("rptItens") as Repeater;
-                        if (rptItens != null)
+                    var pendentes = ctx.Pedido
+                        .Where(p => p.StatusId == 1 || p.Status.Nome == "Pendente")
+                        .Select(p => new
                         {
-                            rptItens.DataSource = pedido.Itens;
-                            rptItens.DataBind();
+                            p.IdPedido,
+                            p.Data,
+                            p.Total,
+                            Cliente = p.Usuario.Nome,
+                            Status = p.Status.Nome,
+                            Endereco = p.ItemPedido.Select(i => i.Endereco).FirstOrDefault(),
+                            Itens = p.ItemPedido.Select(i => new
+                            {
+                                Produto = i.Produto.Nome,
+                                i.Quantidade,
+                                i.PrecoUnitario
+                            })
+                        })
+                        .AsEnumerable()
+                        .Select(p => new
+                        {
+                            p.IdPedido,
+                            p.Data,
+                            p.Total,
+                            p.Cliente,
+                            p.Status,
+                            Cidade = p.Endereco != null ? p.Endereco.Cidade : null,
+                            Numero = p.Endereco != null ? p.Endereco.Numero : null,
+                            Complemento = p.Endereco != null ? p.Endereco.Complemento : null,
+                            Logradouro = p.Endereco != null ? p.Endereco.Logradouro : null,
+                            Itens = p.Itens.ToList()
+                        })
+                        .OrderByDescending(p => p.Data)
+                        .ToList();
+
+                    if (pnlSemPedidos != null)
+                        pnlSemPedidos.Visible = pendentes.Count == 0;
+
+                    if (rptPedidos != null)
+                    {
+                        rptPedidos.DataSource = pendentes;
+                        rptPedidos.DataBind();
+
+                        int index = 0;
+                        foreach (RepeaterItem item in rptPedidos.Items)
+                        {
+                            var pedido = pendentes[index++];
+                            var rptItens = item.FindControl("rptItens") as Repeater;
+                            if (rptItens != null)
+                            {
+                                rptItens.DataSource = pedido.Itens;
+                                rptItens.DataBind();
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao carregar pedidos pendentes: " + ex.Message);
             }
         }
 
