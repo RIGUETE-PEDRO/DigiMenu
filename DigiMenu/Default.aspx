@@ -91,7 +91,7 @@
                         <ItemTemplate>
                             <div class='carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>'>
                                 <img class="d-block w-100 img_carrousel" src='<%# Eval("UrlImagem") %>' alt='<%# Eval("NomeProduto") %>'>
-                                <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-1">
+                                <div class="carousel-caption d-md bg-primary bg-opacity-25">
                                     <h5><%# Eval("NomeProduto") %></h5>
                                     <p class="mb-1"><%# Eval("Descricao") %></p>
                                     <span class="badge bg-success fs-6">R$ <%# Eval("PrecoProduto") %></span>
@@ -176,6 +176,9 @@
             </div>
         </div>
     </form>
+    <footer>
+        <p>&copy; 2025 Pedro Riguete & Maria Massucato. Todos os direitos reservados.</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>

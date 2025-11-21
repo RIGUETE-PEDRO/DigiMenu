@@ -113,7 +113,11 @@
     <Property Name="Criacao" Type="date" Nullable="false" />
     <Property Name="TipoUsuarioId" Type="int" Nullable="false" />
   </EntityType>
+<<<<<<< HEAD
   <Association Name="FK__Carrinho__Usuari__5CD6CB2B">
+=======
+  <Association Name="FK__Carrinho__Usuari__3C69FB99">
+>>>>>>> maria-eduarda
     <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -127,7 +131,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__Endereco__Usuari__6FE99F9F">
+=======
+  <Association Name="FK__Endereco__Usuari__34C8D9D1">
+>>>>>>> maria-eduarda
     <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -141,7 +149,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__ImagemPro__Carou__6754599E">
+=======
+  <Association Name="FK__ImagemPro__Carou__46E78A0C">
+>>>>>>> maria-eduarda
     <End Role="Carousel" Type="Self.Carousel" Multiplicity="0..1" />
     <End Role="ImagemProduto" Type="Self.ImagemProduto" Multiplicity="*" />
     <ReferentialConstraint>
@@ -153,7 +165,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__ImagemPro__Produ__66603565">
+=======
+  <Association Name="FK__ImagemPro__Produ__45F365D3">
+>>>>>>> maria-eduarda
     <End Role="Produto" Type="Self.Produto" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -167,7 +183,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__ItemCarri__Carri__5FB337D6">
+=======
+  <Association Name="FK__ItemCarri__Carri__3F466844">
+>>>>>>> maria-eduarda
     <End Role="Carrinho" Type="Self.Carrinho" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -181,7 +201,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__ItemCarri__Produ__60A75C0F">
+=======
+  <Association Name="FK__ItemCarri__Produ__403A8C7D">
+>>>>>>> maria-eduarda
     <End Role="Produto" Type="Self.Produto" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -195,7 +219,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__ItemPedid__IdEnd__17F790F9">
+=======
+  <Association Name="FK__ItemPedid__IdEnd__398D8EEE">
+>>>>>>> maria-eduarda
     <End Role="Endereco" Type="Self.Endereco" Multiplicity="1" />
     <End Role="ItemPedido" Type="Self.ItemPedido" Multiplicity="*" />
     <ReferentialConstraint>
@@ -207,7 +235,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__ItemPedid__Pedid__17036CC0">
+=======
+  <Association Name="FK__ItemPedid__Pedid__38996AB5">
+>>>>>>> maria-eduarda
     <End Role="Pedido" Type="Self.Pedido" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -221,7 +253,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__ItemPedid__Produ__160F4887">
+=======
+  <Association Name="FK__ItemPedid__Produ__37A5467C">
+>>>>>>> maria-eduarda
     <End Role="Produto" Type="Self.Produto" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -235,7 +271,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__Pedido__StatusId__52593CB8">
+=======
+  <Association Name="FK__Pedido__StatusId__31EC6D26">
+>>>>>>> maria-eduarda
     <End Role="Status" Type="Self.Status" Multiplicity="1" />
     <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
     <ReferentialConstraint>
@@ -247,7 +287,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__Pedido__UsuarioI__5165187F">
+=======
+  <Association Name="FK__Pedido__UsuarioI__30F848ED">
+>>>>>>> maria-eduarda
     <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
@@ -261,7 +305,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Association Name="FK__Produto__Categor__4CA06362">
+=======
+  <Association Name="FK__Produto__Categor__2C3393D0">
+>>>>>>> maria-eduarda
     <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
     <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
     <ReferentialConstraint>
@@ -298,6 +346,7 @@
     <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TipoUsuario" EntityType="Self.TipoUsuario" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+<<<<<<< HEAD
     <AssociationSet Name="FK__Carrinho__Usuari__5CD6CB2B" Association="Self.FK__Carrinho__Usuari__5CD6CB2B">
       <End Role="Usuario" EntitySet="Usuario" />
       <End Role="Carrinho" EntitySet="Carrinho" />
@@ -343,6 +392,53 @@
       <End Role="Pedido" EntitySet="Pedido" />
     </AssociationSet>
     <AssociationSet Name="FK__Produto__Categor__4CA06362" Association="Self.FK__Produto__Categor__4CA06362">
+=======
+    <AssociationSet Name="FK__Carrinho__Usuari__3C69FB99" Association="Self.FK__Carrinho__Usuari__3C69FB99">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Carrinho" EntitySet="Carrinho" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Endereco__Usuari__34C8D9D1" Association="Self.FK__Endereco__Usuari__34C8D9D1">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Endereco" EntitySet="Endereco" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImagemPro__Carou__46E78A0C" Association="Self.FK__ImagemPro__Carou__46E78A0C">
+      <End Role="Carousel" EntitySet="Carousel" />
+      <End Role="ImagemProduto" EntitySet="ImagemProduto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ImagemPro__Produ__45F365D3" Association="Self.FK__ImagemPro__Produ__45F365D3">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="ImagemProduto" EntitySet="ImagemProduto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItemCarri__Carri__3F466844" Association="Self.FK__ItemCarri__Carri__3F466844">
+      <End Role="Carrinho" EntitySet="Carrinho" />
+      <End Role="ItemCarrinho" EntitySet="ItemCarrinho" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItemCarri__Produ__403A8C7D" Association="Self.FK__ItemCarri__Produ__403A8C7D">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="ItemCarrinho" EntitySet="ItemCarrinho" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItemPedid__IdEnd__398D8EEE" Association="Self.FK__ItemPedid__IdEnd__398D8EEE">
+      <End Role="Endereco" EntitySet="Endereco" />
+      <End Role="ItemPedido" EntitySet="ItemPedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItemPedid__Pedid__38996AB5" Association="Self.FK__ItemPedid__Pedid__38996AB5">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="ItemPedido" EntitySet="ItemPedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItemPedid__Produ__37A5467C" Association="Self.FK__ItemPedid__Produ__37A5467C">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="ItemPedido" EntitySet="ItemPedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pedido__StatusId__31EC6D26" Association="Self.FK__Pedido__StatusId__31EC6D26">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Pedido" EntitySet="Pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Pedido__UsuarioI__30F848ED" Association="Self.FK__Pedido__UsuarioI__30F848ED">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Pedido" EntitySet="Pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Produto__Categor__2C3393D0" Association="Self.FK__Produto__Categor__2C3393D0">
+>>>>>>> maria-eduarda
       <End Role="Categoria" EntitySet="Categoria" />
       <End Role="Produto" EntitySet="Produto" />
     </AssociationSet>

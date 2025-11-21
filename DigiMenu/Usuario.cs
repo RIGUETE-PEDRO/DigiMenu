@@ -18,8 +18,8 @@ namespace DigiMenu
         public Usuario()
         {
             this.Carrinho = new HashSet<Carrinho>();
-            this.Pedido = new HashSet<Pedido>();
             this.Endereco = new HashSet<Endereco>();
+            this.Pedido = new HashSet<Pedido>();
         }
     
         public int Id { get; set; }
@@ -33,9 +33,9 @@ namespace DigiMenu
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Carrinho> Carrinho { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Endereco> Endereco { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedido { get; set; }
         public virtual TipoUsuario TipoUsuario { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Endereco> Endereco { get; set; }
     }
 }

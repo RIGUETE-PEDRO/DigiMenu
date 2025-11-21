@@ -26,9 +26,9 @@ namespace DigiMenu
         public int UsuarioId { get; set; }
         public int StatusId { get; set; }
     
-        public virtual Status Status { get; set; }
-        public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ItemPedido> ItemPedido { get; set; }
+        public virtual Status Status { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
