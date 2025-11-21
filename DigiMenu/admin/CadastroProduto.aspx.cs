@@ -61,7 +61,7 @@ namespace DigiMenu
                 PlaceHolderMensagens.Controls.Add(divSucesso);
             }
         }
-
+        // Carrega categorias no dropdown
         private void carregarCategorias()
         {
             var categorias = categoriaDAO.ListarOrdenado();
@@ -72,7 +72,7 @@ namespace DigiMenu
             ddlCategoria.DataBind();
             ddlCategoria.Items.Insert(0, new ListItem("Selecione", ""));
         }
-
+        // Tenta obter o preço do campo de texto
         private bool TentarObterPreco(out decimal preco)
         {
             preco = 0m;
@@ -98,6 +98,7 @@ namespace DigiMenu
             return decimal.TryParse(texto, NumberStyles.Number, PtBr, out preco) && preco >= 0;
         }
 
+        // Handler para o botão Cadastrar
         protected void btnCadastrar_Click(object sender, EventArgs e)
         {
             // Se por algum motivo estiver em modo edição, redireciona para fluxo de atualização
@@ -280,6 +281,7 @@ namespace DigiMenu
             ExcluirProduto(btn.CommandArgument);
         }
 
+        // função para excluir produto parte2
         private void ExcluirProduto(string commandArgument)
         {
             int idProduto;
@@ -322,7 +324,7 @@ namespace DigiMenu
 
             }
         }
-
+        // função para editar produto
         protected void btnEditar_Click(object sender, ImageClickEventArgs e)
         {
             var btn = (ImageButton)sender;
@@ -333,7 +335,7 @@ namespace DigiMenu
             }
             PreencherFormulario(false);
         }
-
+        // Preenche o formulário para edição ou visualização
         private void PreencherFormulario(bool visualizar)
         {
             string idProdutoStr = Request.QueryString["cod"];
@@ -378,7 +380,7 @@ namespace DigiMenu
                 }
             }
         }
-
+        // Insere a imagem no preview
         private void insereIMG(ImagemProduto produto)
         {
             if (produto != null && !string.IsNullOrEmpty(produto.CaminhoImagem))
@@ -391,7 +393,7 @@ namespace DigiMenu
                 imgPreview.Visible = false;
             }
         }
-
+        // função para visualizar produto
         protected void btnVisualizar_Click(object sender, ImageClickEventArgs e)
         {
             var btn = (ImageButton)sender;
@@ -401,7 +403,7 @@ namespace DigiMenu
                 Context.ApplicationInstance.CompleteRequest();
             }
         }
-
+        // Handler para o botão Atualizar
         protected void Atualizar_Click(object sender, EventArgs e)
         {
             string idProdutoStr = Request.QueryString["cod"];

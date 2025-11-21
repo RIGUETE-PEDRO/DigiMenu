@@ -1,19 +1,20 @@
+using DigiMenu;
+using DigiMenu.DAL;
+using DigiMenu.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Data.Entity.Validation;
-using DigiMenu.DAL;
-using System.Threading;
-using System.Globalization;
 using System.Text.RegularExpressions;
-using DigiMenu.DTO;
+using System.Threading;
 
 namespace DigiMenu.DAO
 {
     public class ProdutoDAO
     {
-        
+
 
         // Normalização de nome de categoria (remove acentos, plural simples)
         private static string NormalizarCategoria(string s)
@@ -361,6 +362,39 @@ namespace DigiMenu.DAO
                     .ToList();
 
                 return dados;
+            }
+        }
+
+        public void AdicionarProdutoAoCarrinho(int usuarioId, int produtoId)
+        {
+            using (var ctx = new DigiMenuEntities())
+            {
+                var carrinho = ctx.Carrinho.FirstOrDefault(c => c.UsuarioId == usuarioId);
+                if (carrinho == null)
+                {
+                    carrinho = new Carrinho
+                    {
+                        UsuarioId = usuarioId,
+                        DataCriacao = DateTime.Now
+                    };
+                    ctx.Carrinho.Add(carrinho);
+                    ctx.SaveChanges();
+                }
+                var item = ctx.ItemCarrinho.FirstOrDefault(i => i.CarrinhoId == carrinho.IdCarrinho && i.ProdutoId == produtoId);
+                var produto = ctx.Produto.FirstOrDefault(p => p.IdProduto == produtoId);
+                if (produto == null) return;
+                if (item == null)
+                {
+                    item = new ItemCarrinho { CarrinhoId = carrinho.IdCarrinho, ProdutoId = produtoId, Quantidade = 1, PrecoTotal = produto.Preco };
+                    ctx.ItemCarrinho.Add(item);
+                }
+                else
+                {
+                    int q = (item.Quantidade ?? 0) + 1;
+                    item.Quantidade = q;
+                    item.PrecoTotal = q * produto.Preco;
+                }
+                ctx.SaveChanges();
             }
         }
     }

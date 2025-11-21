@@ -74,7 +74,7 @@
 
 
         <!-- Carrossel -->
-        <div class="carrousel">
+        <div class="carrousel" id="carrousel" runat="server">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                 <!-- Indicadores -->
                 <div class="carousel-indicators">
@@ -101,6 +101,7 @@
                     </asp:Repeater>
                 </div>
 
+
                 <!-- Controles -->
                 <button class="carousel-control-prev avancar esquerda-seta" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -111,31 +112,31 @@
                     <span class="visually-hidden">Próximo</span>
                 </button>
             </div>
+        </div>
 
 
 
-
-            <!-- FILTROS: Estrutura mais limpa com Flexbox -->
-            <div class="container mt-4">
-                <div class ="filtro">
-
-
-                    <h2 class="titulo-filtro">Filtros de preço</h2>
+        <!-- FILTROS: Estrutura mais limpa com Flexbox -->
+        <div class="container mt-4">
+            <div class="filtro">
 
 
-                    <div class="row mt-1 g-1">
-                        <div class="col-12 col-md-4">
-                            <asp:TextBox ID="txtPrecoMin" runat="server" CssClass="form-control" Placeholder="Preço mínimo" />
-                        </div>
-                        <div class="col-12 col-md-4">
-                            <asp:TextBox ID="txtPrecoMax" runat="server" CssClass="form-control" Placeholder="Preço máximo" />
-                        </div>
+                <h2 class="titulo-filtro">Filtros de preço</h2>
 
-                        <div class="col-12 col-md-4 d-grid">
-                            <asp:Button class="buttonFiltrar" id="btnFiltrarPreco" runat="server" Text="Filtrar" OnClick="btnFiltrarPreco_Click" />
-                        </div>
+
+                <div class="row mt-1 g-1">
+                    <div class="col-12 col-md-4">
+                        <asp:TextBox ID="txtPrecoMin" runat="server" CssClass="form-control" Placeholder="Preço mínimo" />
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <asp:TextBox ID="txtPrecoMax" runat="server" CssClass="form-control" Placeholder="Preço máximo" />
+                    </div>
+
+                    <div class="col-12 col-md-4 d-grid">
+                        <asp:Button class="buttonFiltrar" ID="btnFiltrarPreco" runat="server" Text="Filtrar" OnClick="btnFiltrarPreco_Click" />
                     </div>
                 </div>
+            </div>
         </div>
 
         <!-- PRODUTOS: Novo layout de Card com Repeater -->
@@ -158,14 +159,14 @@
                                 <div class="product-actions">
                                     <!-- Botões com classes customizadas para o novo estilo -->
                                     <asp:Button Text="Comprar" runat="server" ID="compra" CssClass="btn-custom btn-primary-custom" />
-                                   <asp:Button 
-                                    Text="Detalhes" 
-                                    ID="btnDetalhes" 
-                                    runat="server" 
-                                    CssClass="btn-custom btn-secondary-custom"
-                                    CommandName="Detalhes"
-                                    CommandArgument='<%# Eval("IdProduto") %>'
-                                    OnCommand="btnDetalhes_Command" />
+                                    <asp:Button
+                                        Text="Detalhes"
+                                        ID="btnDetalhes"
+                                        runat="server"
+                                        CssClass="btn-custom btn-secondary-custom"
+                                        CommandName="Detalhes"
+                                        CommandArgument='<%# Eval("IdProduto") %>'
+                                        OnCommand="btnDetalhes_Command" />
 
                                 </div>
                             </div>

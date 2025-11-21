@@ -118,6 +118,7 @@ namespace DigiMenu
             AplicarFiltroFaixaPreco();
         }
 
+        //corta o nome para exibir no header
         private void AjustarLoginHeader()
         {
             var nomeCompleto = Session["UsuarioNome"] as string;
@@ -137,7 +138,7 @@ namespace DigiMenu
                 if (divUser != null) divUser.Visible = false;
             }
         }
-
+        //aplica filtro pela query string
         private void AplicarFiltroQueryString()
         {
             var dao = new ProdutoDAO();
@@ -145,18 +146,20 @@ namespace DigiMenu
             if (!string.IsNullOrWhiteSpace(cat))
             {
                 BindProdutos(dao.ListarAtivosPorCategoriaNome(cat));
-                //passar aqui para desligar o carrousel
+                carrousel.Style.Add("display", "none");
                 return;
             }
             BindProdutos(dao.ListarAtivos());
         }
 
+        //vincula a lista de produtos ao repeater
         private void BindProdutos(System.Collections.IEnumerable lista)
         {
             rptProdutos.DataSource = lista;
             rptProdutos.DataBind();
         }
 
+        //pesquisa produtos pelo termo
         protected void btnPesquisar_Click(object sender, EventArgs e)
         {
             string termo = txtPesquisa.Text.Trim();
@@ -166,11 +169,8 @@ namespace DigiMenu
             BindProdutos(filtrados);
         }
 
-        protected void Filtro_CheckedChanged(object sender, EventArgs e)
-        {
-            // Mantido se futuramente adicionar outros filtros (categoria etc.)
-        }
 
+        //aplica filtro por faixa de preço 
         private void AplicarFiltroFaixaPreco()
         {
             var dao = new ProdutoDAO();
@@ -193,6 +193,7 @@ namespace DigiMenu
             BindProdutos(filtrados);
         }
 
+        // tenta converter texto em decimal, retornando null se falhar
         private decimal? TryParsePreco(string texto)
         {
             if (string.IsNullOrWhiteSpace(texto)) return null;
@@ -205,9 +206,10 @@ namespace DigiMenu
             return null;
         }
 
-       
-       
 
+
+
+        //logout do usuário
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
@@ -220,10 +222,10 @@ namespace DigiMenu
             Response.Redirect("FrmLogin.aspx");
         }
 
-       
 
-       
 
+
+        //redireciona para a página de detalhes do produto
         protected void btnDetalhes_Command(object sender, CommandEventArgs e)
         {
             if (int.TryParse(e.CommandArgument.ToString(), out int idProduto))

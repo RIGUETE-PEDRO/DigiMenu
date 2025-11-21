@@ -79,13 +79,15 @@ namespace DigiMenu.admin
                 form1.Controls.Add(container);
             }
         }
-
+        // Carrega os pedidos pendentes
         private void CarregarPedidos()
         {
             var dao = new PedidoDAO();
             dao.AdminCarregarPendentes(rptPedidos, pnlSemPedidos);
         }
 
+
+        // Carrega os pedidos que não estão mais pendentes
         private void CarregarPedidosNaoPendentes()
         {
             var dao = new PedidoDAO();
@@ -93,12 +95,17 @@ namespace DigiMenu.admin
             dao.AdminCarregarNaoPendentes(rptPedidosAceitos, cblPedidosAceitos, pnlSemAceitos);
         }
 
+
+
+        // Carrega os status disponíveis no dropdown
         private void CarregarStatusDisponiveis()
         {
             var dao = new PedidoDAO();
             dao.CarregarStatus(ddlNovoStatus);
         }
 
+
+        // Evento de comando do Repeater de pedidos pendentes
         protected void rptPedidos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             int pedidoId;
@@ -117,17 +124,18 @@ namespace DigiMenu.admin
             }
         }
 
-        // Handlers referenciados no ASPX
+      
         protected void rptPedidosAceitos_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            // Sem lógica específica por item; dados já vêm prontos do DAO
+           
         }
 
         protected void rptPedidosAceitos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            // Não há comandos por item nesta seção (seleção é via checkbox e botão aplicar)
+            
         }
 
+        // Evento de clique do botão para aplicar status em massa
         protected void btnAplicarStatus_Click(object sender, EventArgs e)
         {
             int novoStatusId;
@@ -154,7 +162,7 @@ namespace DigiMenu.admin
             CarregarPedidos();
             CarregarPedidosNaoPendentes();
         }
-
+        // Método para exibir mensagens ao usuário
         private void MostrarMensagem(string texto, string tipo)
         {
             var ph = phMsg; // PlaceHolder no markup

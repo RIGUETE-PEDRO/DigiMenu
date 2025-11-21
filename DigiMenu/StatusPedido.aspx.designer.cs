@@ -24,13 +24,31 @@ namespace DigiMenu
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Controle phMsg.
+        /// Controle sm1.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phMsg;
+        protected global::System.Web.UI.ScriptManager sm1;
+
+        /// <summary>
+        /// Controle upPedidos.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upPedidos;
+
+        /// <summary>
+        /// Controle timerRefresh.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.Timer timerRefresh;
 
         /// <summary>
         /// Controle rptPedidos.

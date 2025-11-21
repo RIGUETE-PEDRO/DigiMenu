@@ -32,7 +32,7 @@
             <h2>SEUS PEDIDOS</h2>
             <asp:PlaceHolder ID="phMsg" runat="server" />
 
-            <asp:Repeater ID="rptPedidos" runat="server" OnItemCommand="rptPedidos_ItemCommand">
+            <asp:Repeater ID="rptPedidos" runat="server">
                 <HeaderTemplate>
                     <div class="list-group">
                 </HeaderTemplate>

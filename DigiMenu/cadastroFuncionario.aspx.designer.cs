@@ -69,13 +69,13 @@ namespace DigiMenu
         protected global::System.Web.UI.WebControls.TextBox txtTelefone;
 
         /// <summary>
-        /// Controle lblMensagem.
+        /// Controle PlaceHolderMensagens.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensagem;
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolderMensagens;
 
         /// <summary>
         /// Controle btnCadastrar.

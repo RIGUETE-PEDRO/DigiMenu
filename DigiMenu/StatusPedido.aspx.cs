@@ -19,15 +19,13 @@ namespace DigiMenu
 
             if (!IsPostBack)
             {
+                // Carrega os pedidos do usuário logado
                 int usuarioId = Convert.ToInt32(Session["UsuarioId"]);
                 PedidoDAO pedidoDAO = new PedidoDAO();
                 pedidoDAO.CarregarPedidos(usuarioId, rptPedidos, pnlSemPedidos);
             }
         }
 
-        protected void rptPedidos_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            // Sem comandos para o cliente nesta tela.
-        }
+        
     }
 }

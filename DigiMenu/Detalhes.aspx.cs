@@ -43,6 +43,7 @@ namespace DigiMenu
 
         protected void btnAdicionarAoCarrinho_Click(object sender, EventArgs e)
         {
+            ProdutoDAO produtoDAO = new ProdutoDAO();
             if (Session["UsuarioId"] == null)
             {
                 Response.Redirect("FrmLogin.aspx");
@@ -52,31 +53,7 @@ namespace DigiMenu
             if (!int.TryParse(Request.QueryString["produtoId"], out produtoId)) return;
             int usuarioId = (int)Session["UsuarioId"];
 
-            using (var ctx = new DigiMenuEntities())
-            {
-                var carrinho = ctx.Carrinho.FirstOrDefault(c => c.UsuarioId == usuarioId);
-                if (carrinho == null)
-                {
-                    carrinho = new Carrinho { UsuarioId = usuarioId, DataCriacao = DateTime.Now };
-                    ctx.Carrinho.Add(carrinho);
-                    ctx.SaveChanges();
-                }
-                var item = ctx.ItemCarrinho.FirstOrDefault(i => i.CarrinhoId == carrinho.IdCarrinho && i.ProdutoId == produtoId);
-                var produto = ctx.Produto.FirstOrDefault(p => p.IdProduto == produtoId);
-                if (produto == null) return;
-                if (item == null)
-                {
-                    item = new ItemCarrinho { CarrinhoId = carrinho.IdCarrinho, ProdutoId = produtoId, Quantidade = 1, PrecoTotal = produto.Preco };
-                    ctx.ItemCarrinho.Add(item);
-                }
-                else
-                {
-                    int q = (item.Quantidade ?? 0) + 1;
-                    item.Quantidade = q;
-                    item.PrecoTotal = q * produto.Preco;
-                }
-                ctx.SaveChanges();
-            }
+           produtoDAO.AdicionarProdutoAoCarrinho(usuarioId, produtoId);
             Response.Redirect("carrinho.aspx");
         }
 

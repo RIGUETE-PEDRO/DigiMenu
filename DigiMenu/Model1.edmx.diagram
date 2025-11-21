@@ -4,13 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b84bb1022f2d4f3c8fa2eaf3d1119390" Name="Diagram1">
+      <Diagram DiagramId="b84bb1022f2d4f3c8fa2eaf3d1119390" Name="Diagram1" ZoomLevel="55">
         <EntityTypeShape EntityType="DigiMenuModel.Carousel" Width="1.5" PointX="8.25" PointY="25.5" />
         <EntityTypeShape EntityType="DigiMenuModel.Carrinho" Width="1.5" PointX="5.25" PointY="17.25" />
         <EntityTypeShape EntityType="DigiMenuModel.Categoria" Width="1.5" PointX="6" PointY="21.75" />
         <EntityTypeShape EntityType="DigiMenuModel.ImagemProduto" Width="1.5" PointX="10.5" PointY="21.5" />
         <EntityTypeShape EntityType="DigiMenuModel.ItemCarrinho" Width="1.5" PointX="7.5" PointY="17.125" />
-        <EntityTypeShape EntityType="DigiMenuModel.ItemPedido" Width="1.5" PointX="10.5" PointY="7.375" />
         <EntityTypeShape EntityType="DigiMenuModel.Pedido" Width="1.5" PointX="5.25" PointY="7.25" />
         <EntityTypeShape EntityType="DigiMenuModel.Produto" Width="1.5" PointX="8.25" PointY="21" />
         <EntityTypeShape EntityType="DigiMenuModel.Status" Width="1.5" PointX="3" PointY="0.75" />
@@ -22,14 +21,15 @@
         <AssociationConnector Association="DigiMenuModel.FK__Produto__Categor__4CA06362" />
         <AssociationConnector Association="DigiMenuModel.FK__ImagemPro__Produ__66603565" />
         <AssociationConnector Association="DigiMenuModel.FK__ItemCarri__Produ__60A75C0F" />
-        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Pedid__5629CD9C" />
-        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Produ__5535A963" />
         <AssociationConnector Association="DigiMenuModel.FK__Pedido__StatusId__52593CB8" />
         <AssociationConnector Association="DigiMenuModel.FK__Pedido__UsuarioI__5165187F" />
         <AssociationConnector Association="DigiMenuModel.FK__Usuario__TipoUsu__3B75D760" />
         <EntityTypeShape EntityType="DigiMenuModel.Endereco" Width="1.5" PointX="5.25" PointY="11.125" />
         <AssociationConnector Association="DigiMenuModel.FK__Endereco__Usuari__6FE99F9F" />
-        <AssociationConnector Association="DigiMenuModel.FK_ItemPedido_Endereco" />
+        <EntityTypeShape EntityType="DigiMenuModel.ItemPedido" Width="1.5" PointX="10.5" PointY="14.375" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__IdEnd__17F790F9" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Pedid__17036CC0" />
+        <AssociationConnector Association="DigiMenuModel.FK__ItemPedid__Produ__160F4887" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

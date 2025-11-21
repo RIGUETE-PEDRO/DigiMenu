@@ -20,6 +20,7 @@ namespace DigiMenu.admin
             public int Ordem { get; set; }
         }
 
+        // Extrai lista de produtos do Repeater considerando controles e ViewState
         private List<ProdutoCarrouselDTO> ObterProdutosDoRepeater()
         {
             var lista = new List<ProdutoCarrouselDTO>();
@@ -30,7 +31,7 @@ namespace DigiMenu.admin
             {
                 if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem) continue;
 
-                var hfId = item.FindControl("hfId") as HiddenField; // opcional no ASPX
+                var hfId = item.FindControl("hfId") as HiddenField; 
                 var chkAtivo = item.FindControl("chkAtivo") as CheckBox;
                 var txtOrdem = item.FindControl("txtOrdem") as TextBox;
 
@@ -73,6 +74,7 @@ namespace DigiMenu.admin
             rptProdutos.ItemCreated += rptProdutos_ItemCreated;
             rptProdutos.ItemDataBound += rptProdutos_ItemDataBound;
 
+            // Carrega produtos na primeira carga da página
             if (!IsPostBack)
             {
                 CarregarProdutos();
@@ -81,7 +83,7 @@ namespace DigiMenu.admin
             {
                 AplicarEstadoPosPostback();
             }
-
+            // Verifica sessão de usuário logado
             if (Session["UsuarioLogado"] == null)
             {
                 Response.Redirect("~/FrmLogin.aspx");
@@ -96,12 +98,14 @@ namespace DigiMenu.admin
             }
         }
 
+        // Gera novo token de salvamento a cada pré-renderização
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
             ViewState[TokenSalvamentoChave] = Guid.NewGuid().ToString("N");
         }
 
+        // Carrega produtos ativos e vincula ao Repeater
         private void CarregarProdutos()
         {
             var produtoDAO = new ProdutoDAO();
@@ -113,6 +117,7 @@ namespace DigiMenu.admin
             rptProdutos.DataBind();
         }
 
+        // Aplica estado dos controles após postback
         private void AplicarEstadoPosPostback()
         {
             foreach (RepeaterItem item in rptProdutos.Items)
@@ -139,7 +144,7 @@ namespace DigiMenu.admin
                 }
             }
         }
-
+        // Evento disparado na criação de cada item do Repeater
         private void rptProdutos_ItemCreated(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem) return;
@@ -149,7 +154,7 @@ namespace DigiMenu.admin
                 chk.AutoPostBack = true;
             }
         }
-
+        // Configura controles ao vincular dados ao Repeater
         private void rptProdutos_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem) return;
@@ -171,7 +176,7 @@ namespace DigiMenu.admin
                 }
             }
         }
-
+        // Evento de clique do botão Salvar para atualizar o carrousel
         protected void btnSalvar_Click(object sender, EventArgs e)
         {
             var listaProdutos = ObterProdutosDoRepeater();
