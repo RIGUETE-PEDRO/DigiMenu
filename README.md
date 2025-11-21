@@ -36,7 +36,7 @@ O sistema serve para atender clientes com páginas de compras e cardápios inter
 ## COMO CONFIGURAR
 <details>
   <summary>Passo 1</summary>
-atravez da tecnologia git utilizaremos para baixar o projeto utilizando a tecnologia git 
+atravez da tecnologia git utilizaremos para baixar o projeto 
 
   ```git
      git clone https://github.com/RIGUETE-PEDRO/DigiMenu.git
