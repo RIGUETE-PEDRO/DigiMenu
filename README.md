@@ -15,6 +15,14 @@ O sistema serve para atender clientes com páginas de compras e cardápios inter
 | Capacidade de adicionar mais administradores |
 
 ---
+<h2>Login</h2>
+
+  | Tipo Usuario | Usuario | Senha |
+  |--------------|---------|--------|
+  | usuario | usuario@gmail.com | 123456789 |
+  | admin | admin@gmail.com | 123456789 |
+
+---
 
 ## Ferramentas Usadas
 <div align="center">
@@ -53,3 +61,12 @@ Podemos agora entrar no **Visual Studio 2022** e clicar onde aparecer **"Abrir u
 Procure o diretório onde está o projeto **DigiMenu**, e ao entrar, dê dois cliques em **DigiMenuSolution**.  
 Por fim, basta executar o arquivo **Default.aspx** para iniciar o projeto 
 </details>
+
+
+
+
+  
+
+
+
+
