@@ -76,6 +76,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin\Clientes.aspx" />
     <Content Include="admin\FrmPedidos.aspx" />
     <Content Include="cadastroFuncionario.aspx" />
     <Content Include="carrinho.aspx" />
@@ -118,6 +119,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="admin\Clientes.aspx.cs">
+      <DependentUpon>Clientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin\Clientes.aspx.designer.cs">
+      <DependentUpon>Clientes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="admin\FrmPedidos.aspx.cs">
       <DependentUpon>FrmPedidos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -143,6 +151,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAO\CategoriaDAO.cs" />
+    <Compile Include="DAO\ClienteAdminDAO.cs" />
     <Compile Include="DAO\ImagemProdutoQuery.cs" />
     <Compile Include="Detalhes.aspx.cs">
       <DependentUpon>Detalhes.aspx</DependentUpon>

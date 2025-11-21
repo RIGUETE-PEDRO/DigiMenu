@@ -28,21 +28,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-<<<<<<< HEAD
-=======
-    <EntitySetMapping Name="Endereco">
-      <EntityTypeMapping TypeName="DigiMenuModel.Endereco">
-        <MappingFragment StoreEntitySet="Endereco">
-          <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
-          <ScalarProperty Name="Complemento" ColumnName="Complemento" />
-          <ScalarProperty Name="Numero" ColumnName="Numero" />
-          <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
-          <ScalarProperty Name="Cidade" ColumnName="Cidade" />
-          <ScalarProperty Name="IdEndereco" ColumnName="IdEndereco" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
->>>>>>> maria-eduarda
     <EntitySetMapping Name="ImagemProduto">
       <EntityTypeMapping TypeName="DigiMenuModel.ImagemProduto">
         <MappingFragment StoreEntitySet="ImagemProduto">
@@ -64,21 +49,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-<<<<<<< HEAD
-=======
-    <EntitySetMapping Name="ItemPedido">
-      <EntityTypeMapping TypeName="DigiMenuModel.ItemPedido">
-        <MappingFragment StoreEntitySet="ItemPedido">
-          <ScalarProperty Name="IdEndereco" ColumnName="IdEndereco" />
-          <ScalarProperty Name="PedidoId" ColumnName="PedidoId" />
-          <ScalarProperty Name="ProdutoId" ColumnName="ProdutoId" />
-          <ScalarProperty Name="PrecoUnitario" ColumnName="PrecoUnitario" />
-          <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
-          <ScalarProperty Name="IdItemPedido" ColumnName="IdItemPedido" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
->>>>>>> maria-eduarda
     <EntitySetMapping Name="Pedido">
       <EntityTypeMapping TypeName="DigiMenuModel.Pedido">
         <MappingFragment StoreEntitySet="Pedido">
@@ -122,6 +92,7 @@
     <EntitySetMapping Name="Usuario">
       <EntityTypeMapping TypeName="DigiMenuModel.Usuario">
         <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="bloqueado" ColumnName="bloqueado" />
           <ScalarProperty Name="TipoUsuarioId" ColumnName="TipoUsuarioId" />
           <ScalarProperty Name="Criacao" ColumnName="Criacao" />
           <ScalarProperty Name="Email" ColumnName="Email" />

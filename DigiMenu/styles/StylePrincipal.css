@@ -8,6 +8,7 @@ body {
     background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
+    min-height: 100vh; /* garante altura total da tela */
 }
 
 main {
@@ -57,7 +58,6 @@ main {
         border-radius: 20px;
         box-shadow: 0 0 6px rgba(0,0,0,0.3);
     }
-
 
 /* --- Estilos para Filtros --- */
 .filters {
@@ -265,17 +265,12 @@ main {
 }
 
 .img_carrousel {
-    /* 1. Define a altura da imagem para preencher o contêiner (300px) */
     height: 100%;
-    /* 2. Mantém a imagem responsiva na largura */
     width: 100%;
-    /* 3. ESSENCIAL: Garante que a imagem cubra todo o espaço 
-          sem ser esticada, cortando o que for necessário. */
     object-fit: contain;
 }
 
 .carousel-item {
-    /* Garante que o item do carrossel também tenha essa altura */
     height: 100%;
 }
 
@@ -284,11 +279,10 @@ main {
     border-radius: 1px;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(55% - 240px); /* ajustar: diminui laterais (ex.: 240px = 120px cada lado) */
-    max-width: 1100px; /* opcional*/
+    width: calc(55% - 240px);
+    max-width: 1100px;
     border-radius: 10px;
     margin-bottom: 5px;
-
 }
 
 .filtro {
@@ -305,7 +299,7 @@ main {
 }
 
 /* Estilo para apresentar pedidos em cartão (sem afetar o admin) */
-    .order-card {
+.order-card {
     border-radius: 8px;
     box-shadow: 0 1px 6px rgba(0,0,0,0.05);
     overflow: hidden;
@@ -344,7 +338,6 @@ main {
     color: #138a3a;
 }
 
-/* Ajustes responsivos simples */
 @media (max-width: 576px) {
     .order-header {
         flex-direction: column;
@@ -354,8 +347,6 @@ main {
         .order-header .text-end {
             text-align: left !important;
         }
-}
-
 }
 
 .buttonFiltrar {
@@ -368,7 +359,9 @@ main {
 }
 
 .avancar {
+    position: absolute;
     width: 75px;
+    height: 300px;
     color: darkblue;
     border-radius: 5%;
     border: 5px solid black;
@@ -380,26 +373,28 @@ main {
     }
 
 .esquerda-seta {
-    margin-right: 1px;
-    margin-left: 8em;
-    box-shadow: -20px 10px 20px 5px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    left: 20px; /* distancia da borda esquerda */
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .direita-seta {
-    margin-left: 1px;
-    margin-right: 8em;
-    box-shadow: 20px 10px 20px 5px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    right: 20px; /* distancia da borda direita */
+    top: 50%;
+    transform: translateY(-50%);
 }
-
 
 
 /* FOOTER STYLES */
 footer {
-    background-color: #1b2951;
+    background-color: #1b2951; /* barra azul */
     color: white;
-    padding: 20px;
+    padding: 20px 0;
     text-align: center;
     margin-top: auto;
+    width: 100%;
 }
 
     footer p {
@@ -407,5 +402,7 @@ footer {
         font-weight: 500;
         letter-spacing: 0.5px;
         margin: 0;
-   }
+    }
+
+
 

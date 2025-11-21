@@ -23,17 +23,16 @@ namespace DigiMenu.DAO
             }
         }
 
-       
-
-       
-
         public Usuario Autenticar(string login, string senhaHash)
         {
             using (var db = new DigiMenuEntities())
             {
-                return db.Usuario
+                var usuario = db.Usuario
                          .FirstOrDefault(u => (u.Email == login || u.Telefone == login)
                                            && u.HashSenha == senhaHash);
+                if (usuario == null) return null;
+                if (usuario.bloqueado) return null; // bloqueado no banco
+                return usuario;
             }
         }
     }
