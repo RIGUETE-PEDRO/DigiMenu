@@ -35,6 +35,7 @@ CREATE TABLE Usuario (
     Email VARCHAR(255) NULL,
     Criacao DATE NOT NULL,
     TipoUsuarioId INT NOT NULL,
+	bloqueado BIT NOT NULL DEFAULT 0,
     FOREIGN KEY (TipoUsuarioId) REFERENCES TipoUsuario(Id)
 );
 
